@@ -4,18 +4,18 @@ import numpy
 
 
 def load_data_and_shape():
-    # read data from file
+     # read data from file
     raw_training_data, raw_validation_data, raw_test_data = retrieve_data_from_file()
 
     # beginning reshape process
     # training data
-    training_inputs = [numpy.reshape(x, (784, 1)) for x in raw_training_data[0]]
+    training_inputs = [numpy.reshape(i, (784, 1)) for i in raw_training_data[0]]
     training_results = [vectorized_result(j) for j in raw_training_data[1]]
     # formatting training data so that list contains but the inputs and expected result
     training_data = list(zip(training_inputs, training_results))
 
     # validation data
-    validation_inputs = [numpy.reshape(x, (784, 1)) for x in raw_validation_data[0]]
+    validation_inputs = [numpy.reshape(i, (784, 1)) for i in raw_validation_data[0]]
     validation_data = list(zip(validation_inputs, raw_validation_data[1]))
 
     # test data

@@ -9,4 +9,7 @@ import NeuralNetwork
 training_data, validation_data, test_data = mnist_data_set_loader.load_data_and_shape()
 
 net = NeuralNetwork.NeuralNet([784, 30, 10])
-# net.SGD(training_data, 30, 10, 1.0, test_data=test_data)
+epochs = 30
+mini_batch_size = 10
+learning_rate = 1.0
+net.stochastic_gradient_decent(training_data, epochs, mini_batch_size, learning_rate, test_data=test_data)
