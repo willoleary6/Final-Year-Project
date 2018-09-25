@@ -74,22 +74,18 @@ class NeuralNet(object):
         nabla_weights = [numpy.zeros(weight.shape) for weight in self.weights]
 
         for digit, result in mini_batch:
-            back_propagated_nabla_biases, back_propagated_nabla_weights = self.back_propagation(digit, result)
+            delta_nabla_biases, delta_nabla_weights = self.back_propagation(digit, result)
             # updating the biases and weights
-            nabla_biases = [nabla_bias + back_propagated_nabla_bias
-                            for nabla_bias, back_propagated_nabla_bias
-                            in zip(nabla_biases, back_propagated_nabla_biases)]
+            nabla_biases = [nabla_bias + delta_nabla_bias
+                            for nabla_bias, delta_nabla_bias in zip(nabla_biases, delta_nabla_biases)]
+            nabla_weights = [nabla_weight + delta_nabla_weight
+                             for nabla_weight, delta_nabla_weight in zip(nabla_weights, delta_nabla_weights)]
 
-            nabla_weights = [nabla_weight + back_propagated_nabla_weight
-                             for nabla_weight, back_propagated_nabla_weight
-                             in zip(self.weights, nabla_weights)]
-            # applying gradient descent update rule
-            self.biases = [bias - (learning_rate / len(mini_batch)) * nabla_bias
-                           for bias, nabla_bias in zip(self.biases, nabla_biases)]
-
-            self.weights = [weight - (learning_rate / len(mini_batch)) * nabla_weight
-                            for weight, nabla_weight in zip(self.weights, nabla_weights)
-                            ]
+        # applying gradient descent update rule
+        self.biases = [bias - (learning_rate / len(mini_batch)) * nabla_bias
+                       for bias, nabla_bias in zip(self.biases, nabla_biases)]
+        self.weights = [weight - (learning_rate / len(mini_batch)) * nabla_weight
+                        for weight, nabla_weight in zip(self.weights, nabla_weights)]
 
     def back_propagation(self, digit, result):
         # nabla = ∇
@@ -112,7 +108,7 @@ class NeuralNet(object):
         # backward pass
         # delta = Δ
         cost_derivative = self.calculate_cost_derivative(activations[-1], result)
-        # todo check on this
+
         delta = cost_derivative * sigmoid_derivative(activations[-1])
         nabla_biases[-1] = delta
         nabla_weights[-1] = numpy.dot(delta, activations[-2].transpose())
@@ -120,13 +116,14 @@ class NeuralNet(object):
         for i in range(2, self.number_of_layers):
             z_vector = z_vectors[-i]
             sig_deriv = sigmoid_derivative(z_vector)
-            delta = numpy.dot(self.weights[-i+1].transpose(), delta) * sig_deriv
+            delta = numpy.dot(self.weights[-i + 1].transpose(), delta) * sig_deriv
             nabla_biases[-i] = delta
-            nabla_weights[-i] = numpy.dot(delta, activations[-i-1].transpose())
+            nabla_weights[-i] = numpy.dot(delta, activations[-i - 1].transpose())
 
         return nabla_biases, nabla_weights
 
-    def calculate_cost_derivative(self, output_activation, result):
+    @staticmethod
+    def calculate_cost_derivative(output_activation, result):
         # calculating the partial derivatives for output activations
         cost_derivative = output_activation - result
         return cost_derivative
