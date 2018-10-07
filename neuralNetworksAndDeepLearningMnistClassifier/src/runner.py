@@ -8,8 +8,8 @@ import NeuralNetwork
 # from the data_set_loader we will populate the training data set, validation data set and the test data set
 training_data, validation_data, test_data = mnist_data_set_loader.load_data_and_shape()
 
-net = NeuralNetwork.NeuralNet([784, 30, 10])
+net = NeuralNetwork.NeuralNet([784, 100, 10])
 epochs = 30
 mini_batch_size = 10
-learning_rate = 1.0
+learning_rate = 3.0
 net.stochastic_gradient_decent(training_data, epochs, mini_batch_size, learning_rate, test_data=test_data)
