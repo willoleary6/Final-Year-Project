@@ -8,4 +8,4 @@ from mnist_data import read_data_sets_into_memory
 print("Version "+tf.__version__)
 tf.set_random_seed(0)
 
-mnist = read_data_sets_into_memory("data")
+mnist = read_data_sets_into_memory("data", one_hot=True, reshape=False)
