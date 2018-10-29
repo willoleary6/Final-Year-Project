@@ -27,6 +27,13 @@ class MnistData(object):
                 except tf.errors.OutOfRangeError:
                     break
 
+    def next_batch(self, batch_size):
+        if self.pos + batch_size > len(self.images) or self.pos + batch_size > len(self.labels):
+            self.pos = 0
+        res = (self.images[self.pos:self.pos + batch_size], self.labels[self.pos:self.pos + batch_size])
+        self.pos += batch_size
+        return res
+
 
 class Mnist(object):
     def __init__(self, training_data_set, testing_data_set, one_hot, reshape):
