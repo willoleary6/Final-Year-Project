@@ -97,7 +97,7 @@ class VisualiseMnistDataSet:
         ax3 = fig.add_subplot(233)
         ax4 = fig.add_subplot(234)
         ax5 = fig.add_subplot(235)
-        ax6 = fig.add_subplot(236)
+        #ax6 = fig.add_subplot(236)
         
         # fig, ax = plt.subplots() # if you need only 1 graph
 
@@ -106,7 +106,7 @@ class VisualiseMnistDataSet:
         self.__set_title(ax3, axis_title_3, default="Training digits")
         self.__set_title(ax4, axis_title_4, default="Weights")
         self.__set_title(ax5, axis_title_5, default="Biases")
-        self.__set_title(ax6, axis_title_6, default="Test digits")
+        #self.__set_title(ax6, axis_title_6, default="Test digits")
 
         line1, = ax1.plot(self.x1, self.y1, label="training accuracy")
         line2, = ax1.plot(self.x2, self.y2, label="test accuracy")
@@ -124,7 +124,7 @@ class VisualiseMnistDataSet:
         ax3.set_axis_off()
         imax1 = ax3.imshow(self.im1, animated=True, cmap='binary', vmin=0.0, vmax=1.0, interpolation='nearest',
                            aspect=1.0)
-
+        '''
         ax6.grid(False)  # toggle grid off
         ax6.axes.get_xaxis().set_visible(False)
         imax2 = ax6.imshow(self.im2, animated=True, cmap='binary', vmin=0.0, vmax=1.0, interpolation='nearest',
@@ -134,7 +134,7 @@ class VisualiseMnistDataSet:
         # hack...
         ax6.set_yticks([0, 280 - 4 * 56, 280 - 3 * 56, 280 - 2 * 56, 280 - 56, 280])
         ax6.set_yticklabels(["100%", "98%", "96%", "94%", "92%", "90%"])
-
+        '''
         def _key_event_handler(event):
             if len(event.key) == 0:
                 return
@@ -180,18 +180,18 @@ class VisualiseMnistDataSet:
             if fignum <= 6:
                 fig.axes[fignum - 1].set_visible(True)
                 fig.axes[fignum - 1].change_geometry(toggles[keycode][1], toggles[keycode][2], 1)
-                ax6.set_aspect(25.0 / 40)  # special case for test digits
+                #ax6.set_aspect(25.0 / 40)  # special case for test digits
             elif fignum < 100:
                 fig.axes[fignum // 10 - 1].set_visible(True)
                 fig.axes[fignum // 10 - 1].change_geometry(toggles[keycode][1], toggles[keycode][2], 1)
                 fig.axes[fignum % 10 - 1].set_visible(True)
                 fig.axes[fignum % 10 - 1].change_geometry(toggles[keycode][1], toggles[keycode][2], 2)
-                ax6.set_aspect(1.0)  # special case for test digits
+                #ax6.set_aspect(1.0)  # special case for test digits
             elif fignum == 123456:
                 for i in range(6):
                     fig.axes[i].set_visible(True)
                     fig.axes[i].change_geometry(toggles[keycode][1], toggles[keycode][2], i + 1)
-                ax6.set_aspect(1.0)  # special case for test digits
+               # ax6.set_aspect(1.0)  # special case for test digits
 
             plt.draw()
 
@@ -210,14 +210,15 @@ class VisualiseMnistDataSet:
 
             # images
             imax1.set_data(self.im1)
-            imax2.set_data(self.im2)
+            #imax2.set_data(self.im2)
 
             # histograms
             _display_time_histogram(ax4, self.x3, self.w3, self._color4)
             _display_time_histogram(ax5, self.x3, self.b3, self._color5)
 
             # return changed artists
-            return imax1, imax2, line1, line2, line3, line4
+           # return imax1, imax2, line1, line2, line3, line4
+            return imax1,  line1, line2, line3, line4
 
         def _init():
             ax1.set_xlim(0, 10)  # initial value only, autoscaled after that
@@ -227,7 +228,8 @@ class VisualiseMnistDataSet:
             ax1.set_ylim(0, 1)  # important: not autoscaled
             # ax1.autoscale(axis='y')
             ax2.set_ylim(0, 100)  # important: not autoscaled
-            return imax1, imax2, line1, line2, line3, line4
+           # return imax1, imax2, line1, line2, line3, line4
+            return imax1, line1, line2, line3, line4
 
         fig.canvas.mpl_connect('key_press_event', _key_event_handler)
 
