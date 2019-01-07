@@ -1,10 +1,5 @@
 import tensorflow as tf
-from tensorflow.python.platform import tf_logging as logging
-
 from trainer.download_gzip_file_and_unzip import download_gzip_file_and_unzip
-
-logging.set_verbosity(logging.INFO)
-logging.log(logging.INFO, "Tensorflow version " + tf.__version__)
 
 
 def load_mnist_data(data_destination_directory):
@@ -19,7 +14,7 @@ def load_mnist_data(data_destination_directory):
 
     testing_images_file = 't10k-images-idx3-ubyte.gz'
     local_testing_images_file = download_gzip_file_and_unzip(testing_images_file, data_destination_directory,
-                                                              data_set_url + testing_images_file)
+                                                             data_set_url + testing_images_file)
     testing_labels_file = 't10k-labels-idx1-ubyte.gz'
     local_testing_labels_file = download_gzip_file_and_unzip(testing_labels_file, data_destination_directory,
                                                              data_set_url + testing_labels_file)
@@ -48,6 +43,3 @@ def load_and_inter_leaf_data_set_with_labels(images_filename, labels_filename):
     # zip the data sets up and return them
     data_set = tf.data.Dataset.zip((images_data_set, labels_data_set))
     return data_set
-
-
-

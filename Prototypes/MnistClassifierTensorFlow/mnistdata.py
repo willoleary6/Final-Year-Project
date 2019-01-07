@@ -35,7 +35,7 @@ from trainer.tasks import load_and_inter_leaf_data_set_with_labels
 
 class MnistData(object):
     def __init__(self, data_set, one_hot, reshape):
-        self.pos = 0
+        self.position = 0
         self.images = None
         self.labels = None
         data_set = data_set.batch(10000)
@@ -57,17 +57,17 @@ class MnistData(object):
                     break
 
     def next_batch(self, batch_size):
-        if self.pos + batch_size > len(self.images) or self.pos + batch_size > len(self.labels):
-            self.pos = 0
-        res = (self.images[self.pos:self.pos + batch_size], self.labels[self.pos:self.pos + batch_size])
-        self.pos += batch_size
+        if self.position + batch_size > len(self.images) or self.position + batch_size > len(self.labels):
+            self.position = 0
+        res = (self.images[self.position:self.position + batch_size], self.labels[self.position:self.position + batch_size])
+        self.position += batch_size
         return res
 
 
 class Mnist(object):
     def __init__(self, training_data_set, testing_data_set, one_hot, reshape):
-        self.train = MnistData(training_data_set, one_hot, reshape)
-        self.test = MnistData(testing_data_set, one_hot, reshape)
+        self.training_data_set = MnistData(training_data_set, one_hot, reshape)
+        self.testing_data_set = MnistData(testing_data_set, one_hot, reshape)
 
 
 def read_data_sets_into_memory(data_set_file_path, one_hot, reshape):

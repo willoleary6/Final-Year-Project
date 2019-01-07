@@ -154,13 +154,13 @@ class DataVisualisation:
         diagram_4 = self.diagram_initialisation(bottom_center_slot, 'Iterations', 'Distribution', title_4, "Biases")
 
         training_accuracy_line, = diagram_1.plot(self.training_iteration, self.training_accuracy,
-                                                 label="training accuracy")
-        test_accuracy_line, = diagram_1.plot(self.test_iteration, self.test_accuracy, label="test accuracy")
+                                                 label="training accuracy_of_predictions")
+        test_accuracy_line, = diagram_1.plot(self.test_iteration, self.test_accuracy, label="testing_data_set accuracy_of_predictions")
         legend = diagram_1.legend(loc='lower right')  # fancybox : slightly rounded corners
         legend.draggable(True)
 
         training_loss_line, = diagram_2.plot(self.training_iteration, self.training_loss, label="training loss")
-        test_loss_line, = diagram_2.plot(self.test_iteration, self.test_loss, label="test loss")
+        test_loss_line, = diagram_2.plot(self.test_iteration, self.test_loss, label="testing_data_set loss")
         legend = diagram_2.legend(loc='upper right')  # fancybox : slightly rounded corners
         legend.draggable(True)
 
@@ -169,7 +169,7 @@ class DataVisualisation:
             diagram_2.set_xlim(0, 10)  # initial value only, auto scaled after that
             diagram_3.set_xlim(0, 10)  # initial value only, auto scaled after that
             diagram_4.set_xlim(0, 10)  # initial value only, auto scaled after that
-            # Setting y axis limit for accuracy and loss charts
+            # Setting y axis limit for accuracy_of_predictions and loss charts
             diagram_1.set_ylim(0, 1)  # important: not auto scaled
             diagram_2.set_ylim(0, 100)  # important: not auto scaled
             return training_accuracy_line, test_accuracy_line, training_loss_line, test_loss_line
@@ -181,7 +181,7 @@ class DataVisualisation:
             diagram_3.set_xlim(0, self.max_iteration + 1)
             diagram_4.set_xlim(0, self.max_iteration + 1)
 
-            # four curves: train and test accuracy, train and test loss
+            # four curves: training_data_set and testing_data_set accuracy_of_predictions, training_data_set and testing_data_set loss
             training_accuracy_line.set_data(self.training_iteration, self.training_accuracy)
             test_accuracy_line.set_data(self.test_iteration, self.test_accuracy)
 
