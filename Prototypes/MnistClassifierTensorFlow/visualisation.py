@@ -149,9 +149,11 @@ class DataVisualisation:
 
         # Initialise the 4 diagrams
         diagram_1 = self.diagram_initialisation(top_left_slot, 'Iterations', 'Accuracy', title_1, "Accuracy")
-        diagram_2 = self.diagram_initialisation(top_right_slot, 'Iterations', 'Loss', title_2, "Cross entropy loss")
-        diagram_3 = self.diagram_initialisation(bottom_left_slot, 'Iterations', 'Distribution', title_3, "Weights")
-        diagram_4 = self.diagram_initialisation(bottom_center_slot, 'Iterations', 'Distribution', title_4, "Biases")
+        diagram_2 = self.diagram_initialisation(top_right_slot, 'Iterations', 'Loss', title_2, "Cross entropy")
+        diagram_3 = self.diagram_initialisation(bottom_left_slot, 'Iterations', 'Distribution', title_3, "Weights "
+                                                                                                         "distribution")
+        diagram_4 = self.diagram_initialisation(bottom_center_slot, 'Iterations', 'Distribution', title_4, "Bias "
+                                                                                                           "distribution")
 
         training_accuracy_line, = diagram_1.plot(self.training_iteration, self.training_accuracy,
                                                  label="training accuracy_of_predictions")

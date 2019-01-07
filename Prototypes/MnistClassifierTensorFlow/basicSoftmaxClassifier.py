@@ -205,3 +205,5 @@ visualisation_of_training.animate(
     test_data_update_freq=50,  # how often we will test TensorFlow against the test dataset
     more_tests_at_start=True  # if we want to test the first "test_data_update_freq" number of iterations
 )
+
+print("max test accuracy: " + str(visualisation_of_training.get_max_test_accuracy()))

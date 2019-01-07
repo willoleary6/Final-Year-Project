@@ -6,11 +6,12 @@
 import tensorflow as tf
 import visualisation
 import mnistdata
+import math
 
 tf.set_random_seed(0)
 
 # 784       200         100         60          30          10          10
-# Input     Sigmoid     Sigmoid     Sigmoid     Sigmoid     Softmax     Output
+# Input     ReLU        ReLU        ReLU        ReLU     Softmax     Output
 # O ->
 # O ->      O ->
 # O ->      O ->        O ->
@@ -49,6 +50,14 @@ label_matrix = tf.placeholder(
         10  # 10 possible unique labels
     ]
 )
+# introducing variable learning rate
+# allows for finer adjustments in gradient decent so we don't over shoot local minimum
+variable_learning_rate = tf.placeholder(tf.float32)
+#  rate at which learning rate will be adjusted
+iterations_so_far = tf.placeholder(tf.int32)
+
+probability_of_saving_node_from_dropout = tf.placeholder(tf.float32)
+
 # how many neurons will be in the respective layers
 layer_sizes = [784, 200, 100, 60, 30, 10]
 
@@ -74,23 +83,37 @@ array_of_bias_vectors = [
 # flattening the image matrix from 28*28 to 784*1
 flattened_image_matrix = tf.layers.flatten(image_matrix)
 
-layer_1 = tf.nn.sigmoid(tf.matmul(flattened_image_matrix,
-                                  array_of_weights_matrices[0]) + array_of_bias_vectors[0])
-layer_2 = tf.nn.sigmoid(tf.matmul(layer_1,
-                                  array_of_weights_matrices[1]) + array_of_bias_vectors[1])
-layer_3 = tf.nn.sigmoid(tf.matmul(layer_2,
-                                  array_of_weights_matrices[2]) + array_of_bias_vectors[2])
-layer_4 = tf.nn.sigmoid(tf.matmul(layer_3,
-                                  array_of_weights_matrices[3]) + array_of_bias_vectors[3])
+# flattening the image matrix from 28*28 to 784*1
+flattened_image_matrix = tf.layers.flatten(image_matrix)
+
+layer_1 = tf.nn.relu(tf.matmul(flattened_image_matrix,
+                               array_of_weights_matrices[0]) + array_of_bias_vectors[0])
+layer_1_dropout = tf.nn.dropout(layer_1, probability_of_saving_node_from_dropout)
+
+# feeding the result of applying the dropout probability of the neuron in the last layer
+# into this layer, so if dropout has occurred the neuron will receive 0 from the previous
+# neuron
+layer_2 = tf.nn.relu(tf.matmul(layer_1_dropout,
+                               array_of_weights_matrices[1]) + array_of_bias_vectors[1])
+layer_2_dropout = tf.nn.dropout(layer_2, probability_of_saving_node_from_dropout)
+
+layer_3 = tf.nn.relu(tf.matmul(layer_2_dropout,
+                               array_of_weights_matrices[2]) + array_of_bias_vectors[2])
+layer_3_dropout = tf.nn.dropout(layer_3, probability_of_saving_node_from_dropout)
+
+layer_4 = tf.nn.relu(tf.matmul(layer_3_dropout,
+                               array_of_weights_matrices[3]) + array_of_bias_vectors[3])
+layer_4_dropout = tf.nn.dropout(layer_4, probability_of_saving_node_from_dropout)
+
 # logits for final layer mapping probability
-final_layer_logits = tf.matmul(layer_4, array_of_weights_matrices[4]) + array_of_bias_vectors[4]
+final_layer_logits = tf.matmul(layer_4_dropout, array_of_weights_matrices[4]) + array_of_bias_vectors[4]
 
 final_layer = tf.nn.softmax(final_layer_logits)
 
 # cross-entropy loss function (= -sum(Y_i * log(Yi)) ), normalised for batches of 100  images
 # TensorFlow provides the softmax_cross_entropy_with_logits function to avoid numerical stability
 # problems with log(0) which is NaN
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(logits=final_layer_logits, labels=label_matrix)
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits_v2(logits=final_layer_logits, labels=label_matrix)
 cross_entropy = tf.reduce_mean(cross_entropy) * 100
 
 correct_predictions = tf.equal(  # building a tensor of all the correct predictions vs incorrect predictions
@@ -112,14 +135,17 @@ for j in array_of_bias_vectors:
 all_biases = tf.concat(reshaped_bias_vectors, 0)
 
 # this object will generate a visualisation of how the TensorFlow is learning
-visualisation_of_training = visualisation.DataVisualisation('Sigmoid - Five Layers')
+visualisation_of_training = visualisation.DataVisualisation('ReLU - incorporating dropout')
 
-# training step, learning rate = 0.003
-learning_rate = 0.003
-# StackOverflow flow explanation on switch to adams over regular gradient decent optimiser
-# https://stats.stackexchange.com/questions/184448/difference-between-gradientdescentoptimizer-and-adamoptimizer
-# -tensorflow
-train_step = tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
+# the learning rate is: # 0.0001 + 0.003 * (1/e)^(iterations_so_far/2000)), i.e. exponential decay
+# from 0.003->0.0001
+lr = 0.0001 + tf.train.exponential_decay(
+    0.003,
+    iterations_so_far,
+    2000,
+    1 / math.e)
+
+train_step = tf.train.AdamOptimizer(lr).minimize(cross_entropy)
 
 # initialising the TensorFlow session
 initialisation = tf.global_variables_initializer()
@@ -145,7 +171,9 @@ def training_step(iteration, compute_next_batch_of_test_data, compute_next_batch
             ],
             feed_dict={
                 image_matrix: mini_batch_of_images,
-                label_matrix: mini_batch_of_labels
+                label_matrix: mini_batch_of_labels,
+                probability_of_saving_node_from_dropout: 1.0,  # no culling
+                iterations_so_far: iteration
             }
         )
         # update the training graphs
@@ -169,9 +197,11 @@ def training_step(iteration, compute_next_batch_of_test_data, compute_next_batch
                 accuracy_of_predictions,
                 cross_entropy
             ],
+            # no need for drop out here as we simply want to test TensorFlow
             feed_dict={
                 image_matrix: data_set.testing_data_set.images,
-                label_matrix: data_set.testing_data_set.labels
+                label_matrix: data_set.testing_data_set.labels,
+                probability_of_saving_node_from_dropout: 1.0  # no culling
             }
         )
         # update the test graphs
@@ -192,7 +222,9 @@ def training_step(iteration, compute_next_batch_of_test_data, compute_next_batch
         train_step,  # gradient descent
         feed_dict={
             image_matrix: mini_batch_of_images,
-            label_matrix: mini_batch_of_labels
+            label_matrix: mini_batch_of_labels,
+            probability_of_saving_node_from_dropout: .75,  # cull 25% of neurons
+            iterations_so_far: iteration
         }
     )
 
