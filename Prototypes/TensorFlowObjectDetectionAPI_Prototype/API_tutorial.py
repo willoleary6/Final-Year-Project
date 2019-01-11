@@ -9,7 +9,6 @@ import time
 from distutils.version import StrictVersion
 from collections import defaultdict
 from io import StringIO
-
 from matplotlib import pyplot as plt
 from PIL import Image
 
@@ -39,6 +38,9 @@ from object_detection.utils import visualization_utils as vis_util
 # By default we use an "SSD with Mobilenet" model here. See the detection model zoo for a list of other models that
 # can be run out-of-the-box with varying speeds and accuracies.
 
+# change directory to that of the object detection api
+os.chdir(os.getcwd()+'\models\\research\object_detection')
+
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
 MODEL_FILE = MODEL_NAME + '.tar.gz'
@@ -48,9 +50,7 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 PATH_TO_FROZEN_GRAPH = MODEL_NAME + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join('C:\SourceCode\Final-Year-Project\Prototypes\TensorFlowObjectDetectionAPI_Prototype'
-                              '\models\\research\object_detection\data', 'mscoco_label_map.pbtxt')
-print(PATH_TO_LABELS)
+PATH_TO_LABELS = os.getcwd()+'\data\mscoco_label_map.pbtxt'
 # Download Model
 
 opener = urllib.request.URLopener()
@@ -92,8 +92,7 @@ def load_image_into_numpy_array(image):
 # image1.jpg
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = 'C:\SourceCode\Final-Year-Project\Prototypes\TensorFlowObjectDetectionAPI_Prototype\models' \
-                          '\\research\object_detection\\test_images'
+PATH_TO_TEST_IMAGES_DIR = os.getcwd()+'\\test_images'
 TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3)]
 
 # Size, in inches, of the output images.
@@ -147,7 +146,7 @@ def run_inference_for_single_image(image, graph):
                 output_dict['detection_masks'] = output_dict['detection_masks'][0]
     return output_dict
 
-
+plt.switch_backend('TKAgg')
 for image_path in TEST_IMAGE_PATHS:
     image = Image.open(image_path)
     # the array based representation of the image will be used later in order to prepare the
@@ -167,9 +166,8 @@ for image_path in TEST_IMAGE_PATHS:
         instance_masks=output_dict.get('detection_masks'),
         use_normalized_coordinates=True,
         line_thickness=8)
-    plt.switch_backend('TKAgg')
+
     plt.gcf().clear()
-    plt.figure(figsize=IMAGE_SIZE)
     plt.imshow(image_np)
     plt.show()
 
