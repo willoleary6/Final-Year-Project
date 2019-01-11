@@ -1,36 +1,24 @@
 import numpy as np
 import os
 import six.moves.urllib as urllib
-import sys
+
 import tarfile
 import tensorflow as tf
-import zipfile
-import time
+
 from distutils.version import StrictVersion
-from collections import defaultdict
-from io import StringIO
+
 from matplotlib import pyplot as plt
 from PIL import Image
+# Here are the imports from the object detection module.
+# in the interest of cleanliness and sanity ive updated the paths
+# of the interpreter the IDE uses so we can call the object detection api from outside the
+# the models directory, using models.research.object_detection will also not work....
+from object_detection.utils import label_map_util
+from object_detection.utils import visualization_utils as vis_util
+from object_detection.utils import ops as utils_operations
 
-# This is needed since the notebook is stored in the object_detection folder.
-#sys.path.append("..")
-
-#from models.research.object_detection.utils import ops as utils_ops
-from object_detection.utils import ops as utils_ops
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
-
-
-# Env setup
-# This is needed to display the images.
-# %matplotlib inline
-
-# Object detection imports
-# Here are the imports from the object detection module.
-
-from object_detection.utils import label_map_util
-
-from object_detection.utils import visualization_utils as vis_util
 
 # Model preparation Variables Any model exported using the export_inference_graph.py tool can be loaded here simply
 # by changing PATH_TO_FROZEN_GRAPH to point to a new .pb file.
@@ -39,7 +27,7 @@ from object_detection.utils import visualization_utils as vis_util
 # can be run out-of-the-box with varying speeds and accuracies.
 
 # change directory to that of the object detection api
-os.chdir(os.getcwd()+'\models\\research\object_detection')
+os.chdir(os.getcwd() + '\models\\research\object_detection')
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_2017_11_17'
@@ -50,7 +38,7 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 PATH_TO_FROZEN_GRAPH = MODEL_NAME + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.getcwd()+'\data\mscoco_label_map.pbtxt'
+PATH_TO_LABELS = os.getcwd() + '\data\mscoco_label_map.pbtxt'
 # Download Model
 
 opener = urllib.request.URLopener()
@@ -71,12 +59,12 @@ with detection_graph.as_default():
         od_graph_def.ParseFromString(serialized_graph)
         tf.import_graph_def(od_graph_def, name='')
 
-
 # Loading label map Label maps map indices to category names, so that when our convolution network predicts 5,
 # we know that this corresponds to airplane. Here we use internal utility functions, but anything that returns a
 # dictionary mapping integers to appropriate string labels would be fine
 
 category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS, use_display_name=True)
+
 
 # Helper code
 
@@ -92,8 +80,8 @@ def load_image_into_numpy_array(image):
 # image1.jpg
 # image2.jpg
 # If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-PATH_TO_TEST_IMAGES_DIR = os.getcwd()+'\\test_images'
-TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3)]
+PATH_TO_TEST_IMAGES_DIR = os.getcwd() + '\\test_images'
+TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 4)]
 
 # Size, in inches, of the output images.
 IMAGE_SIZE = (12, 8)
@@ -123,7 +111,7 @@ def run_inference_for_single_image(image, graph):
                 real_num_detection = tf.cast(tensor_dict['num_detections'][0], tf.int32)
                 detection_boxes = tf.slice(detection_boxes, [0, 0], [real_num_detection, -1])
                 detection_masks = tf.slice(detection_masks, [0, 0, 0], [real_num_detection, -1, -1])
-                detection_masks_reframed = utils_ops.reframe_box_masks_to_image_masks(
+                detection_masks_reframed = utils_operations.reframe_box_masks_to_image_masks(
                     detection_masks, detection_boxes, image.shape[0], image.shape[1])
                 detection_masks_reframed = tf.cast(
                     tf.greater(detection_masks_reframed, 0.5), tf.uint8)
@@ -145,6 +133,7 @@ def run_inference_for_single_image(image, graph):
             if 'detection_masks' in output_dict:
                 output_dict['detection_masks'] = output_dict['detection_masks'][0]
     return output_dict
+
 
 plt.switch_backend('TKAgg')
 for image_path in TEST_IMAGE_PATHS:
@@ -170,4 +159,3 @@ for image_path in TEST_IMAGE_PATHS:
     plt.gcf().clear()
     plt.imshow(image_np)
     plt.show()
-
