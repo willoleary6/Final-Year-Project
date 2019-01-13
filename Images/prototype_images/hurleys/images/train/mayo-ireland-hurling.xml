@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>mayo-ireland-hurling.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\mayo-ireland-hurling.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>755</width>
+		<height>200</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>182</xmin>
+			<ymin>99</ymin>
+			<xmax>436</xmax>
+			<ymax>165</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>372</xmin>
+			<ymin>68</ymin>
+			<xmax>520</xmax>
+			<ymax>146</ymax>
+		</bndbox>
+	</object>
+</annotation>

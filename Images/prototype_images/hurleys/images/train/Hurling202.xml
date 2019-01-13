@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>Hurling202.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\Hurling202.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>620</width>
+		<height>428</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>76</xmin>
+			<ymin>226</ymin>
+			<xmax>203</xmax>
+			<ymax>306</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>382</xmin>
+			<ymin>130</ymin>
+			<xmax>530</xmax>
+			<ymax>252</ymax>
+		</bndbox>
+	</object>
+</annotation>

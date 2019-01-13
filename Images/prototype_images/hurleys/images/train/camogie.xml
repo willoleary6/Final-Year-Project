@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>camogie.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\camogie.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>660</width>
+		<height>305</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>93</xmin>
+			<ymin>132</ymin>
+			<xmax>249</xmax>
+			<ymax>191</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>313</xmin>
+			<ymin>25</ymin>
+			<xmax>428</xmax>
+			<ymax>138</ymax>
+		</bndbox>
+	</object>
+</annotation>

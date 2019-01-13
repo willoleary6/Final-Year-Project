@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>Dublin_RyanODwyer.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\Dublin_RyanODwyer.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>650</width>
+		<height>426</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>162</xmin>
+			<ymin>311</ymin>
+			<xmax>537</xmax>
+			<ymax>406</ymax>
+		</bndbox>
+	</object>
+</annotation>

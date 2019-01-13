@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>0_inpho_01411144.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\0_inpho_01411144.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>615</width>
+		<height>625</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>334</xmin>
+			<ymin>63</ymin>
+			<xmax>569</xmax>
+			<ymax>200</ymax>
+		</bndbox>
+	</object>
+</annotation>

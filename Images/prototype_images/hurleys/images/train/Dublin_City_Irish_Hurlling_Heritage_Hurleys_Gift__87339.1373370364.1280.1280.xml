@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>Dublin_City_Irish_Hurlling_Heritage_Hurleys_Gift__87339.1373370364.1280.1280.JPG</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\Dublin_City_Irish_Hurlling_Heritage_Hurleys_Gift__87339.1373370364.1280.1280.JPG</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>398</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>12</xmin>
+			<ymin>37</ymin>
+			<xmax>1275</xmax>
+			<ymax>320</ymax>
+		</bndbox>
+	</object>
+</annotation>

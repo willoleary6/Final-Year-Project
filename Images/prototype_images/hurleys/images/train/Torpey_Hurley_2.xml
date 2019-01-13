@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>Torpey_Hurley_2.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\Torpey_Hurley_2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2500</width>
+		<height>2500</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>45</xmin>
+			<ymin>709</ymin>
+			<xmax>2500</xmax>
+			<ymax>1817</ymax>
+		</bndbox>
+	</object>
+</annotation>

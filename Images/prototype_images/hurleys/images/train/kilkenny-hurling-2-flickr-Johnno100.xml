@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>kilkenny-hurling-2-flickr-Johnno100.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\kilkenny-hurling-2-flickr-Johnno100.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>510</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>237</xmin>
+			<ymin>73</ymin>
+			<xmax>301</xmax>
+			<ymax>245</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>245</xmin>
+			<ymin>4</ymin>
+			<xmax>358</xmax>
+			<ymax>172</ymax>
+		</bndbox>
+	</object>
+</annotation>

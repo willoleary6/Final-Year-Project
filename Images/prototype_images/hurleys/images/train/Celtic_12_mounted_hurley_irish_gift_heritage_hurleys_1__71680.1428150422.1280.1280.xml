@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>Celtic_12_mounted_hurley_irish_gift_heritage_hurleys_1__71680.1428150422.1280.1280.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\Celtic_12_mounted_hurley_irish_gift_heritage_hurleys_1__71680.1428150422.1280.1280.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>756</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>29</xmin>
+			<ymin>79</ymin>
+			<xmax>724</xmax>
+			<ymax>361</ymax>
+		</bndbox>
+	</object>
+</annotation>

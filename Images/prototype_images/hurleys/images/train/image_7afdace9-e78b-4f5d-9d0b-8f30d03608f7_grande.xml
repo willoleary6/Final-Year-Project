@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>image_7afdace9-e78b-4f5d-9d0b-8f30d03608f7_grande.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\image_7afdace9-e78b-4f5d-9d0b-8f30d03608f7_grande.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>600</width>
+		<height>600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>2</xmin>
+			<ymin>5</ymin>
+			<xmax>598</xmax>
+			<ymax>595</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>seamie-callinan-1.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\seamie-callinan-1.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>419</width>
+		<height>450</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>78</xmin>
+			<ymin>7</ymin>
+			<xmax>416</xmax>
+			<ymax>337</ymax>
+		</bndbox>
+	</object>
+</annotation>

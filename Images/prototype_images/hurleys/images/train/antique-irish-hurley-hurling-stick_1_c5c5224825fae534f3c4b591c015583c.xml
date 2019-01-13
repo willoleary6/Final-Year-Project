@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>antique-irish-hurley-hurling-stick_1_c5c5224825fae534f3c4b591c015583c.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\antique-irish-hurley-hurling-stick_1_c5c5224825fae534f3c4b591c015583c.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>300</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>38</xmin>
+			<ymin>14</ymin>
+			<xmax>372</xmax>
+			<ymax>272</ymax>
+		</bndbox>
+	</object>
+</annotation>

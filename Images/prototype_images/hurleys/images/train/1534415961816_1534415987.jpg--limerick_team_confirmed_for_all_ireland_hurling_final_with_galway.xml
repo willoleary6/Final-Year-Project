@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>1534415961816_1534415987.jpg--limerick_team_confirmed_for_all_ireland_hurling_final_with_galway.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\1534415961816_1534415987.jpg--limerick_team_confirmed_for_all_ireland_hurling_final_with_galway.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>750</width>
+		<height>563</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>187</xmin>
+			<ymin>23</ymin>
+			<xmax>430</xmax>
+			<ymax>134</ymax>
+		</bndbox>
+	</object>
+</annotation>

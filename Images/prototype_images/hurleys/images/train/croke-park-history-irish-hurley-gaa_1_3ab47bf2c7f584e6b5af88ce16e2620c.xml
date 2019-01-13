@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>croke-park-history-irish-hurley-gaa_1_3ab47bf2c7f584e6b5af88ce16e2620c.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\croke-park-history-irish-hurley-gaa_1_3ab47bf2c7f584e6b5af88ce16e2620c.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>308</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>11</ymin>
+			<xmax>400</xmax>
+			<ymax>304</ymax>
+		</bndbox>
+	</object>
+</annotation>

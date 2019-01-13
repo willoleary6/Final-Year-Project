@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>houndofulster_blog-940x500.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\houndofulster_blog-940x500.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>940</width>
+		<height>500</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>638</xmin>
+			<ymin>5</ymin>
+			<xmax>766</xmax>
+			<ymax>273</ymax>
+		</bndbox>
+	</object>
+</annotation>

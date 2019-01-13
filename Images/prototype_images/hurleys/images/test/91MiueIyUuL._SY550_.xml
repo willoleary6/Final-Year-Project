@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>91MiueIyUuL._SY550_.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\91MiueIyUuL._SY550_.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>413</width>
+		<height>550</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>143</xmin>
+			<ymin>20</ymin>
+			<xmax>320</xmax>
+			<ymax>536</ymax>
+		</bndbox>
+	</object>
+</annotation>

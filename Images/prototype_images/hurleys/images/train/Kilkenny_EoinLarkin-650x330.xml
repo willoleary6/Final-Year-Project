@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>Kilkenny_EoinLarkin-650x330.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\Kilkenny_EoinLarkin-650x330.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>650</width>
+		<height>330</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>452</xmin>
+			<ymin>1</ymin>
+			<xmax>649</xmax>
+			<ymax>328</ymax>
+		</bndbox>
+	</object>
+</annotation>

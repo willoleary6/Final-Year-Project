@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>kildareVLaoisJuniorCamogieFinal13_large.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype images\hurleys\images\kildareVLaoisJuniorCamogieFinal13_large.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>600</width>
+		<height>325</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>hurley</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>13</xmin>
+			<ymin>150</ymin>
+			<xmax>238</xmax>
+			<ymax>262</ymax>
+		</bndbox>
+	</object>
+</annotation>
