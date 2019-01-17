@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fingers</folder>
+	<filename>middle-finger-4.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\fingers\middle-finger-4.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>550</width>
+		<height>382</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>finger</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>337</xmin>
+			<ymin>133</ymin>
+			<xmax>423</xmax>
+			<ymax>230</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fingers</folder>
+	<filename>500_F_175829646_jwkU2uEHH3teyNoyDLkKLODfQCGiTlk2.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\fingers\500_F_175829646_jwkU2uEHH3teyNoyDLkKLODfQCGiTlk2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>500</width>
+		<height>334</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>finger</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>124</ymin>
+			<xmax>252</xmax>
+			<ymax>280</ymax>
+		</bndbox>
+	</object>
+</annotation>

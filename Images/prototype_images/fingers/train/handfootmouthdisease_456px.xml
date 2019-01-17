@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fingers</folder>
+	<filename>handfootmouthdisease_456px.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\fingers\handfootmouthdisease_456px.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>456</width>
+		<height>294</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>finger</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>95</xmin>
+			<ymin>189</ymin>
+			<xmax>277</xmax>
+			<ymax>255</ymax>
+		</bndbox>
+	</object>
+</annotation>

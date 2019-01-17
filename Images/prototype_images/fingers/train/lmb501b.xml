@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fingers</folder>
+	<filename>lmb501b.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\fingers\lmb501b.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1600</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>finger</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>33</xmin>
+			<ymin>472</ymin>
+			<xmax>1181</xmax>
+			<ymax>836</ymax>
+		</bndbox>
+	</object>
+</annotation>

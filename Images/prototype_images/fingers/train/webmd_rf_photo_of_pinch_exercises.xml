@@ -1,0 +1,26 @@
+<annotation>
+	<folder>fingers</folder>
+	<filename>webmd_rf_photo_of_pinch_exercises.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\fingers\webmd_rf_photo_of_pinch_exercises.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>493</width>
+		<height>335</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>finger</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>162</xmin>
+			<ymin>26</ymin>
+			<xmax>364</xmax>
+			<ymax>137</ymax>
+		</bndbox>
+	</object>
+</annotation>
