@@ -1,7 +1,5 @@
 
-# taken from
-# https://github.com/datitran/raccoon_dataset
-import os
+# taken from https://github.com/datitran/raccoon_dataset
 import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
