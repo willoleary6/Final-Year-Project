@@ -1,6 +1,0 @@
-model_checkpoint_path: "C:\\SourceCode\\Final-Year-Project\\Prototypes\\TensorFlowObjectDetectionAPI_Prototype\\finger_test\\training\\model.ckpt-15095"
-all_model_checkpoint_paths: "C:\\SourceCode\\Final-Year-Project\\Prototypes\\TensorFlowObjectDetectionAPI_Prototype\\finger_test\\training\\model.ckpt-14228"
-all_model_checkpoint_paths: "C:\\SourceCode\\Final-Year-Project\\Prototypes\\TensorFlowObjectDetectionAPI_Prototype\\finger_test\\training\\model.ckpt-14443"
-all_model_checkpoint_paths: "C:\\SourceCode\\Final-Year-Project\\Prototypes\\TensorFlowObjectDetectionAPI_Prototype\\finger_test\\training\\model.ckpt-14662"
-all_model_checkpoint_paths: "C:\\SourceCode\\Final-Year-Project\\Prototypes\\TensorFlowObjectDetectionAPI_Prototype\\finger_test\\training\\model.ckpt-14880"
-all_model_checkpoint_paths: "C:\\SourceCode\\Final-Year-Project\\Prototypes\\TensorFlowObjectDetectionAPI_Prototype\\finger_test\\training\\model.ckpt-15095"
