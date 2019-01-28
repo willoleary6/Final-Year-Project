@@ -37,8 +37,10 @@ model_name = 'finger_graph'
 PATH_TO_FROZEN_GRAPH_OF_MODEL = model_name + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-path_to_labels = 'training\\object_detection.pbtxt'
-
+# windows
+#path_to_labels = 'training\\object_detection.pbtxt'
+#ubuntu
+path_to_labels = 'training/object_detection.pbtxt'
 # Load a (frozen) Tensorflow model into memory.
 
 detection_graph = tf.Graph()
