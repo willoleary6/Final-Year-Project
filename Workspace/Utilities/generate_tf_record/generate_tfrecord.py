@@ -2,9 +2,9 @@
 Usage:
   # From tensorflow/models/
   # Create train data:
-  python generate_tfrecord.py --csv_input=data/train_labels.csv  --output_path=data/train.record
+  python generate_tfrecord.py --csv_input=data/train_labels.csv  --output_path=data/train.record --image_dir ../images/
   # Create test data:
-  python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=data/test.record
+  python generate_tfrecord.py --csv_input=data/test_labels.csv  --output_path=data/test.record  --image_dir ../images /
 """
 from __future__ import division
 from __future__ import print_function
@@ -26,10 +26,20 @@ flags.DEFINE_string('image_dir', '', 'Path to images')
 FLAGS = flags.FLAGS
 
 
-# TO-DO replace this with label map
+#TODO make this dynamic!
 def class_text_to_int(row_label):
-    if row_label == 'finger':
+    if row_label == 'Five Cent':
         return 1
+    elif row_label == 'Ten Cent':
+        return 2
+    elif row_label == "Twenty Cent":
+        return 3
+    elif row_label == "Fifty Cent":
+        return 4
+    elif row_label == "One Euro":
+        return 5
+    elif row_label == "Two Euro":
+        return 6
     else:
         None
 
