@@ -1,0 +1,38 @@
+<annotation>
+	<folder>coins</folder>
+	<filename>IMG_20190130_183301.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\coins\IMG_20190130_183301.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>600</width>
+		<height>337</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>One Euro</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>328</xmin>
+			<ymin>68</ymin>
+			<xmax>457</xmax>
+			<ymax>188</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Two Euro</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>312</xmin>
+			<ymin>127</ymin>
+			<xmax>449</xmax>
+			<ymax>252</ymax>
+		</bndbox>
+	</object>
+</annotation>

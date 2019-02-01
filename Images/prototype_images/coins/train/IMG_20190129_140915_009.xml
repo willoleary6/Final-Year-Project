@@ -1,0 +1,26 @@
+<annotation>
+	<folder>coins</folder>
+	<filename>IMG_20190129_140915_009.jpg</filename>
+	<path>C:\SourceCode\Final-Year-Project\Images\prototype_images\coins\IMG_20190129_140915_009.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>600</width>
+		<height>337</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Twenty Cent</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>245</xmin>
+			<ymin>84</ymin>
+			<xmax>393</xmax>
+			<ymax>229</ymax>
+		</bndbox>
+	</object>
+</annotation>
