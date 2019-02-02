@@ -5,9 +5,9 @@ import math
 
 parser = ArgumentParser()
 parser.add_argument("-p",
-                    "-path_to_png",
-                    dest="path_to_png",
-                    help="File path to the directory containing the png files",
+                    "-path_to_images",
+                    dest="path_to_images",
+                    help="File path to the directory containing the images",
                     default=False
                     )
 
@@ -19,8 +19,8 @@ parser.add_argument("-m",
                     )
 
 args = parser.parse_args()
-if args.path_to_png and args.max_dimension:
-    path = args.path_to_png
+if args.path_to_images and args.max_dimension:
+    path = args.path_to_images
     # path = "C:\SourceCode\Final-Year-Project\Images\prototype_images\coins\\"
     max_dimension = int(args.max_dimension)
     # max_dimension = 600

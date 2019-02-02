@@ -38,9 +38,9 @@ PATH_TO_FROZEN_GRAPH_OF_MODEL = model_name + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
 # windows
-#path_to_labels = 'training\\object_detection.pbtxt'
+path_to_labels = 'training\\object_detection.pbtxt'
 #ubuntu
-path_to_labels = 'training/object_detection.pbtxt'
+#path_to_labels = 'training/object_detection.pbtxt'
 # Load a (frozen) Tensorflow model into memory.
 
 detection_graph = tf.Graph()
@@ -134,7 +134,8 @@ with detection_graph.as_default():
 plt.gcf().clear()
 sqrt_of_length = math.ceil(math.sqrt(len(array_images_past_through_tensorflow)))
 for index, image in enumerate(array_images_past_through_tensorflow):
-    plt.subplot(sqrt_of_length, sqrt_of_length, index + 1)
+    #plt.subplot(sqrt_of_length, sqrt_of_length, index + 1)
     plt.imshow(image)
+    plt.show()
 
-plt.show()
+#plt.show()
