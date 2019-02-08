@@ -1,0 +1,29 @@
+item {
+	id: 1
+	name: 'Five Cent'
+}
+
+item {
+	id: 2
+	name: 'Ten Cent'
+}
+
+item {
+	id: 3
+	name: 'Twenty Cent'
+}
+
+item {
+	id: 4
+	name: 'Fifty Cent'
+}
+
+item {
+	id: 5
+	name: 'One Euro'
+}
+
+item {
+	id: 6
+	name: 'Two Euro'
+}
