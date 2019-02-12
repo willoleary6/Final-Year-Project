@@ -8,8 +8,8 @@ import re
 
 # parser = ArgumentParser()
 # parser.add_argument("-p",
-#                    "-path_to_images",
-#                    dest="path_to_images",
+#                    "-path_to_videos",
+#                    dest="path_to_videos",
 #                    help="File path to the directory containing the images",
 #                    default=False
 #                    )
@@ -22,7 +22,7 @@ import re
 #                    )
 
 # args = parser.parse_args()
-# if args.path_to_images and args.max_dimension:
+# if args.path_to_videos and args.max_dimension:
 
 def adjust_size(size, multiplicity):
     for dimension in ['height', 'width']:
@@ -38,7 +38,7 @@ def get_title_from_element(element):
     return title[0]
 
 
-# path = args.path_to_images
+# path = args.path_to_videos
 path = "C:\SourceCode\Final-Year-Project\Images\prototype_images\coins\\"
 
 # max_dimension = 600

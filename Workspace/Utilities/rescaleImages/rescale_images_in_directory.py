@@ -5,8 +5,8 @@ import math
 
 parser = ArgumentParser()
 parser.add_argument("-p",
-                    "-path_to_images",
-                    dest="path_to_images",
+                    "-path_to_videos",
+                    dest="path_to_videos",
                     help="File path to the directory containing the images",
                     default=False
                     )

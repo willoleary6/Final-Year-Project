@@ -52,8 +52,8 @@ PATH_TO_FROZEN_GRAPH_OF_MODEL = model_name + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
 
-#path_to_labels = 'training\object_detection.pbtxt'
-path_to_labels = 'training_resnet/object_detection.pbtxt'
+path_to_labels = 'training_resnet\object_detection.pbtxt'
+#path_to_labels = 'training_resnet/object_detection.pbtxt'
 
 
 

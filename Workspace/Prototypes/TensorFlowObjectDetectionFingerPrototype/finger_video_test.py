@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 import os
 from os import walk
-
 import tensorflow as tf
 
 from distutils.version import StrictVersion
@@ -32,7 +31,7 @@ for i in files_in_directory:
             test_video_paths.append(os.path.join(path_to_images, i))
             break
 
-cap = cv2.VideoCapture(test_video_paths[2])
+cap = cv2.VideoCapture(test_video_paths[0])
 
 
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
@@ -77,6 +76,7 @@ category_index = label_map_util.create_category_index_from_labelmap(path_to_labe
 image_size = (24, 16)
 frame_number = 0
 # Detection
+first_time = True
 with detection_graph.as_default():
     with tf.Session(graph=detection_graph) as sess:
         while True:
@@ -115,7 +115,6 @@ with detection_graph.as_default():
 
                 # Display output
                 cv2.imshow('object detection', cv2.resize(image_np, (1920, 1080)))
-
                 if cv2.waitKey(25) & 0xFF == ord('q'):
                     cv2.destroyAllWindows()
                     break

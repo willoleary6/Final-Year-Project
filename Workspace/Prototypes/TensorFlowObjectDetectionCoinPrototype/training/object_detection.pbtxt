@@ -1,29 +1,3 @@
-item {
-	id: 1
-	name: 'Five Cent'
-}
-
-item {
-	id: 2
-	name: 'Ten Cent'
-}
-
-item {
-	id: 3
-	name: 'Twenty Cent'
-}
-
-item {
-	id: 4
-	name: 'Fifty Cent'
-}
-
-item {
-	id: 5
-	name: 'One Euro'
-}
-
-item {
-	id: 6
-	name: 'Two Euro'
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:df4cf4997d1b0e244c651eebb234314eca7d37f77fb99583b17f1354c4a3d25d
+size 214
