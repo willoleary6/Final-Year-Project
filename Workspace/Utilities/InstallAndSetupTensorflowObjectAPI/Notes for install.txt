@@ -1,0 +1,5 @@
+#install guide
+https://medium.com/datadriveninvestor/install-tensorflow-gpu-to-use-nvidia-gpu-on-ubuntu-18-04-do-ai-71b0ce64ebc5
+
+#switching interpreter to anaconda
+https://askubuntu.com/questions/886983/how-to-set-anaconda-as-a-default-python
