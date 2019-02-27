@@ -1,6 +1,8 @@
+from functools import partial
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy, QScrollArea, QWidget, QVBoxLayout
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 
 
@@ -75,28 +77,37 @@ class MainWindowView(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.listView = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView.setObjectName("listView")
-        self.verticalLayout_3.addWidget(self.listView)
-        self.listView_2 = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView_2.setObjectName("listView_2")
-        self.verticalLayout_3.addWidget(self.listView_2)
-        self.listView_3 = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView_3.setObjectName("listView_3")
-        self.verticalLayout_3.addWidget(self.listView_3)
-        self.listView_4 = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView_4.setObjectName("listView_4")
-        self.verticalLayout_3.addWidget(self.listView_4)
-        self.listWidget = QtWidgets.QListWidget(self.verticalLayoutWidget_2)
-        self.listWidget.setObjectName("listWidget")
-        self.verticalLayout_3.addWidget(self.listWidget)
-        self.horizontalLayout_3.addLayout(self.verticalLayout_3)
-        self.verticalScrollBar = QtWidgets.QScrollBar(self.verticalLayoutWidget_2)
-        self.verticalScrollBar.setOrientation(QtCore.Qt.Vertical)
-        self.verticalScrollBar.setObjectName("verticalScrollBar")
-        self.horizontalLayout_3.addWidget(self.verticalScrollBar)
+
+
+
+        #self.horizontalLayout_3.addLayout(self.verticalLayout_3)
+        items = []
+        for x in range(50):
+            self.listView = QtWidgets.QListWidget(self.verticalLayoutWidget_2)
+            #self.listView.mousePressEvent = self.clickedEvent
+            message = "test "+str(x)
+            self.listView.itemSelectionChanged.connect(partial(self.clickedEvent,message))
+            self.listViewItem = QtWidgets.QListWidgetItem(self.listView)
+            size = QtCore.QSize(10,100)
+            self.listViewItem.setSizeHint(size)
+
+
+            self.listViewItem.setText(message)
+
+            #self.listViewItem.currentItemChanged.connect(self.clickedEvent)
+            items.append(self.listView)
+
+        scroll = QScrollArea()
+        self.horizontalLayout_3.addWidget(scroll)
+        scroll.setWidgetResizable(True)
+        scrollContent = QWidget(scroll)
+
+        scrollLayout = QVBoxLayout(scrollContent)
+        scrollContent.setLayout(scrollLayout)
+        for item in items:
+            scrollLayout.addWidget(item)
+        scroll.setWidget(scrollContent)
+
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.video_player_label = QtWidgets.QLabel(self.centralwidget)
         self.video_player_label.setGeometry(QtCore.QRect(250, 0, 201, 31))
@@ -173,6 +184,8 @@ class MainWindowView(object):
     def get_menu_bar(self):
         return self.menu_bar
 
+    def clickedEvent(self, value):
+        print(value)
 
 if __name__ == "__main__":
     import sys
