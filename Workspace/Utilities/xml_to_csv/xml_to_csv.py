@@ -1,9 +1,15 @@
 # taken from https://github.com/datitran/raccoon_dataset
-#modified to work with command line arguements
+# modified to work with command line arguements
 import glob
 import pandas as pd
 import xml.etree.ElementTree as ET
 from argparse import ArgumentParser
+
+
+def get_index(root, desired_attribute):
+    for i, x in enumerate(root.find('size')):
+        if x.tag == desired_attribute:
+            return i
 
 
 def xml_to_csv(path):
@@ -14,8 +20,8 @@ def xml_to_csv(path):
         for member in root.findall('object'):
             last_member_index = len(member) - 1
             value = (root.find('filename').text,
-                     int(root.find('size')[0].text),
-                     int(root.find('size')[1].text),
+                     int(root.find('size')[get_index(root, 'width')].text),
+                     int(root.find('size')[get_index(root, 'height')].text),
                      member[0].text,
                      int(member[last_member_index][0].text),
                      int(member[last_member_index][1].text),
@@ -49,7 +55,7 @@ if args.xmlDirectory and args.destinationDirectory:
         xml_path = args.xmlDirectory + directory
         xml_df = xml_to_csv(xml_path)
         xml_df.to_csv(args.destinationDirectory + directory + '_labels.csv', index=None)
-        #xml_df.to_csv('data/' + directory + '_labels.csv', index=None)
-        print('Successfully converted xml to csv. Stored in '+args.destinationDirectory + directory + '_labels.csv')
+        # xml_df.to_csv('data/' + directory + '_labels.csv', index=None)
+        print('Successfully converted xml to csv. Stored in ' + args.destinationDirectory + directory + '_labels.csv')
 else:
     print("Missing required arguments, check --help")

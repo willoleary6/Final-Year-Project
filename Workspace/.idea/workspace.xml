@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a37faa7d-0727-4b46-8985-1c4fccf29ba1" name="Default Changelist" comment="" />
+    <list default="true" id="a37faa7d-0727-4b46-8985-1c4fccf29ba1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Human_detector/Model/data/test_labels.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/Model/data/test_labels.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Human_detector/Model/data/train_labels.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/Model/data/train_labels.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py" beforeDir="false" afterPath="$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+            <state relative-caret-position="255">
+              <caret line="21" column="48" lean-forward="true" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
               <folding>
                 <element signature="e#104#115#0" expanded="true" />
               </folding>
@@ -24,10 +28,14 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Human_detector/Model/data/test_labels.csv">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Human_detector/Model/data/train_labels.csv">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -72,7 +80,7 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utilities/generate_tf_record/generate_tfrecord.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="680">
@@ -158,12 +166,12 @@
         <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/Controller/MainWindowController.py" />
         <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/MainWindowView.py" />
         <option value="$PROJECT_DIR$/Utilities/split_dataset/split_dataset.py" />
-        <option value="$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py" />
         <option value="$PROJECT_DIR$/Utilities/generate_tf_record/generate_tfrecord.py" />
+        <option value="$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="630" />
     <option name="width" value="3216" />
     <option name="height" value="2097" />
@@ -402,6 +410,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18479118" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -614,7 +623,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/Model/datatrain_labels.csv">
+    <entry file="file://$PROJECT_DIR$/Human_detector/Model/datatrain_labels.csv" />
+    <entry file="file://$PROJECT_DIR$/Human_detector/Model/datatest_labels.csv" />
+    <entry file="file://$PROJECT_DIR$/Prototypes/TensorFlowObjectDetectionFingerPrototype/data/test_labels.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Utilities/rescaleImages/rescale_images_in_directory.py">
@@ -634,27 +645,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/Model/datatest_labels.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Prototypes/TensorFlowObjectDetectionFingerPrototype/data/test_labels.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/Model/data/test_labels.csv">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py">
+    <entry file="file://$PROJECT_DIR$/Utilities/generate_tf_record/generate_tfrecord.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-          <folding>
-            <element signature="e#104#115#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="680">
+          <caret line="51" column="14" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/Model/data/train_labels.csv">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Utilities/generate_tf_record/runner.sh">
       <provider selected="true" editor-type-id="text-editor">
@@ -673,12 +669,25 @@
     <entry file="file://$PROJECT_DIR$/Prototypes/TensorFlowObjectDetectionFingerPrototype/tensorflow training commands.sh">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utilities/generate_tf_record/generate_tfrecord.py">
+    <entry file="file://$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="51" column="14" selection-start-line="51" selection-start-column="14" selection-end-line="51" selection-end-column="14" />
+        <state relative-caret-position="255">
+          <caret line="21" column="48" lean-forward="true" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+          <folding>
+            <element signature="e#104#115#0" expanded="true" />
+          </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/Model/data/test_labels.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="20" lean-forward="true" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/Model/data/train_labels.csv">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>
