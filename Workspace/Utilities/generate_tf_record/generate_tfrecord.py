@@ -28,18 +28,8 @@ FLAGS = flags.FLAGS
 
 #TODO make this dynamic!
 def class_text_to_int(row_label):
-    if row_label == 'Five Cent':
+    if row_label == 'person':
         return 1
-    elif row_label == 'Ten Cent':
-        return 2
-    elif row_label == "Twenty Cent":
-        return 3
-    elif row_label == "Fifty Cent":
-        return 4
-    elif row_label == "One Euro":
-        return 5
-    elif row_label == "Two Euro":
-        return 6
     else:
         None
 
