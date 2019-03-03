@@ -7,7 +7,7 @@ from argparse import ArgumentParser
 
 
 def get_index(root, desired_attribute):
-    for i, x in enumerate(root.find('size')):
+    for i, x in enumerate(root):
         if x.tag == desired_attribute:
             return i
 
@@ -20,13 +20,13 @@ def xml_to_csv(path):
         for member in root.findall('object'):
             last_member_index = len(member) - 1
             value = (root.find('filename').text,
-                     int(root.find('size')[get_index(root, 'width')].text),
-                     int(root.find('size')[get_index(root, 'height')].text),
+                     int(root.find('size')[get_index(root.find('size'), 'width')].text),
+                     int(root.find('size')[get_index(root.find('size'), 'height')].text),
                      member[0].text,
-                     int(member[last_member_index][0].text),
-                     int(member[last_member_index][1].text),
-                     int(member[last_member_index][2].text),
-                     int(member[last_member_index][3].text)
+                     int(member[last_member_index][get_index(member[last_member_index], 'xmin')].text),
+                     int(member[last_member_index][get_index(member[last_member_index], 'ymin')].text),
+                     int(member[last_member_index][get_index(member[last_member_index], 'xmax')].text),
+                     int(member[last_member_index][get_index(member[last_member_index], 'ymax')].text)
                      )
             xml_list.append(value)
     column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
