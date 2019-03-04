@@ -4,7 +4,7 @@ import os
 from os import walk
 import re
 import tensorflow as tf
-from Human_detector.detector.detector import detector
+from Human_detector.detector.Detector import Detector
 
 from distutils.version import StrictVersion
 
@@ -100,7 +100,7 @@ def value_on_screen(objects):
 image_size = (24, 16)
 frame_number = 0
 # Detection
-detector_object = detector()
+detector_object = Detector()
 with detection_graph.as_default():
     with tf.Session(graph=detection_graph) as sess:
         print(test_video_paths)
@@ -170,3 +170,4 @@ with detection_graph.as_default():
                             break
             if break_out is True:
                 break
+detector_object.stringify_detection_events()

@@ -1,0 +1,3 @@
+
+class Config:
+    SECONDS_ADDED_TO_EVENT_TIMESTAMP = 1
