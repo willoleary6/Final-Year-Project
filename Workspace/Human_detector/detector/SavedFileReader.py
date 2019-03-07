@@ -5,7 +5,7 @@ from os import walk
 import re
 import tensorflow as tf
 from Human_detector.detector.Detector import Detector
-
+from Human_detector.detector.config import Config
 from distutils.version import StrictVersion
 
 # Here are the imports from the object detection module.
@@ -31,8 +31,6 @@ for i in files_in_directory:
             test_video_paths.append(os.path.join(path_to_videos, i))
             break
 
-
-
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
@@ -55,8 +53,6 @@ PATH_TO_FROZEN_GRAPH_OF_MODEL = 'C:/SourceCode/Final-Year-Project/Workspace/Prot
 
 path_to_labels = 'C:/SourceCode/Final-Year-Project/Workspace/Prototypes/TensorFlowObjectDetectionCoinPrototype/training_resnet/object_detection.pbtxt'
 
-
-
 # Load a (frozen) Tensorflow model into memory.
 
 detection_graph = tf.Graph()
@@ -73,37 +69,12 @@ with detection_graph.as_default():
 
 category_index = label_map_util.create_category_index_from_labelmap(path_to_labels, use_display_name=True)
 
-
-def value_on_screen(objects):
-    values = []
-    for object in objects:
-        values.append((re.findall('\'([^\']*)\'', str(object)))[0])
-    numeric_value = 0.00
-    for single_value in values:
-        if single_value == 'Five Cent':
-            numeric_value = numeric_value + 0.05
-        elif single_value == 'Ten Cent':
-            numeric_value = numeric_value + 0.10
-        elif single_value == 'Twenty Cent':
-            numeric_value = numeric_value + 0.20
-        elif single_value == 'Fifty Cent':
-            numeric_value = numeric_value + 0.50
-        elif single_value == 'One Euro':
-            numeric_value = numeric_value + 1.00
-        elif single_value == 'Two Euro':
-            numeric_value = numeric_value + 2.00
-    return round(numeric_value, 2)
-
-
-
-# Size, in inches, of the output images.
 image_size = (24, 16)
 frame_number = 0
 # Detection
 detector_object = Detector()
 with detection_graph.as_default():
     with tf.Session(graph=detection_graph) as sess:
-        print(test_video_paths)
         break_out = False
         for video in test_video_paths:
             cap = cv2.VideoCapture(video)
@@ -115,7 +86,7 @@ with detection_graph.as_default():
                 if image_np is None:
                     end_of_video = True
                 else:
-                    if frame_number % 5 == 0:
+                    if frame_number % Config.FRAME_DELIMITER_FOR_TENSORFLOW == 0:
 
                         # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                         image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -158,11 +129,9 @@ with detection_graph.as_default():
                                 objects.append(object_dict)
 
                         if len(objects) > 0:
-                            timestamp = round(cap.get(cv2.CAP_PROP_POS_MSEC)/1000, 2)
+                            timestamp = round(cap.get(cv2.CAP_PROP_POS_MSEC) / 1000, 2)
                             detector_object.new_detection(video, timestamp, len(objects))
-                            cv2.imshow('object detection', cv2.resize(image_np, (1920, 1080)))
-
-
+                            # cv2.imshow('object detection', cv2.resize(image_np, (1920, 1080)))
 
                         if cv2.waitKey(25) & 0xFF == ord('q'):
                             cv2.destroyAllWindows()
@@ -170,4 +139,4 @@ with detection_graph.as_default():
                             break
             if break_out is True:
                 break
-detector_object.stringify_detection_events()
+detector_object.flush_remaining_detections()
