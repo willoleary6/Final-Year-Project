@@ -1,10 +1,11 @@
 import math
+from functools import partial
 
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtWidgets import QMainWindow, QStyle, QAction
-
+from PyQt5.QtWidgets import QMainWindow, QStyle, QAction, QWidget, QVBoxLayout
+from PyQt5 import QtCore, QtWidgets
 from Prototypes.GUIs.PyQT.Model.MainWindowModel import MainWindowModel
 from Prototypes.GUIs.PyQT.View.MainWindowView import MainWindowView
 
@@ -30,12 +31,38 @@ class MainWindowController(QMainWindow):
         self.__main_window_skip_forwards = self.__main_window_view.get_skip_forward_button()
         self.__main_window_time_into_video_counter = self.__main_window_view.get_time_into_video_counter()
         self.__main_window_time_left_counter = self.__main_window_view.get_time_left_counter()
+        self.__main_window_detection_list_scroll_area = self.__main_window_view.get_detection_event_scroll_area()
+        self.__main_window_detections_vertical_layout = self.__main_window_view.get_detection_vertical_layout()
 
         self.initialise_menu_bar_actions()
         self.connect_ui_elements_to_methods()
-
+        self.initialise_detections()
         # misc
         self.__video_duration = 0
+
+    def initialise_detections(self):
+        items = []
+        for x in range(50):
+            list_widget = QtWidgets.QListWidget(self.__main_window_detections_vertical_layout)
+            # self.list_widget.mousePressEvent = self.clicked_event
+            message = "test " + str(x)
+            list_widget_item = QtWidgets.QListWidgetItem(list_widget)
+            size = QtCore.QSize(10, 100)
+            list_widget_item.setSizeHint(size)
+
+            T = x * 15
+            list_widget_item.setText(str(T))
+            list_widget_item.setData(1, T)
+
+            list_widget.itemSelectionChanged.connect(partial(self.clicked_event, message, list_widget_item))
+            items.append(list_widget)
+        scroll_content = QWidget(self.__main_window_detection_list_scroll_area)
+
+        scroll_layout = QVBoxLayout(scroll_content)
+        scroll_content.setLayout(scroll_layout)
+        for item in items:
+            scroll_layout.addWidget(item)
+        self.__main_window_detection_list_scroll_area.setWidget(scroll_content)
 
     def connect_ui_elements_to_methods(self):
         self.__main_window_position_slider.sliderMoved.connect(self.setPosition)
@@ -70,6 +97,7 @@ class MainWindowController(QMainWindow):
 
     def file_menu_clicked(self):
         print('test')
+
     def open_file(self):
         file_path = self.__main_window_model.openFile()
         if file_path is not None:
@@ -142,3 +170,9 @@ class MainWindowController(QMainWindow):
     def handleError(self):
         self.__main_window_play_button.setEnabled(False)
         self.__main_window_error_label.setText("Error: " + self.__main_window_media_player.errorString())
+
+    def clicked_event(self, value, list_widget_item):
+
+        if list_widget_item.isSelected():
+            list_widget_item.setSelected(False)
+            print(value)

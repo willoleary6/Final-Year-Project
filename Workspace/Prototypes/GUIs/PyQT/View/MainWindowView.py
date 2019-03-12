@@ -69,45 +69,21 @@ class MainWindowView(object):
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(800, 40, 721, 861))
-        self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.detection_vertical_layout = QtWidgets.QWidget(self.centralwidget)
+        self.detection_vertical_layout.setGeometry(QtCore.QRect(800, 40, 721, 861))
+        self.detection_vertical_layout.setObjectName("detection_vertical_layout")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.detection_vertical_layout)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
 
+        self.detection_list_scrollable_area = QScrollArea()
+        self.horizontalLayout_3.addWidget(self.detection_list_scrollable_area)
+        self.detection_list_scrollable_area.setWidgetResizable(True)
 
-
-        #self.horizontalLayout_3.addLayout(self.verticalLayout_3)
-        items = []
-        for x in range(50):
-            self.listView = QtWidgets.QListWidget(self.verticalLayoutWidget_2)
-            #self.listView.mousePressEvent = self.clickedEvent
-            message = "test "+str(x)
-            self.listView.itemSelectionChanged.connect(partial(self.clickedEvent,message))
-            self.listViewItem = QtWidgets.QListWidgetItem(self.listView)
-            size = QtCore.QSize(10,100)
-            self.listViewItem.setSizeHint(size)
-
-
-            self.listViewItem.setText(message)
-
-            #self.listViewItem.currentItemChanged.connect(self.clickedEvent)
-            items.append(self.listView)
-
-        scroll = QScrollArea()
-        self.horizontalLayout_3.addWidget(scroll)
-        scroll.setWidgetResizable(True)
-        scrollContent = QWidget(scroll)
-
-        scrollLayout = QVBoxLayout(scrollContent)
-        scrollContent.setLayout(scrollLayout)
-        for item in items:
-            scrollLayout.addWidget(item)
-        scroll.setWidget(scrollContent)
-
+        scrollContent = QWidget(self.detection_list_scrollable_area)
+        self.detection_list_scrollable_area.setWidget(scrollContent)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.video_player_label = QtWidgets.QLabel(self.centralwidget)
         self.video_player_label.setGeometry(QtCore.QRect(250, 0, 201, 31))
@@ -140,7 +116,6 @@ class MainWindowView(object):
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred,
                                       QSizePolicy.Maximum)
         self.set_text_and_icons(main_window)
-
 
     def set_text_and_icons(self, main_window):
         _translate = QtCore.QCoreApplication.translate
@@ -184,8 +159,12 @@ class MainWindowView(object):
     def get_menu_bar(self):
         return self.menu_bar
 
-    def clickedEvent(self, value):
-        print(value)
+    def get_detection_event_scroll_area(self):
+        return self.detection_list_scrollable_area
+
+    def get_detection_vertical_layout(self):
+        return self.detection_vertical_layout
+
 
 if __name__ == "__main__":
     import sys
