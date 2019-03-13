@@ -3,7 +3,7 @@ import numpy as np
 import re
 import tensorflow as tf
 from Human_detector.detector.Detector import Detector
-from Human_detector.detector.config import Config
+from Human_detector.config import Config
 from distutils.version import StrictVersion
 
 # Here are the imports from the object detection module.

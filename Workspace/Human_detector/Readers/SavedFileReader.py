@@ -5,7 +5,7 @@ from os import walk
 import re
 import tensorflow as tf
 from Human_detector.detector.Detector import Detector
-from Human_detector.detector.config import Config
+from Human_detector.config import Config
 from distutils.version import StrictVersion
 
 # Here are the imports from the object detection module.
@@ -16,7 +16,7 @@ from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
 # get all the files in the test_images directory
-path_to_videos = 'test_videos'
+path_to_videos = 'C:\\SourceCode\\Final-Year-Project\\Workspace\\Human_detector\\test_videos'
 files_in_directory = []
 for (directory_path, directory_names, file_names) in walk(path_to_videos):
     files_in_directory.extend(file_names)

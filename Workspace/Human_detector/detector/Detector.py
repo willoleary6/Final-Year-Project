@@ -1,5 +1,5 @@
-from Human_detector.detector.CsvWriter import CsvWriter
-from Human_detector.detector.config import Config
+from Human_detector.CsvWriter.CsvWriter import CsvWriter
+from Human_detector.config import Config
 from Human_detector.detector.DetectionEvent import DetectionEvent
 
 
@@ -24,7 +24,8 @@ class Detector:
             self.generate_new_event(filename, timestamp, number_of_objects)
 
     def generate_new_event(self, filename, timestamp, number_of_objects):
-        new_detection = DetectionEvent(filename, timestamp, number_of_objects)
+        new_detection = DetectionEvent(filename, timestamp, timestamp + Config.SECONDS_ADDED_TO_EVENT_TIMESTAMP,
+                                       number_of_objects, number_of_objects)
         self.__detections.append(new_detection)
 
     def write_to_csv(self):

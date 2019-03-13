@@ -1,17 +1,12 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'C:\SourceCode\Final-Year-Project\Workspace\Prototypes\GUIs\UserInterface\View\basicGUI.ui'
-#
-# Created by: PyQt5 UI code generator 5.11.3
-#
-# WARNING! All changes made in this file will be lost!
+from functools import partial
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy, QScrollArea, QWidget, QVBoxLayout
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 
-class Ui_MainWindow(object):
+
+class MainWindowView(object):
     def __init__(self, main_window):
         main_window.setObjectName("main_window")
         main_window.resize(1680, 1050)
@@ -74,36 +69,21 @@ class Ui_MainWindow(object):
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem3)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.verticalLayoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(800, 40, 721, 861))
-        self.verticalLayoutWidget_2.setObjectName("detection_vertical_layout")
-        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.detection_vertical_layout = QtWidgets.QWidget(self.centralwidget)
+        self.detection_vertical_layout.setGeometry(QtCore.QRect(800, 40, 721, 861))
+        self.detection_vertical_layout.setObjectName("detection_vertical_layout")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.detection_vertical_layout)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.listView = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView.setObjectName("listView")
-        self.verticalLayout_3.addWidget(self.listView)
-        self.listView_2 = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView_2.setObjectName("listView_2")
-        self.verticalLayout_3.addWidget(self.listView_2)
-        self.listView_3 = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView_3.setObjectName("listView_3")
-        self.verticalLayout_3.addWidget(self.listView_3)
-        self.listView_4 = QtWidgets.QListView(self.verticalLayoutWidget_2)
-        self.listView_4.setObjectName("listView_4")
-        self.verticalLayout_3.addWidget(self.listView_4)
-        self.listWidget = QtWidgets.QListWidget(self.verticalLayoutWidget_2)
-        self.listWidget.setObjectName("listWidget")
-        self.verticalLayout_3.addWidget(self.listWidget)
-        self.horizontalLayout_3.addLayout(self.verticalLayout_3)
-        self.verticalScrollBar = QtWidgets.QScrollBar(self.verticalLayoutWidget_2)
-        self.verticalScrollBar.setOrientation(QtCore.Qt.Vertical)
-        self.verticalScrollBar.setObjectName("verticalScrollBar")
-        self.horizontalLayout_3.addWidget(self.verticalScrollBar)
+
+        self.detection_list_scrollable_area = QScrollArea()
+        self.horizontalLayout_3.addWidget(self.detection_list_scrollable_area)
+        self.detection_list_scrollable_area.setWidgetResizable(True)
+
+        scrollContent = QWidget(self.detection_list_scrollable_area)
+        self.detection_list_scrollable_area.setWidget(scrollContent)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
         self.video_player_label = QtWidgets.QLabel(self.centralwidget)
         self.video_player_label.setGeometry(QtCore.QRect(250, 0, 201, 31))
@@ -120,22 +100,22 @@ class Ui_MainWindow(object):
         self.detection_label.setAlignment(QtCore.Qt.AlignCenter)
         self.detection_label.setObjectName("detection_label")
         main_window.setCentralWidget(self.centralwidget)
-        self.menu_bar = QtWidgets.QMenuBar(main_window)
+        self.menu_bar = QtWidgets.QMenuBar()
         self.menu_bar.setGeometry(QtCore.QRect(0, 0, 1680, 18))
         self.menu_bar.setObjectName("menu_bar")
+
         main_window.setMenuBar(self.menu_bar)
+
         self.status_bar = QtWidgets.QStatusBar(main_window)
         self.status_bar.setObjectName("status_bar")
         main_window.setStatusBar(self.status_bar)
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        self.mediaPlayer.setVideoOutput(self.video_player_widget)
 
         self.errorLabel = QLabel()
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred,
                                       QSizePolicy.Maximum)
         self.set_text_and_icons(main_window)
-        QtCore.QMetaObject.connectSlotsByName(main_window)
 
     def set_text_and_icons(self, main_window):
         _translate = QtCore.QCoreApplication.translate
@@ -170,15 +150,20 @@ class Ui_MainWindow(object):
     def get_error_label(self):
         return self.errorLabel
 
-    def time_left_counter(self):
+    def get_time_left_counter(self):
         return self.time_left_counter
 
-    def time_into_video_counter(self):
+    def get_time_into_video_counter(self):
         return self.time_into_video_counter
 
     def get_menu_bar(self):
         return self.menu_bar
 
+    def get_detection_event_scroll_area(self):
+        return self.detection_list_scrollable_area
+
+    def get_detection_vertical_layout(self):
+        return self.detection_vertical_layout
 
 
 if __name__ == "__main__":
@@ -186,6 +171,6 @@ if __name__ == "__main__":
 
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow(MainWindow)
+    ui = MainWindowView(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
