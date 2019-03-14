@@ -12,7 +12,7 @@ class MainWindowView(object):
         main_window.resize(1680, 1050)
         main_window.setMinimumSize(QtCore.QSize(1680, 1050))
         self.centralwidget = QtWidgets.QWidget(main_window)
-        self.centralwidget.setObjectName("centralwidget")
+        self.centralwidget.setObjectName("central_widget")
 
         self.video_player_widget = QVideoWidget(self.centralwidget)
         self.video_player_widget.setGeometry(QtCore.QRect(20, 40, 671, 531))

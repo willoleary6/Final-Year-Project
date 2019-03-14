@@ -4,22 +4,25 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy, QScrollArea, QWidget, QVBoxLayout
 from PyQt5.QtMultimediaWidgets import QVideoWidget
+from Human_detector.config import Config
 
 
 class MainWindowView(object):
     def __init__(self, main_window):
-        main_window.setObjectName("main_window")
-        main_window.resize(1680, 1050)
-        main_window.setMinimumSize(QtCore.QSize(1680, 1050))
-        self.centralwidget = QtWidgets.QWidget(main_window)
-        self.centralwidget.setObjectName("centralwidget")
+        self.__main_window = main_window
+        self.__main_window.setObjectName("main_window")
 
-        self.video_player_widget = QVideoWidget(self.centralwidget)
-        self.video_player_widget.setGeometry(QtCore.QRect(20, 40, 671, 531))
+        self.__main_window.resize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH)
+        self.__main_window.setMinimumSize(QtCore.QSize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH))
+        self.central_widget = QtWidgets.QWidget(self.__main_window)
+        self.central_widget.setObjectName("central_widget")
+
+        self.video_player_widget = QVideoWidget(self.central_widget)
+        
         self.video_player_widget.setObjectName("video_player_widget")
 
-        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 580, 671, 111))
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.central_widget)
+        
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -45,32 +48,54 @@ class MainWindowView(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
+        self.spacer_item = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+        self.horizontalLayout.addItem(self.spacer_item)
 
         self.skip_to_start_of_video_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.skip_to_start_of_video_button.setObjectName("skip_to_start_of_video_button")
 
         self.horizontalLayout.addWidget(self.skip_to_start_of_video_button)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem1)
+        self.spacer_item_1 = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+
+        self.horizontalLayout.addItem(self.spacer_item_1)
 
         self.play_video_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.play_video_button.setObjectName("play_video_button")
 
         self.horizontalLayout.addWidget(self.play_video_button)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem2)
+        self.spacer_item_2 = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+
+        self.horizontalLayout.addItem(self.spacer_item_2)
 
         self.skip_to_end_of_video_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.skip_to_end_of_video_button.setObjectName("skip_to_end_of_video_button")
 
         self.horizontalLayout.addWidget(self.skip_to_end_of_video_button)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem3)
+        self.spacer_item_3 = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+        self.horizontalLayout.addItem(self.spacer_item_3)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.detection_vertical_layout = QtWidgets.QWidget(self.centralwidget)
-        self.detection_vertical_layout.setGeometry(QtCore.QRect(800, 40, 721, 861))
+        self.detection_vertical_layout = QtWidgets.QWidget(self.central_widget)
+
         self.detection_vertical_layout.setObjectName("detection_vertical_layout")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.detection_vertical_layout)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -82,40 +107,83 @@ class MainWindowView(object):
         self.horizontalLayout_3.addWidget(self.detection_list_scrollable_area)
         self.detection_list_scrollable_area.setWidgetResizable(True)
 
-        scrollContent = QWidget(self.detection_list_scrollable_area)
-        self.detection_list_scrollable_area.setWidget(scrollContent)
+        scroll_content = QWidget(self.detection_list_scrollable_area)
+        self.detection_list_scrollable_area.setWidget(scroll_content)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
-        self.video_player_label = QtWidgets.QLabel(self.centralwidget)
-        self.video_player_label.setGeometry(QtCore.QRect(250, 0, 201, 31))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.video_player_label.setFont(font)
-        self.video_player_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.video_player_label.setObjectName("video_player_label")
-        self.detection_label = QtWidgets.QLabel(self.centralwidget)
-        self.detection_label.setGeometry(QtCore.QRect(1060, 0, 201, 31))
-        font = QtGui.QFont()
-        font.setPointSize(18)
-        self.detection_label.setFont(font)
-        self.detection_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.detection_label.setObjectName("detection_label")
-        main_window.setCentralWidget(self.centralwidget)
+
+        self.__main_window.setCentralWidget(self.central_widget)
         self.menu_bar = QtWidgets.QMenuBar()
-        self.menu_bar.setGeometry(QtCore.QRect(0, 0, 1680, 18))
+
         self.menu_bar.setObjectName("menu_bar")
+        self.__main_window.setMenuBar(self.menu_bar)
 
-        main_window.setMenuBar(self.menu_bar)
-
-        self.status_bar = QtWidgets.QStatusBar(main_window)
+        self.status_bar = QtWidgets.QStatusBar(self.__main_window)
         self.status_bar.setObjectName("status_bar")
-        main_window.setStatusBar(self.status_bar)
+        self.__main_window.setStatusBar(self.status_bar)
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
 
         self.errorLabel = QLabel()
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred,
                                       QSizePolicy.Maximum)
-        self.set_text_and_icons(main_window)
+        self.set_text_and_icons(self.__main_window)
+        self.update_geometry()
+    def update_geometry(self):
+        self.video_player_widget.setGeometry(
+            QtCore.QRect(
+                self.__percentage_of_width(1.5),  # margin - left
+                self.__percentage_of_height(5),  # margin - top
+                self.__percentage_of_width(50),  # width
+                self.__percentage_of_height(50)  # height
+            )
+        )
+        
+        self.verticalLayoutWidget.setGeometry(
+            QtCore.QRect(
+                self.__percentage_of_width(1.5),  # margin - left
+                self.__percentage_of_height(52),  # margin - top
+                self.__percentage_of_width(50),  # width
+                self.__percentage_of_height(10)  # height
+            )
+        )
+        self.spacer_item = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+        self.spacer_item_1 = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+        self.spacer_item_2 = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+        self.spacer_item_3 = QtWidgets.QSpacerItem(
+            self.__percentage_of_width(1.5),  # margin - left
+            self.__percentage_of_height(5),  # margin - top
+            QtWidgets.QSizePolicy.Expanding,
+            QtWidgets.QSizePolicy.Minimum
+        )
+        self.detection_vertical_layout.setGeometry(
+            QtCore.QRect(
+                self.__percentage_of_width(55),  # margin - left
+                self.__percentage_of_height(5),  # margin - top
+                self.__percentage_of_width(40),  # width
+                self.__percentage_of_height(80)  # height
+            )
+        )
+        
+    def __percentage_of_height(self, percentage):
+        return (percentage / 100) * self.__main_window.geometry().height()
+
+    def __percentage_of_width(self, percentage):
+        return (percentage / 100) * self.__main_window.geometry().width()
 
     def set_text_and_icons(self, main_window):
         _translate = QtCore.QCoreApplication.translate
@@ -125,9 +193,6 @@ class MainWindowView(object):
         self.skip_to_start_of_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaSkipBackward))
         self.play_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaPlay))
         self.skip_to_end_of_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaSkipForward))
-
-        self.video_player_label.setText(_translate("main_window", "Video Player"))
-        self.detection_label.setText(_translate("main_window", "Detections"))
 
     def get_video_widget(self):
         return self.video_player_widget
@@ -166,11 +231,3 @@ class MainWindowView(object):
         return self.detection_vertical_layout
 
 
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = MainWindowView(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

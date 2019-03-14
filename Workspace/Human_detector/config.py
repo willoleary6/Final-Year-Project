@@ -8,3 +8,5 @@ class Config:
     CAMERA_PASSWORD = 'password1'
     DETECTION_CSV_COLUMNS = ['detection_id', 'video_file_path', 'start_timestamp', 'end_timestamp',
                              'minimum_detections', 'maximum_detections']
+    WINDOW_WIDTH = 1080
+    WINDOW_HEIGHT = 1920

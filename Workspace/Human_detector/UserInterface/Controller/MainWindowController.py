@@ -37,6 +37,7 @@ class MainWindowController(QMainWindow, ViewController):
         super(MainWindowController, self).__init__(parent)
         self.__coordinator = coordinator
         # Window objects
+
         self.__main_window = main_window
         self.__main_window_view = MainWindowView(self.__main_window)
         self.__main_window_model = MainWindowModel()
@@ -80,30 +81,6 @@ class MainWindowController(QMainWindow, ViewController):
         for item in items:
             scroll_layout.addWidget(item)
         self.__main_window_detection_list_scroll_area.setWidget(scroll_content)
-        '''
-        items = []
-        for x in range(50):
-            list_widget = QtWidgets.QListWidget(self.__main_window_detections_vertical_layout)
-            # self.list_widget.mousePressEvent = self.clicked_event
-            message = "test " + str(x)
-            list_widget_item = QtWidgets.QListWidgetItem(list_widget)
-            size = QtCore.QSize(10, 100)
-            list_widget_item.setSizeHint(size)
-
-            T = x * 15
-            list_widget_item.setText(str(T))
-            list_widget_item.setData(1, T)
-
-            list_widget.itemSelectionChanged.connect(partial(self.clicked_event, message, list_widget_item))
-            items.append(list_widget)
-        scroll_content = QWidget(self.__main_window_detection_list_scroll_area)
-
-        scroll_layout = QVBoxLayout(scroll_content)
-        scroll_content.setLayout(scroll_layout)
-        for item in items:
-            scroll_layout.addWidget(item)
-        self.__main_window_detection_list_scroll_area.setWidget(scroll_content)
-        '''
 
     def connect_ui_elements_to_methods(self):
         self.__main_window_position_slider.sliderMoved.connect(self.setPosition)
@@ -118,19 +95,17 @@ class MainWindowController(QMainWindow, ViewController):
 
     def initialise_view(self):
         self.__main_window.show()
-        self.__main_window_media_player.setMedia(
-            QMediaContent(QUrl.fromLocalFile('D:\\Crystalline growth\\video files\\FFA3.mp4')))
 
-        self.__main_window_play_button.setEnabled(True)
-        self.play()
 
     def change_video_playing(self, video_file_path, position):
+        self.__main_window_view.update_geometry()
         self.__main_window_media_player.setMedia(
             QMediaContent(QUrl.fromLocalFile(video_file_path)))
 
         self.__main_window_play_button.setEnabled(True)
-        self.play()
         self.setPosition(position)
+        self.play()
+
 
     def initialise_menu_bar_actions(self):
         # Create new action
@@ -206,7 +181,6 @@ class MainWindowController(QMainWindow, ViewController):
                 self.style().standardIcon(QStyle.SP_MediaPlay))
 
     def positionChanged(self, position):
-        print(position)
         self.update_time_into_video_counter(position)
         self.update_time_left_counter(position)
         self.__main_window_position_slider.setValue(position)
@@ -225,10 +199,7 @@ class MainWindowController(QMainWindow, ViewController):
     def clicked_event(self, detection_event, list_widget_item):
         if list_widget_item.isSelected():
             list_widget_item.setSelected(False)
-            self.change_video_playing(detection_event.get_file_path(),float(detection_event.get_start_timestamp()))
-            #self.setPosition(float(detection_event.get_start_timestamp()))
-            #print(float(detection_event.get_start_timestamp()))
-
+            self.change_video_playing(detection_event.get_file_path(),float(detection_event.get_start_timestamp())*1000)
 
     def show(self):
         self.__main_window.show()

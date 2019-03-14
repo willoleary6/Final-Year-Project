@@ -2,29 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a37faa7d-0727-4b46-8985-1c4fccf29ba1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/Controller/MainWindowController.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/Controller/viewController.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/MainWindowCoordinator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/baseCoordinator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/Model/MainWindowModel.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/misc/basicGUI.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/misc/basicGUI.ui" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Human_detector/UserInterface/runner_main_window.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Human_detector/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/CsvWriter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/CsvWriter/CsvWriter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/DetectionEvent.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/detector/DetectionEvent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/Detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/detector/Detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/LiveStreamReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/Readers/LiveStreamReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/SavedFileReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/Readers/SavedFileReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/csv_files/C2ImportFamRelSample.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/csv_files/detections.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/runner.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/test_videos/VID_20190303_200842.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/test_videos/VID_20190303_200842.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/test_videos/VID_20190303_200909.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/test_videos/VID_20190303_200909.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/test_videos/VID_20190303_200932.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/test_videos/VID_20190303_200932.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Human_detector/detector/test_videos/VID_20190303_200957.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/test_videos/VID_20190303_200957.mp4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Human_detector/UserInterface/Controller/MainWindowController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/UserInterface/Controller/MainWindowController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Human_detector/UserInterface/misc/basicGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/UserInterface/misc/basicGUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Human_detector/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Human_detector/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/MainWindowView.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/MainWindowView.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/basicGUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/basicGUI.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,56 +21,14 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Controller/viewController.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="20" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Human_detector/Readers/SavedFileReader.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="132" column="43" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Human_detector/Readers/LiveStreamReader.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="801">
-              <caret line="102" column="44" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Human_detector/CsvWriter/CsvWriter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-            </state>
-          </provider>
           <provider editor-type-id="csv-table-editor">
             <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+          </provider>
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="510">
+              <caret line="30" column="127" selection-start-line="30" selection-start-column="127" selection-end-line="30" selection-end-column="127" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -93,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/Human_detector/detector/Detector.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="697">
-              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
@@ -101,11 +44,53 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Controller/MainWindowController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="208" column="22" selection-start-line="208" selection-start-column="22" selection-end-line="208" selection-end-column="22" />
+            <state relative-caret-position="336">
+              <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="182" column="65" selection-start-line="182" selection-start-column="36" selection-end-line="182" selection-end-column="65" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Human_detector/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/runner_main_window.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="25" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="25" />
+              <folding>
+                <element signature="e#1#43#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Human_detector/config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -122,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/MainWindowCoordinator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="72" selection-start-line="8" selection-start-column="72" selection-end-line="8" selection-end-column="72" />
+            <state relative-caret-position="187">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -134,7 +119,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Human_detector/detector/DetectionEvent.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
+            <state relative-caret-position="442">
               <caret line="28" column="27" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="27" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -163,9 +148,12 @@
       <find>coun</find>
       <find>__video_window_position_slider</find>
       <find>'</find>
+      <find>resizeEvent</find>
+      <find>spacer_item</find>
     </findStrings>
     <replaceStrings>
       <replace>__main_window_position_slider</replace>
+      <replace>self.spacer_item</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -174,8 +162,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/test2.py" />
-        <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/view.py" />
         <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/controller.py" />
         <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/main.py" />
         <option value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/videoPlayer.py" />
@@ -217,13 +203,15 @@
         <option value="$PROJECT_DIR$/Human_detector/detector/config.py" />
         <option value="$PROJECT_DIR$/Human_detector/Readers/SavedFileReader.py" />
         <option value="$PROJECT_DIR$/Human_detector/CsvWriter/CsvWriter.py" />
-        <option value="$PROJECT_DIR$/Human_detector/config.py" />
         <option value="$PROJECT_DIR$/Human_detector/UserInterface/runner_main_window.py" />
         <option value="$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/baseCoordinator.py" />
         <option value="$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/MainWindowCoordinator.py" />
         <option value="$PROJECT_DIR$/Human_detector/detector/Detector.py" />
-        <option value="$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv" />
         <option value="$PROJECT_DIR$/Human_detector/detector/DetectionEvent.py" />
+        <option value="$PROJECT_DIR$/Human_detector/test.py" />
+        <option value="$PROJECT_DIR$/Human_detector/config.py" />
+        <option value="$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv" />
+        <option value="$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py" />
         <option value="$PROJECT_DIR$/Human_detector/UserInterface/Controller/MainWindowController.py" />
       </list>
     </option>
@@ -239,6 +227,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,24 +245,6 @@
               <item name="Workspace" type="462c0819:PsiDirectoryNode" />
               <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
               <item name="CsvFiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
-              <item name="CsvWriter" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
-              <item name="detector" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
-              <item name="Readers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Workspace" type="b2602c69:ProjectViewProjectNode" />
@@ -300,27 +271,12 @@
               <item name="Workspace" type="462c0819:PsiDirectoryNode" />
               <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
               <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
-              <item name="misc" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
-              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Workspace" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Workspace" type="462c0819:PsiDirectoryNode" />
-              <item name="Human_detector" type="462c0819:PsiDirectoryNode" />
-              <item name="UserInterface" type="462c0819:PsiDirectoryNode" />
               <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -357,27 +313,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.runner_main_window (1)">
-    <configuration name="MainWindowView" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Workspace" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prototypes/GUIs/PyQT/View/MainWindowView.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="SavedFileReader (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Workspace" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -462,13 +397,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Workspace" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Human_detector" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Human_detector/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.runner_main_window (1)" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.SavedFileReader (1)" />
         <item itemvalue="Python.SavedFileReader" />
         <item itemvalue="Python.runner_main_window" />
-        <item itemvalue="Python.MainWindowView" />
       </list>
     </recent_temporary>
   </component>
@@ -509,7 +465,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Prototypes/GUIs/PyQT/Controller/controller.py" />
     <entry file="file://$PROJECT_DIR$/Prototypes/GUIs/PyQT/Controller/baseController.py" />
     <entry file="file://$PROJECT_DIR$/Utilities/InstallAndSetupTensorflowObjectAPI/install_and_setup_tensorflow_object_api_windows.bat">
       <provider selected="true" editor-type-id="text-editor">
@@ -604,13 +559,7 @@
     <entry file="file://$PROJECT_DIR$/Prototypes/TensorFlowObjectDetectionFingerPrototype/tensorflow training commands.sh">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/CsvFiles/C2ImportFamRelSample.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/CsvFiles/C2ImportFamRelSample.csv" />
     <entry file="file://$PROJECT_DIR$/Utilities/xml_to_csv/xml_to_csv.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -686,55 +635,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/main.py" />
     <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/misc/basicGUI.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/detector/runner.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/detector/runner.py" />
     <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Model/MainWindowModel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/runner_main_window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="25" />
-          <folding>
-            <element signature="e#1#43#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -745,27 +654,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/baseCoordinator.py">
+    <entry file="file://$PROJECT_DIR$/Human_detector/Readers/SavedFileReader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/MainWindowCoordinator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="72" selection-start-line="8" selection-start-column="72" selection-end-line="8" selection-end-column="72" />
+        <state relative-caret-position="1989">
+          <caret line="132" column="43" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="43" />
           <folding>
-            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/Readers/SavedFileReader.py">
+    <entry file="file://$PROJECT_DIR$/Human_detector/Readers/LiveStreamReader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="132" column="43" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="43" />
+        <state relative-caret-position="1513">
+          <caret line="102" column="44" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -782,16 +684,62 @@
     <entry file="file://$PROJECT_DIR$/Human_detector/detector/Detector.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
-          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/detector/DetectionEvent.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="28" column="27" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/baseCoordinator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="34" selection-start-line="8" selection-start-column="34" selection-end-line="8" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Coordinator/MainWindowCoordinator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/runner_main_window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="25" />
+          <folding>
+            <element signature="e#1#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Human_detector/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Human_detector/CsvFiles/detections.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="37" lean-forward="true" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
@@ -800,31 +748,26 @@
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/Readers/LiveStreamReader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="801">
-          <caret line="102" column="44" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="127" selection-start-line="30" selection-start-column="127" selection-end-line="30" selection-end-column="127" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Human_detector/detector/DetectionEvent.py">
+    <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/View/MainWindowView.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="28" column="27" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="27" />
+        <state relative-caret-position="340">
+          <caret line="182" column="65" selection-start-line="182" selection-start-column="36" selection-end-line="182" selection-end-column="65" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Human_detector/UserInterface/Controller/MainWindowController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="208" column="22" selection-start-line="208" selection-start-column="22" selection-end-line="208" selection-end-column="22" />
+        <state relative-caret-position="336">
+          <caret line="100" column="44" selection-start-line="100" selection-start-column="44" selection-end-line="100" selection-end-column="44" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
