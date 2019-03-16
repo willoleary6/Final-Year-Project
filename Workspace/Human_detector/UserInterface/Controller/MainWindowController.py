@@ -1,6 +1,6 @@
 import math
 from functools import partial
-
+import subprocess
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -33,13 +33,12 @@ def get_detections_from_csv_file():
 
 
 class MainWindowController(QMainWindow, ViewController):
-    def __init__(self, coordinator, main_window, parent=None):
+    def __init__(self, coordinator, parent=None):
         super(MainWindowController, self).__init__(parent)
         self.__coordinator = coordinator
         # Window objects
-
-        self.__main_window = main_window
-        self.__main_window_view = MainWindowView(self.__main_window)
+        self.__main_window_view = MainWindowView()
+        self.__main_window = self.__main_window_view
         self.__main_window_model = MainWindowModel()
 
         # set each of the ui elemements
@@ -59,9 +58,11 @@ class MainWindowController(QMainWindow, ViewController):
 
         self.initialise_menu_bar_actions()
         self.connect_ui_elements_to_methods()
-        self.initialise_detections()
+
         # misc
         self.__video_duration = 0
+        self.__current_selected_video_path = None
+        self.initialise_detections()
 
     def initialise_detections(self):
         array_of_detection_events = get_detections_from_csv_file()
@@ -81,6 +82,11 @@ class MainWindowController(QMainWindow, ViewController):
         for item in items:
             scroll_layout.addWidget(item)
         self.__main_window_detection_list_scroll_area.setWidget(scroll_content)
+        first_detection = array_of_detection_events[0]
+        self.change_video_playing(first_detection.get_file_path(), float(first_detection.get_start_timestamp()) * 1000)
+
+    def initialise_view(self):
+        self.__main_window.show()
 
     def connect_ui_elements_to_methods(self):
         self.__main_window_position_slider.sliderMoved.connect(self.setPosition)
@@ -93,35 +99,38 @@ class MainWindowController(QMainWindow, ViewController):
         self.__main_window_media_player.durationChanged.connect(self.durationChanged)
         self.__main_window_media_player.error.connect(self.handleError)
 
-    def initialise_view(self):
-        self.__main_window.show()
-
-
     def change_video_playing(self, video_file_path, position):
-        self.__main_window_view.update_geometry()
+        self.__current_selected_video_path = video_file_path
         self.__main_window_media_player.setMedia(
             QMediaContent(QUrl.fromLocalFile(video_file_path)))
 
         self.__main_window_play_button.setEnabled(True)
         self.setPosition(position)
-        self.play()
-
 
     def initialise_menu_bar_actions(self):
-        # Create new action
-        open_action = QAction(QIcon('open.png'), '&Open', self.__main_window)
-        open_action.setShortcut('Ctrl+O')
-        open_action.setStatusTip('Open movie')
-        open_action.triggered.connect(self.open_file)
-
-        # Create menu bar and add action
-        print(self.__main_window_menu_bar.children())
-        file_menu = self.__main_window_menu_bar.addMenu('&File')
+        self.__main_window_menu_bar = QtWidgets.QMenuBar(self.__main_window)
+        self.__main_window_menu_bar.setGeometry(QtCore.QRect(0, 0, 800, 18))
+        self.__main_window_menu_bar.setObjectName("menubar")
+        menu_file = QtWidgets.QMenu(self.__main_window_menu_bar)
+        menu_file.setObjectName("menu_file")
+        self.__main_window.setMenuBar(self.__main_window_menu_bar)
+        status_bar = QtWidgets.QStatusBar(self.__main_window)
+        status_bar.setObjectName("status_bar")
+        self.__main_window.setStatusBar(status_bar)
+        open_action = QtWidgets.QAction(self.__main_window)
+        open_action.setObjectName("open_action")
+        menu_file.addAction(open_action)
+        self.__main_window_menu_bar.addAction(menu_file.menuAction())
+        self.__main_window_menu_bar.show()
+        file_menu = self.__main_window_menu_bar.addMenu('&Tools')
         file_menu.addAction(open_action)
-        print(self.__main_window_menu_bar.children())
+        _translate = QtCore.QCoreApplication.translate
+        open_action.setText(_translate("MainWindow", "Open Current Video in Explorer"))
+        open_action.triggered.connect(self.file_menu_clicked)
 
     def file_menu_clicked(self):
-        print('test')
+        if self.__current_selected_video_path is not None:
+            subprocess.Popen(r'explorer /select,"'+self.__current_selected_video_path+'"')
 
     def open_file(self):
         file_path = self.__main_window_model.openFile()
@@ -199,7 +208,9 @@ class MainWindowController(QMainWindow, ViewController):
     def clicked_event(self, detection_event, list_widget_item):
         if list_widget_item.isSelected():
             list_widget_item.setSelected(False)
-            self.change_video_playing(detection_event.get_file_path(),float(detection_event.get_start_timestamp())*1000)
+            self.change_video_playing(detection_event.get_file_path(),
+                                      float(detection_event.get_start_timestamp()) * 1000)
+            self.play()
 
     def show(self):
         self.__main_window.show()

@@ -5,7 +5,6 @@ from Human_detector.UserInterface.Coordinator.baseCoordinator import BaseCoordin
 
 class MainWindowCoordinator(BaseCoordinator):
     def go_to_main_window(self):
-        main_window = QtWidgets.QMainWindow()
-        main_window_controller = MainWindowController(self, main_window)
+        main_window_controller = MainWindowController(self)
         self.set_view_controller(main_window_controller)
 

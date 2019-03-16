@@ -7,7 +7,7 @@ class BaseCoordinator:
 
     def set_view_controller(self, controller):
         if controller is not None:
-            controller.initialise_view()
+            controller.initialise_media_player()
 
         if self.__currentViewController is not None:
             self.__currentViewController.hide()

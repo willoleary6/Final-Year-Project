@@ -1,28 +1,29 @@
-from functools import partial
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy, QScrollArea, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy, QScrollArea, QWidget, QMainWindow
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from Human_detector.config import Config
 
 
-class MainWindowView(object):
-    def __init__(self, main_window):
-        self.__main_window = main_window
-        self.__main_window.setObjectName("main_window")
+class MainWindowView(QMainWindow):
+    def __init__(self):
+        super(QMainWindow, self).__init__(parent=None)
+        self.setupUi()
 
-        self.__main_window.resize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH)
-        self.__main_window.setMinimumSize(QtCore.QSize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH))
-        self.central_widget = QtWidgets.QWidget(self.__main_window)
+    def setupUi(self, window_height=Config.WINDOW_HEIGHT, window_width=Config.WINDOW_WIDTH):
+        self.setObjectName("main_window")
+
+        self.resize(window_height, window_width)
+        self.setMinimumSize(QtCore.QSize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH))
+        self.central_widget = QtWidgets.QWidget(self)
         self.central_widget.setObjectName("central_widget")
 
         self.video_player_widget = QVideoWidget(self.central_widget)
-        
+
         self.video_player_widget.setObjectName("video_player_widget")
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self.central_widget)
-        
+
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -111,23 +112,24 @@ class MainWindowView(object):
         self.detection_list_scrollable_area.setWidget(scroll_content)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
 
-        self.__main_window.setCentralWidget(self.central_widget)
+        self.setCentralWidget(self.central_widget)
         self.menu_bar = QtWidgets.QMenuBar()
 
         self.menu_bar.setObjectName("menu_bar")
-        self.__main_window.setMenuBar(self.menu_bar)
+        self.setMenuBar(self.menu_bar)
 
-        self.status_bar = QtWidgets.QStatusBar(self.__main_window)
+        self.status_bar = QtWidgets.QStatusBar(self)
         self.status_bar.setObjectName("status_bar")
-        self.__main_window.setStatusBar(self.status_bar)
+        self.setStatusBar(self.status_bar)
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
 
         self.errorLabel = QLabel()
         self.errorLabel.setSizePolicy(QSizePolicy.Preferred,
                                       QSizePolicy.Maximum)
-        self.set_text_and_icons(self.__main_window)
+        self.set_text_and_icons(self)
         self.update_geometry()
+
     def update_geometry(self):
         self.video_player_widget.setGeometry(
             QtCore.QRect(
@@ -137,7 +139,6 @@ class MainWindowView(object):
                 self.__percentage_of_height(50)  # height
             )
         )
-        
         self.verticalLayoutWidget.setGeometry(
             QtCore.QRect(
                 self.__percentage_of_width(1.5),  # margin - left
@@ -146,6 +147,7 @@ class MainWindowView(object):
                 self.__percentage_of_height(10)  # height
             )
         )
+
         self.spacer_item = QtWidgets.QSpacerItem(
             self.__percentage_of_width(1.5),  # margin - left
             self.__percentage_of_height(5),  # margin - top
@@ -178,12 +180,16 @@ class MainWindowView(object):
                 self.__percentage_of_height(80)  # height
             )
         )
-        
+
     def __percentage_of_height(self, percentage):
-        return (percentage / 100) * self.__main_window.geometry().height()
+        return (percentage / 100) * self.geometry().height()
+
+    def resizeEvent(self, event):
+        self.update_geometry()  # call your update method
+        QtWidgets.QMainWindow.resizeEvent(self, event)
 
     def __percentage_of_width(self, percentage):
-        return (percentage / 100) * self.__main_window.geometry().width()
+        return (percentage / 100) * self.geometry().width()
 
     def set_text_and_icons(self, main_window):
         _translate = QtCore.QCoreApplication.translate
@@ -229,5 +235,6 @@ class MainWindowView(object):
 
     def get_detection_vertical_layout(self):
         return self.detection_vertical_layout
+
 
 
