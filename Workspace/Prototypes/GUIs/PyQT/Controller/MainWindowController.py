@@ -44,7 +44,7 @@ class MainWindowController(QMainWindow):
         items = []
         for x in range(50):
             list_widget = QtWidgets.QListWidget(self.__main_window_detections_vertical_layout)
-            # self.list_widget.mousePressEvent = self.clicked_event
+            # self.list_widget.mousePressEvent = self.detection_selected
             message = "test " + str(x)
             list_widget_item = QtWidgets.QListWidgetItem(list_widget)
             size = QtCore.QSize(10, 100)

@@ -1,16 +1,13 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtWidgets import QStyle, QLabel, QSizePolicy, QScrollArea, QWidget, QMainWindow
+from PyQt5.QtWidgets import QStyle, QScrollArea, QWidget, QMainWindow
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from Human_detector.config import Config
 
 
-class MainWindowView(QMainWindow):
-    def __init__(self):
+class DetectionReviewerWindowView(QMainWindow):
+    def __init__(self, window_height=Config.WINDOW_HEIGHT, window_width=Config.WINDOW_WIDTH):
         super(QMainWindow, self).__init__(parent=None)
-        self.setupUi()
-
-    def setupUi(self, window_height=Config.WINDOW_HEIGHT, window_width=Config.WINDOW_WIDTH):
         self.setObjectName("main_window")
 
         self.resize(window_height, window_width)
@@ -124,9 +121,6 @@ class MainWindowView(QMainWindow):
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
 
-        self.errorLabel = QLabel()
-        self.errorLabel.setSizePolicy(QSizePolicy.Preferred,
-                                      QSizePolicy.Maximum)
         self.set_text_and_icons(self)
         self.update_geometry()
 
@@ -218,9 +212,6 @@ class MainWindowView(QMainWindow):
     def get_position_slider(self):
         return self.video_position_slider
 
-    def get_error_label(self):
-        return self.errorLabel
-
     def get_time_left_counter(self):
         return self.time_left_counter
 
@@ -235,6 +226,3 @@ class MainWindowView(QMainWindow):
 
     def get_detection_vertical_layout(self):
         return self.detection_vertical_layout
-
-
-

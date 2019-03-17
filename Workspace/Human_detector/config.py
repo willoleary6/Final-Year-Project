@@ -10,3 +10,8 @@ class Config:
                              'minimum_detections', 'maximum_detections']
     WINDOW_WIDTH = 1080
     WINDOW_HEIGHT = 1920
+    DATABASE_USERNAME = 'root'
+    DATABASE_PASSWORD = ''
+    DATABASE_NAME = 'object_detector'
+    DATABASE_HOST = 'localhost'
+    THREAD_DELAY = .1

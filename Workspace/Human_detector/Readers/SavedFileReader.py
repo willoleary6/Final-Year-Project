@@ -127,10 +127,9 @@ with detection_graph.as_default():
                                     scores[0, index]
                                 object_dict = re.findall('\'([^\']*)\'', str(object_dict))[0]
                                 objects.append(object_dict)
-
                         if len(objects) > 0:
                             timestamp = round(cap.get(cv2.CAP_PROP_POS_MSEC) / 1000, 2)
-                            detector_object.new_detection(video, timestamp, len(objects))
+                            detector_object.new_detection(objects, video, timestamp, len(objects))
                             # cv2.imshow('object detection', cv2.resize(image_np, (1920, 1080)))
 
                         if cv2.waitKey(25) & 0xFF == ord('q'):
