@@ -172,6 +172,7 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
 
     def delete_currently_selected_detection(self):
         if self.__current_selected_detection is not None:
+            self.__detection_reviewer_window_media_player.pause()
             databaseHandler.delete_detection(self.__current_selected_detection.get_id())
 
     def open_file(self):
