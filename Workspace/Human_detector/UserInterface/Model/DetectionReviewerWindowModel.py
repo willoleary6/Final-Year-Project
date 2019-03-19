@@ -1,18 +1,21 @@
 import ast
 import subprocess
 
-from PyQt5.QtWidgets import QFileDialog
 
-from Human_detector.detector.DetectionEvent import DetectionEvent
-import Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
+
+from Workspace.Human_detector.detector.DetectionEvent import DetectionEvent
+import Workspace.Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
 
 class DetectionReviewerWindowModel:
+    def __int__(self):
+        self.test = None
+        
+    @staticmethod
+    def open_file_in_explorer(file_path):
+        subprocess.check_call(['nautilus', '--', file_path])
 
-    def open_file_in_explorer(self, file_path):
-        self
-        subprocess.Popen(r'explorer /select,"' + file_path + '"')
-
-    def get_detections_from_database(self):
+    @staticmethod
+    def get_detections_from_database():
         keys, detections = databaseHandler.select_all_detections()
         array_of_detection_events = []
         for x in detections:

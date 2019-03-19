@@ -1,4 +1,4 @@
-import Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
+import Workspace.Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
 
 #print(databaseHandler.select_all_detections())
 objects_detected = ['Ten Cent', 'Five Cent']

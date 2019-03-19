@@ -1,5 +1,5 @@
 import sys
-from Human_detector.config import Config
+from Workspace.Human_detector.config import Config
 import pymysql
 
 # rds settings

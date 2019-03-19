@@ -1,4 +1,4 @@
-from Human_detector.UserInterface.Controller.viewController import ViewController
+from Workspace.Human_detector.UserInterface.Controller.viewController import ViewController
 
 
 class BaseCoordinator:

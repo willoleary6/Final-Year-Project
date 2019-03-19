@@ -1,4 +1,4 @@
-from Human_detector.config import Config
+from Workspace.Human_detector.config import Config
 
 
 class DetectionEvent:

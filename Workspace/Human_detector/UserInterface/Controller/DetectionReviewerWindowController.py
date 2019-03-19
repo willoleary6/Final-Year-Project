@@ -6,11 +6,11 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtWidgets import QMainWindow, QStyle, QWidget, QVBoxLayout
 from PyQt5 import QtCore, QtWidgets
-from Human_detector.UserInterface.Model.DetectionReviewerWindowModel import DetectionReviewerWindowModel
-from Human_detector.UserInterface.View.DetectionReviewerWindowView import DetectionReviewerWindowView
-from Human_detector.UserInterface.Controller.viewController import ViewController
-from Human_detector.config import Config
-import Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
+from Workspace.Human_detector.UserInterface.Model.DetectionReviewerWindowModel import DetectionReviewerWindowModel
+from Workspace.Human_detector.UserInterface.View.DetectionReviewerWindowView import DetectionReviewerWindowView
+from Workspace.Human_detector.UserInterface.Controller.viewController import ViewController
+from Workspace.Human_detector.config import Config
+import Workspace.Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
 
 
 def check_for_database_changes(signal, window_controller):
@@ -82,7 +82,7 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
                           + " - " + str(detection_event.get_maximum_number_of_object_detections())
         formatted_text += "\n"
         # video file
-        file_path_array = detection_event.get_file_path().split("\\")
+        file_path_array = detection_event.get_file_path().split("/")
         formatted_text += "File name: " + file_path_array[len(file_path_array) - 1]
         return formatted_text
 
@@ -120,15 +120,15 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
         self.__detection_reviewer_window_view.show()
 
     def connect_ui_elements_to_methods(self):
-        self.__detection_reviewer_window_position_slider.sliderMoved.connect(self.setPosition)
+        self.__detection_reviewer_window_position_slider.sliderMoved.connect(self.set_position_slider)
         self.__detection_reviewer_window_play_button.clicked.connect(self.play)
         self.__detection_reviewer_window_skip_backwards.clicked.connect(self.skip_to_start)
         self.__detection_reviewer_window_skip_forwards.clicked.connect(self.skip_to_end)
 
-        self.__detection_reviewer_window_media_player.stateChanged.connect(self.mediaStateChanged)
-        self.__detection_reviewer_window_media_player.positionChanged.connect(self.positionChanged)
-        self.__detection_reviewer_window_media_player.durationChanged.connect(self.durationChanged)
-        self.__detection_reviewer_window_media_player.error.connect(self.handleError)
+        self.__detection_reviewer_window_media_player.stateChanged.connect(self.video_player_state_changed)
+        self.__detection_reviewer_window_media_player.positionChanged.connect(self.position_changed)
+        self.__detection_reviewer_window_media_player.durationChanged.connect(self.duration_changed)
+        self.__detection_reviewer_window_media_player.error.connect(self.handle_error)
 
     def change_video_playing(self, detection_event):
         self.__current_selected_detection = detection_event
@@ -136,7 +136,7 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
             QMediaContent(QUrl.fromLocalFile(self.__current_selected_detection.get_file_path())))
 
         self.__detection_reviewer_window_play_button.setEnabled(True)
-        self.setPosition(self.__current_selected_detection.get_start_timestamp() * 1000)
+        self.set_position_slider(self.__current_selected_detection.get_start_timestamp() * 1000)
 
     def initialise_menu_bar_actions(self):
         self.__detection_reviewer_window_menu_bar = QtWidgets.QMenuBar(self.__detection_reviewer_window_view)
@@ -175,7 +175,7 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
             databaseHandler.delete_detection(self.__current_selected_detection.get_id())
 
     def open_file(self):
-        file_path = self.__detection_reviewer_window_model.open_file_in_explorer()
+        file_path = self.__current_selected_detection.get_file_path()
         if file_path is not None:
             self.__detection_reviewer_window_media_player.setMedia(QMediaContent(QUrl.fromLocalFile(file_path)))
             self.__detection_reviewer_window_play_button.setEnabled(True)
@@ -188,12 +188,12 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
 
     def skip_to_start(self):
         # self.positionChanged(0)
-        self.setPosition(0)
+        self.set_position_slider(0)
         self.__detection_reviewer_window_media_player.play()
 
     def skip_to_end(self):
         # self.positionChanged(self.__video_duration)
-        self.setPosition(self.__video_duration)
+        self.set_position_slider(self.__video_duration)
         self.__detection_reviewer_window_media_player.play()
 
     def update_time_left_counter(self, timestamp):
@@ -223,7 +223,7 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
 
         self.__detection_reviewer_window_time_into_video_counter.display(string_minutes + ':' + string_seconds)
 
-    def mediaStateChanged(self):
+    def video_player_state_changed(self):
         if self.__detection_reviewer_window_media_player.state() == QMediaPlayer.PlayingState:
             self.__detection_reviewer_window_play_button.setIcon(
                 self.style().standardIcon(QStyle.SP_MediaPause))
@@ -231,19 +231,19 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
             self.__detection_reviewer_window_play_button.setIcon(
                 self.style().standardIcon(QStyle.SP_MediaPlay))
 
-    def positionChanged(self, position):
+    def position_changed(self, position):
         self.update_time_into_video_counter(position)
         self.update_time_left_counter(position)
         self.__detection_reviewer_window_position_slider.setValue(position)
 
-    def durationChanged(self, duration):
+    def duration_changed(self, duration):
         self.__video_duration = duration
         self.__detection_reviewer_window_position_slider.setRange(0, self.__video_duration)
 
-    def setPosition(self, position):
+    def set_position_slider(self, position):
         self.__detection_reviewer_window_media_player.setPosition(position)
 
-    def handleError(self):
+    def handle_error(self):
         self.__detection_reviewer_window_play_button.setEnabled(False)
         print("Error: " + self.__detection_reviewer_window_media_player.errorString())
 

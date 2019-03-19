@@ -2,13 +2,13 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QStyle, QScrollArea, QWidget, QMainWindow
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from Human_detector.config import Config
+from Workspace.Human_detector.config import Config
 
 
 class DetectionReviewerWindowView(QMainWindow):
     def __init__(self, window_height=Config.WINDOW_HEIGHT, window_width=Config.WINDOW_WIDTH):
         super(QMainWindow, self).__init__(parent=None)
-        self.setObjectName("main_window")
+        self.setObjectName("Detection reviewer")
 
         self.resize(window_height, window_width)
         self.setMinimumSize(QtCore.QSize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH))
@@ -136,7 +136,7 @@ class DetectionReviewerWindowView(QMainWindow):
         self.verticalLayoutWidget.setGeometry(
             QtCore.QRect(
                 self.__percentage_of_width(1.5),  # margin - left
-                self.__percentage_of_height(52),  # margin - top
+                self.__percentage_of_height(60), # margin - top
                 self.__percentage_of_width(50),  # width
                 self.__percentage_of_height(10)  # height
             )
@@ -187,7 +187,7 @@ class DetectionReviewerWindowView(QMainWindow):
 
     def set_text_and_icons(self, main_window):
         _translate = QtCore.QCoreApplication.translate
-        main_window.setWindowTitle(_translate("main_window", "main_window"))
+        main_window.setWindowTitle(_translate("Detection reviewer", "Detection reviewer"))
         icon_object = QtWidgets.QWidget(main_window).style()
 
         self.skip_to_start_of_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaSkipBackward))

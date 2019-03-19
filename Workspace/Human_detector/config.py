@@ -1,6 +1,6 @@
 class Config:
     SECONDS_ADDED_TO_EVENT_TIMESTAMP = .5
-    DETECTION_CSV_FILE_PATH = 'C:\\SourceCode\\Final-Year-Project\\Workspace\\Human_detector\\CsvFiles\\detections.csv'
+    DETECTION_CSV_FILE_PATH = 'C:\\SourceCode\\Final-Year-Project\\Workspace\\Workspace.Human_detector\\CsvFiles\\detections.csv'
     FRAME_DELIMITER_FOR_TENSORFLOW = 5
     CAMERA_IP_ADDRESS = '192.168.1.210'
     CAMERA_PORT = '554'

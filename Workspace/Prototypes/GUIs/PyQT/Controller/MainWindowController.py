@@ -71,8 +71,8 @@ class MainWindowController(QMainWindow):
         self.__main_window_skip_forwards.clicked.connect(self.skip_to_end)
 
         self.__main_window_media_player.stateChanged.connect(self.mediaStateChanged)
-        self.__main_window_media_player.positionChanged.connect(self.positionChanged)
-        self.__main_window_media_player.durationChanged.connect(self.durationChanged)
+        self.__main_window_media_player.position_changed.connect(self.positionChanged)
+        self.__main_window_media_player.duration_changed.connect(self.durationChanged)
         self.__main_window_media_player.error.connect(self.handleError)
 
     def initialise_view(self):
@@ -165,7 +165,7 @@ class MainWindowController(QMainWindow):
         self.__main_window_position_slider.setRange(0, self.__video_duration)
 
     def setPosition(self, position):
-        self.__main_window_media_player.setPosition(position)
+        self.__main_window_media_player.set_position_slider(position)
 
     def handleError(self):
         self.__main_window_play_button.setEnabled(False)

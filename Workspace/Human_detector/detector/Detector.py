@@ -1,6 +1,6 @@
-from Human_detector.config import Config
-from Human_detector.detector.DetectionEvent import DetectionEvent
-import Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
+from Workspace.Human_detector.config import Config
+from Workspace.Human_detector.detector.DetectionEvent import DetectionEvent
+import Workspace.Human_detector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
 
 
 class Detector:

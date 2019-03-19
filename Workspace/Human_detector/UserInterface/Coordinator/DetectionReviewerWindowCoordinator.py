@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
-from Human_detector.UserInterface.Controller.DetectionReviewerWindowController import DetectionReviewerWindowController
-from Human_detector.UserInterface.Coordinator.baseCoordinator import BaseCoordinator
+from Workspace.Human_detector.UserInterface.Controller.DetectionReviewerWindowController import DetectionReviewerWindowController
+from Workspace.Human_detector.UserInterface.Coordinator.baseCoordinator import BaseCoordinator
 
 
 class MainWindowCoordinator(BaseCoordinator):
