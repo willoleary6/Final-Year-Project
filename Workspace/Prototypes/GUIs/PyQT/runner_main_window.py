@@ -4,5 +4,5 @@ import sys
 from Prototypes.GUIs.PyQT.Coordinator.MainWindowCoordinator import MainWindowCoordinator
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    MainWindowCoordinator().go_to_main_window()
+    MainWindowCoordinator().go_to_detection_reviewer_window()
     sys.exit(app.exec_())
