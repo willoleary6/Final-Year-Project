@@ -8,10 +8,13 @@ class Config:
     CAMERA_PASSWORD = 'password1'
     DETECTION_CSV_COLUMNS = ['detection_id', 'video_file_path', 'start_timestamp', 'end_timestamp',
                              'minimum_detections', 'maximum_detections']
-    WINDOW_WIDTH = 1080
-    WINDOW_HEIGHT = 1920
+    WINDOW_TITLE_FONT_SIZE = 16
+    DETECTION_REVIEWER_WINDOW_WIDTH = 1080
+    DETECTION_REVIEWER_WINDOW_HEIGHT = 1920
+    MAIN_MENU_WINDOW_WIDTH = 720
+    MAIN_MENU_WINDOW_HEIGHT = 720
     DATABASE_USERNAME = 'root'
     DATABASE_PASSWORD = ''
     DATABASE_NAME = 'object_detector'
     DATABASE_HOST = 'localhost'
-    THREAD_DELAY = .1
+    THREAD_LOOP_DELAY = .1

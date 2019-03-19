@@ -98,9 +98,9 @@ def get_histogram_cycle_color(color_number):
 
 def set_title(diagram, title, default=""):
     if title is not None and title != "":
-        diagram.set_title(title, y=1.02)  # adjustment for plot title bottom margin
+        diagram.set_title(title, y=1.02)  # adjustment for plot __title_label bottom margin
     else:
-        diagram.set_title(default, y=1.02)  # adjustment for plot title bottom margin
+        diagram.set_title(default, y=1.02)  # adjustment for plot __title_label bottom margin
 
 
 class DataVisualisation:
@@ -139,7 +139,7 @@ class DataVisualisation:
         self.data_visualisation_window = plt.figure(figsize=(25, 15), dpi=dpi)
         # base color
         self.data_visualisation_window.set_facecolor('#FFFFFF')
-        # setting data_visualisation_window title
+        # setting data_visualisation_window __title_label
         plt.gcf().canvas.set_window_title(window_title)
         # setting the slots for each of the diagrams
         top_left_slot = 221

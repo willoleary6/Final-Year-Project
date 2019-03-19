@@ -16,7 +16,7 @@ import Workspace.Human_detector.DatabaseHandler.detectionDatabaseHandler as data
 def check_for_database_changes(signal, window_controller):
     model = DetectionReviewerWindowModel()
     while True:
-        time.sleep(Config.THREAD_DELAY)
+        time.sleep(Config.THREAD_LOOP_DELAY)
         database_detections = model.get_detections_from_database()
         current_detections = window_controller.get_array_of_detection_events()
         if len(database_detections) != len(current_detections):
@@ -187,12 +187,10 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
             self.__detection_reviewer_window_media_player.play()
 
     def skip_to_start(self):
-        # self.positionChanged(0)
         self.set_position_slider(0)
         self.__detection_reviewer_window_media_player.play()
 
     def skip_to_end(self):
-        # self.positionChanged(self.__video_duration)
         self.set_position_slider(self.__video_duration)
         self.__detection_reviewer_window_media_player.play()
 

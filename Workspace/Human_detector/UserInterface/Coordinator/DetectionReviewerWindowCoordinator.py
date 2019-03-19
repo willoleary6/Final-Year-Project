@@ -3,7 +3,7 @@ from Workspace.Human_detector.UserInterface.Controller.DetectionReviewerWindowCo
 from Workspace.Human_detector.UserInterface.Coordinator.baseCoordinator import BaseCoordinator
 
 
-class MainWindowCoordinator(BaseCoordinator):
+class DetectionReviewerWindowCoordinator(BaseCoordinator):
     def go_to_main_window(self):
         main_window_controller = DetectionReviewerWindowController(self)
         self.set_view_controller(main_window_controller)

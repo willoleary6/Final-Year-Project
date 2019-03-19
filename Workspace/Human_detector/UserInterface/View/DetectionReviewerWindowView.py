@@ -2,16 +2,19 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QStyle, QScrollArea, QWidget, QMainWindow
 from PyQt5.QtMultimediaWidgets import QVideoWidget
+
+from Workspace.Human_detector.UserInterface.View.BaseView import BaseView
 from Workspace.Human_detector.config import Config
 
 
-class DetectionReviewerWindowView(QMainWindow):
-    def __init__(self, window_height=Config.WINDOW_HEIGHT, window_width=Config.WINDOW_WIDTH):
+class DetectionReviewerWindowView(QMainWindow, BaseView):
+    def __init__(self, window_height=Config.DETECTION_REVIEWER_WINDOW_HEIGHT,
+                 window_width=Config.DETECTION_REVIEWER_WINDOW_WIDTH):
         super(QMainWindow, self).__init__(parent=None)
         self.setObjectName("Detection reviewer")
 
         self.resize(window_height, window_width)
-        self.setMinimumSize(QtCore.QSize(Config.WINDOW_HEIGHT, Config.WINDOW_WIDTH))
+        self.setMinimumSize(QtCore.QSize(window_height, window_width))
         self.central_widget = QtWidgets.QWidget(self)
         self.central_widget.setObjectName("central_widget")
 
@@ -21,10 +24,10 @@ class DetectionReviewerWindowView(QMainWindow):
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self.central_widget)
 
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayoutWidget.setObjectName("__base_layout")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.verticalLayout.setObjectName("__menu_buttons_layout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
 
@@ -121,10 +124,10 @@ class DetectionReviewerWindowView(QMainWindow):
 
         self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
 
-        self.set_text_and_icons(self)
-        self.update_geometry()
+        self.__set_text_and_icons(self)
+        self.__update_geometry()
 
-    def update_geometry(self):
+    def __update_geometry(self):
         self.video_player_widget.setGeometry(
             QtCore.QRect(
                 self.__percentage_of_width(1.5),  # margin - left
@@ -136,7 +139,7 @@ class DetectionReviewerWindowView(QMainWindow):
         self.verticalLayoutWidget.setGeometry(
             QtCore.QRect(
                 self.__percentage_of_width(1.5),  # margin - left
-                self.__percentage_of_height(60), # margin - top
+                self.__percentage_of_height(60),  # margin - top
                 self.__percentage_of_width(50),  # width
                 self.__percentage_of_height(10)  # height
             )
@@ -178,14 +181,10 @@ class DetectionReviewerWindowView(QMainWindow):
     def __percentage_of_height(self, percentage):
         return (percentage / 100) * self.geometry().height()
 
-    def resizeEvent(self, event):
-        self.update_geometry()  # call your update method
-        QtWidgets.QMainWindow.resizeEvent(self, event)
-
     def __percentage_of_width(self, percentage):
         return (percentage / 100) * self.geometry().width()
 
-    def set_text_and_icons(self, main_window):
+    def __set_text_and_icons(self, main_window):
         _translate = QtCore.QCoreApplication.translate
         main_window.setWindowTitle(_translate("Detection reviewer", "Detection reviewer"))
         icon_object = QtWidgets.QWidget(main_window).style()
@@ -193,6 +192,10 @@ class DetectionReviewerWindowView(QMainWindow):
         self.skip_to_start_of_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaSkipBackward))
         self.play_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaPlay))
         self.skip_to_end_of_video_button.setIcon(icon_object.standardIcon(QStyle.SP_MediaSkipForward))
+
+    def resizeEvent(self, event):
+        self.__update_geometry()  # call your update method
+        QtWidgets.QMainWindow.resizeEvent(self, event)
 
     def get_video_widget(self):
         return self.video_player_widget
