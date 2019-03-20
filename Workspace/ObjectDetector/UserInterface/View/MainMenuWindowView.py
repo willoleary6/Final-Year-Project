@@ -19,7 +19,6 @@ class MainMenuWindowView(QMainWindow, BaseView):
         super(QMainWindow, self).__init__(parent=None)
         self.setObjectName("StreamlinedObjectDetector")
         self.resize(window_width, window_height)
-
         self.setMinimumSize(QtCore.QSize(window_height, window_width))
         self.__central_widget = QtWidgets.QWidget(self)
         self.__central_widget.setObjectName("__central_widget")
@@ -121,4 +120,3 @@ class MainMenuWindowView(QMainWindow, BaseView):
 
     def get_documentation_button(self):
         return self.__documentation_button
-

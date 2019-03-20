@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
+  <widget class="QWidget" name="central_widget">
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
@@ -23,7 +23,7 @@
       <height>1638</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="main_layout">
      <item>
       <layout class="QHBoxLayout" name="readers_horizontal_layout">
        <item>
@@ -88,9 +88,12 @@
             <widget class="QLineEdit" name="file_reader_file_path_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos</string>
              </property>
             </widget>
            </item>
@@ -167,9 +170,12 @@
             <widget class="QLineEdit" name="file_reader_inference_path_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>/Model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/frozen_inference_graph.pb</string>
              </property>
             </widget>
            </item>
@@ -246,9 +252,12 @@
             <widget class="QLineEdit" name="file_reader_labels_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>/TensorFlowObjectDetectionCoinPrototype/training_resnet/object_detection.pbtxt'</string>
              </property>
             </widget>
            </item>
@@ -352,10 +361,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QWidget" name="widget" native="true"/>
-       </item>
-       <item>
-        <widget class="Line" name="line">
+        <widget class="Line" name="vertical_centre_line">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -429,12 +435,15 @@
             <widget class="QLineEdit" name="live_stream_reader_ip_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
+             </property>
+             <property name="placeholderText">
+              <string>192.168.0.56</string>
              </property>
             </widget>
            </item>
@@ -511,9 +520,12 @@
             <widget class="QLineEdit" name="live_stream_reader_recordings_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos</string>
              </property>
             </widget>
            </item>
@@ -590,9 +602,12 @@
             <widget class="QLineEdit" name="live_stream_reader_inference_graph_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>/Model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/frozen_inference_graph.pb</string>
              </property>
             </widget>
            </item>
@@ -669,9 +684,12 @@
             <widget class="QLineEdit" name="live_stream_reader_label_path_field">
              <property name="minimumSize">
               <size>
-               <width>400</width>
+               <width>750</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="placeholderText">
+              <string>/TensorFlowObjectDetectionCoinPrototype/training_resnet/object_detection.pbtxt'</string>
              </property>
             </widget>
            </item>
@@ -777,7 +795,7 @@
       </layout>
      </item>
      <item>
-      <widget class="Line" name="line_2">
+      <widget class="Line" name="horizontal_centre_line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>

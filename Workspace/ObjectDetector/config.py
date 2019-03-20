@@ -9,6 +9,8 @@ class Config:
     DETECTION_CSV_COLUMNS = ['detection_id', 'video_file_path', 'start_timestamp', 'end_timestamp',
                              'minimum_detections', 'maximum_detections']
     WINDOW_TITLE_FONT_SIZE = 16
+    READER_REVIEWER_WINDOW_WIDTH = 2000
+    READER_REVIEWER_WINDOW_HEIGHT = 1080
     DETECTION_REVIEWER_WINDOW_WIDTH = 1080
     DETECTION_REVIEWER_WINDOW_HEIGHT = 1920
     MAIN_MENU_WINDOW_WIDTH = 720

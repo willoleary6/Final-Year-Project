@@ -75,7 +75,7 @@ class VideoWindow(QMainWindow):
         self.mediaPlayer.durationChanged.connect(self.durationChanged)
         self.mediaPlayer.error.connect(self.handleError)
 
-        # self.mediaPlayer.setMedia(
+        # self.media_player.setMedia(
         #    QMediaContent(QUrl.fromLocalFile('D:\Crystalline growth\video files\FFA3-16fps.mp4')))
         # self.playButton.setEnabled(True)
 
