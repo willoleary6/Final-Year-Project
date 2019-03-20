@@ -29,9 +29,9 @@ class MainMenuWindowController(QMainWindow, ViewController):
     def go_to_review_screen(self):
         self.__coordinator.run_new_instance_of_reviewer()
 
-    @staticmethod
-    def go_to_reader_screen():
-        print("reader")
+    def go_to_reader_screen(self):
+        self.__coordinator.run_new_instance_of_reader()
+        self.__main_menu_window_view.destroy()
 
     @staticmethod
     def go_to_trainer_screen():

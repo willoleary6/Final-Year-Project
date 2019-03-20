@@ -7,8 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QUrl
-from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
+from PyQt5.QtMultimedia import QMediaPlayer
 from PyQt5.QtWidgets import QMainWindow
 from Workspace.ObjectDetector.config import Config
 from Workspace.ObjectDetector.UserInterface.View.BaseView import BaseView
@@ -662,6 +661,10 @@ class ReaderWindowView(QMainWindow, BaseView):
     def get_live_stream_reader_stop_button(self):
         return self.__live_stream_reader_stop_button
 
+    # additional getters
+    def get_media_player(self):
+        return self.__media_player
+
     def __update_geometry(self):
         self.__main_layout.setContentsMargins(
             self.__percentage_of_width(1),  # margin - left
@@ -820,11 +823,3 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__update_geometry()  # call your update method
         QtWidgets.QMainWindow.resizeEvent(self, event)
 
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    ui = ReaderWindowView()
-    ui.show()
-    sys.exit(app.exec_())
