@@ -25,7 +25,7 @@ class MainWindowController(QMainWindow):
         self.__main_window_menu_bar = self.__main_window_view.get_menu_bar()
         self.__video_widget = self.__main_window_view.get_video_widget()
         self.__main_window_play_button = self.__main_window_view.get_play_button()
-        self.__main_window_media_player = self.__main_window_view.get_media_player()
+        self.__main_window_media_player = self.__main_window_view.get_frame_display()
         self.__main_window_media_player.setVideoOutput(self.__video_widget)
         self.__main_window_skip_backwards = self.__main_window_view.get_skip_backward_button()
         self.__main_window_skip_forwards = self.__main_window_view.get_skip_forward_button()

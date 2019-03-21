@@ -5,9 +5,7 @@
 # Created by: PyQt5 UI code generator 5.12.1
 #
 # WARNING! All changes made in this file will be lost!
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtMultimedia import QMediaPlayer
+from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QMainWindow
 from Workspace.ObjectDetector.config import Config
 from Workspace.ObjectDetector.UserInterface.View.BaseView import BaseView
@@ -51,12 +49,6 @@ class ReaderWindowView(QMainWindow, BaseView):
 
         self.__file_reader_status_horizontal_layout = QtWidgets.QHBoxLayout()
         self.__file_reader_status_horizontal_layout.setObjectName("file_reader_status_horizontal_layout")
-
-        self.__file_reader_status_label = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__file_reader_status_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.__file_reader_status_label.setObjectName("file_reader_status_label")
-
-        self.__file_reader_status_horizontal_layout.addWidget(self.__file_reader_status_label)
 
         self.__saved_file_reader_vertical_layout.addLayout(self.__file_reader_status_horizontal_layout)
 
@@ -249,11 +241,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__live_stream_reader_status_horizontal_layout = QtWidgets.QHBoxLayout()
         self.__live_stream_reader_status_horizontal_layout.setObjectName("live_stream_reader_status_horizontal_layout")
 
-        self.__live_stream_reader_status_label = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__live_stream_reader_status_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.__live_stream_reader_status_label.setObjectName("live_stream_reader_status_label")
-
-        self.__live_stream_reader_status_horizontal_layout.addWidget(self.__live_stream_reader_status_label)
         self.__live_stream_reader_vertical_layout.addLayout(self.__live_stream_reader_status_horizontal_layout)
 
         self.__live_stream_reader_ip_field_horizontal_layout = QtWidgets.QHBoxLayout()
@@ -473,8 +460,8 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__horizontal_centre_line.setObjectName("horizontal_centre_line")
         self.__main_layout.addWidget(self.__horizontal_centre_line)
 
-        self.__video_widget_vertical_layout = QtWidgets.QHBoxLayout()
-        self.__video_widget_vertical_layout.setObjectName("video_widget_vertical_layout")
+        self.__frame_display_vertical_layout = QtWidgets.QHBoxLayout()
+        self.__frame_display_vertical_layout.setObjectName("video_widget_vertical_layout")
 
         self.__spacer_item_18 = QtWidgets.QSpacerItem(
             0,
@@ -482,24 +469,19 @@ class ReaderWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
-        self.__video_widget_vertical_layout.addItem(self.__spacer_item_18)
+        self.__frame_display_vertical_layout.addItem(self.__spacer_item_18)
 
-        self.__stream_video_widget = QVideoWidget(self.__vertical_layout_widget)
-        self.__stream_video_widget.setObjectName("stream_video_widget")
-        self.__video_widget_vertical_layout.addWidget(self.__stream_video_widget)
+        self.__frame_display = QtWidgets.QLabel(self) # QVideoWidget(self.__vertical_layout_widget)
+        self.__frame_display.setObjectName("frame_display")
+        # place holder image!
+        image = QtGui.QPixmap(
+            self.__percentage_of_width(95),  # margin - left
+            self.__percentage_of_height(70),  # margin - top
+        )
+        self.__frame_display.setPixmap(image)
+        self.__frame_display_vertical_layout.addWidget(self.__frame_display)
 
-        ## TODO REMOVE THIS !
 
-        self.__media_player = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        self.__media_player.setVideoOutput(self.__stream_video_widget)
-        '''
-        self.__media_player.setMedia(
-            QMediaContent(
-                QUrl.fromLocalFile(
-                    "/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos/VID_20190303_200842.mp4")
-            ))
-        self.__media_player.play()
-        '''
         self.__spacer_item_19 = QtWidgets.QSpacerItem(
             40,
             20,
@@ -507,8 +489,8 @@ class ReaderWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum
         )
 
-        self.__video_widget_vertical_layout.addItem(self.__spacer_item_19)
-        self.__main_layout.addLayout(self.__video_widget_vertical_layout)
+        self.__frame_display_vertical_layout.addItem(self.__spacer_item_19)
+        self.__main_layout.addLayout(self.__frame_display_vertical_layout)
 
         self.setCentralWidget(self.__central_widget)
 
@@ -528,7 +510,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.__file_reader_title.setText(_translate("MainWindow", "FIle Reader"))
-        self.__file_reader_status_label.setText(_translate("MainWindow", "Waiting for fields"))
         self.__file_reader_file_path_field_title.setText(_translate("MainWindow", "File path to videos"))
         self.__file_reader_file_path_field.setPlaceholderText(
             _translate("MainWindow", "/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos"))
@@ -551,7 +532,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__file_reader_start_button.setText(_translate("MainWindow", "Start"))
         self.__file_reader_stop_button.setText(_translate("MainWindow", "Stop"))
         self.__live_stream_reader_title_label.setText(_translate("MainWindow", "LIve stream Reader"))
-        self.__live_stream_reader_status_label.setText(_translate("MainWindow", "Waiting for fields"))
         self.__live_stream_reader_ip_field_title.setText(_translate("MainWindow", "Livestream IP"))
         self.__live_stream_reader_ip_field.setPlaceholderText(_translate("MainWindow", "192.168.0.56"))
         self.__live_stream_reader_ip_field_check_connection_button.setText(_translate("MainWindow", "Check "))
@@ -579,8 +559,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__live_stream_reader_stop_button.setText(_translate("MainWindow", "Stop"))
 
     # file reader getters
-    def get_file_reader_status_label(self):
-        return self.__file_reader_status_label
 
     def get_file_reader_file_path_field(self):
         return self.__file_reader_file_path_field
@@ -616,8 +594,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         return self.__file_reader_stop_button
 
     # live stream getters
-    def get_live_stream_reader_status_label(self):
-        return self.__live_stream_reader_status_label
 
     def get_live_stream_reader_ip_field(self):
         return self.__live_stream_reader_ip_field
@@ -662,8 +638,8 @@ class ReaderWindowView(QMainWindow, BaseView):
         return self.__live_stream_reader_stop_button
 
     # additional getters
-    def get_media_player(self):
-        return self.__media_player
+    def get_frame_display(self):
+        return self.__frame_display
 
     def __update_geometry(self):
         self.__main_layout.setContentsMargins(
@@ -786,7 +762,7 @@ class ReaderWindowView(QMainWindow, BaseView):
             self.__percentage_of_width(7.5),  # width
             self.__percentage_of_height(0),  # height
         ))
-        self.__stream_video_widget.setMinimumSize(QtCore.QSize(
+        self.__frame_display.setMinimumSize(QtCore.QSize(
             self.__percentage_of_width(75),  # width
             self.__percentage_of_height(37.5),  # height
         ))

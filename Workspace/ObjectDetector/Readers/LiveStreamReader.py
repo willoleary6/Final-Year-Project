@@ -24,8 +24,7 @@ if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
 
 
 
-# What model to download.
-model_name = 'coin_graph'
+
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_FROZEN_GRAPH_OF_MODEL = 'C:/SourceCode/Final-Year-Project/Workspace/Prototypes/TensorFlowObjectDetectionCoinPrototype/coin_graph/frozen_inference_graph.pb'
 

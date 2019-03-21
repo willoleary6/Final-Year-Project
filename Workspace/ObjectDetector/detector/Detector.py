@@ -1,12 +1,13 @@
 from Workspace.ObjectDetector.config import Config
 from Workspace.ObjectDetector.detector.DetectionEvent import DetectionEvent
-import Workspace.ObjectDetector.DatabaseHandler.detectionDatabaseHandler as databaseHandler
+from Workspace.ObjectDetector.DatabaseHandler.detectionDatabaseHandler import DetectionDatabaseHandler
 
 
 class Detector:
     def __init__(self):
         self.__detections = []
         self.__objects_detected = []
+        self.__databaseHandler = DetectionDatabaseHandler()
 
     def new_detection(self, objects_detected, filename, timestamp, number_of_objects):
         self.__objects_detected = objects_detected
@@ -42,11 +43,14 @@ class Detector:
 
     def insert_into_database(self):
         latest_detection = self.__detections[(len(self.__detections) - 1)]
-        databaseHandler.insert_new_detection(latest_detection.get_objects_detected(), latest_detection.get_file_path(),
-                                             latest_detection.get_start_timestamp(),
-                                             latest_detection.get_end_timestamp(),
-                                             latest_detection.get_minimum_number_of_object_detections(),
-                                             latest_detection.get_maximum_number_of_object_detections())
+        self.__databaseHandler.insert_new_detection(
+            latest_detection.get_objects_detected(),
+            latest_detection.get_file_path(),
+            latest_detection.get_start_timestamp(),
+            latest_detection.get_end_timestamp(),
+            latest_detection.get_minimum_number_of_object_detections(),
+            latest_detection.get_maximum_number_of_object_detections()
+        )
 
     def flush_remaining_detections(self):
         if len(self.__detections) > 0:

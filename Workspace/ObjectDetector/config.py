@@ -20,6 +20,7 @@ class Config:
     DATABASE_NAME = 'object_detector'
     DATABASE_HOST = 'localhost'
     THREAD_LOOP_DELAY = .1
+    VALID_VIDEO_FORMATS = ['.mp4']
     #file extensions
     INFERENCE_GRAPH_FILE_EXTENSION = '.pb'
     OBJECT_LABELS_FILE_EXTENSION = '.pbtxt'

@@ -34,7 +34,8 @@ for i in files_in_directory:
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
-# Model preparation Variables Any model exported using the export_inference_graph.py tool can be loaded here simply
+# Model preparation Variables Any model
+# exported using the export_inference_graph.py tool can be loaded here simply
 # by changing PATH_TO_FROZEN_GRAPH_OF_MODEL to point to a new .pb file.
 
 # By default we use an "SSD with Mobilenet" model here. See the detection model zoo for a list of other models that
@@ -43,8 +44,6 @@ if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
 # change directory to that of the object detection api
 # os.chdir(os.getcwd() + '\models\\research\object_detection')
 
-# What model to download.
-model_name = 'coin_graph'
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_FROZEN_GRAPH_OF_MODEL = '/home/will/SourceCode/Final-Year-Project/Workspace/Prototypes/TensorFlowObjectDetectionCoinPrototype/coin_graph/frozen_inference_graph.pb'
 
