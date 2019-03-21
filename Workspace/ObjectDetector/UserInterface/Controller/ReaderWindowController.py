@@ -10,7 +10,8 @@ from Workspace.ObjectDetector.config import Config
 
 
 class ReaderWindowController(QMainWindow, ViewController):
-    __test_connection_to_livestream_signal = QtCore.pyqtSignal(object)
+    __test_connection_to_live_stream_signal = QtCore.pyqtSignal(object)
+    __get_file_path_from_nautilus_signal = QtCore.pyqtSignal(object)
 
     def __init__(self, coordinator, parent=None):
         super(ReaderWindowController, self).__init__(parent)
@@ -77,17 +78,59 @@ class ReaderWindowController(QMainWindow, ViewController):
 
     def connect_ui_elements_to_methods(self):
         # button clicked events
-        self.__file_reader_file_path_open_nautilus_button.clicked.connect(self.open_nautilus_for_directory)
-        self.__file_reader_inference_path_open_nautilus_button.clicked.connect(self.open_nautilus_for_file)
-        self.__file_reader_labels_open_nautilus_button.clicked.connect(self.open_nautilus_for_file)
+        self.__file_reader_file_path_open_nautilus_button.clicked.connect(
+            partial(
+                self.open_nautilus,
+                self.__file_reader_file_path_field,
+                is_directory=True,
+            )
+        )
+
+        self.__file_reader_inference_path_open_nautilus_button.clicked.connect(
+            partial(
+                self.open_nautilus,
+                self.__file_reader_inference_path_field,
+                is_directory=False,
+            )
+        )
+
+        self.__file_reader_labels_open_nautilus_button.clicked.connect(
+            partial(
+                self.open_nautilus,
+                self.__file_reader_labels_field,
+                is_directory=False,
+            )
+        )
+
         self.__file_reader_start_button.clicked.connect(self.file_reader_start_button_click_event)
         self.__file_reader_stop_button.clicked.connect(self.file_reader_stop_button_click_event)
 
         self.__live_stream_reader_ip_field_check_connection_button.clicked.connect(
-            self.deploy_thread_to_test_connectivity_with_live_stream)
-        self.__live_stream_reader_recordings_open_nautilus_button.clicked.connect(self.open_nautilus_for_directory)
-        self.__live_stream_reader_inference_graph_open_nautilus_button.clicked.connect(self.open_nautilus_for_file)
-        self.__live_stream_reader_label_path_open_nautilus_button.clicked.connect(self.open_nautilus_for_file)
+            self.deploy_thread_to_test_connectivity_with_live_stream
+        )
+        self.__live_stream_reader_recordings_open_nautilus_button.clicked.connect(
+            partial(
+                self.open_nautilus,
+                self.__live_stream_reader_recordings_field,
+                is_directory=True,
+            )
+        )
+
+        self.__live_stream_reader_inference_graph_open_nautilus_button.clicked.connect(
+            partial(
+                self.open_nautilus,
+                self.__live_stream_reader_inference_graph_field,
+                is_directory=False,
+            )
+        )
+        self.__live_stream_reader_label_path_open_nautilus_button.clicked.connect(
+            partial(
+                self.open_nautilus,
+                self.__live_stream_reader_label_path_field,
+                is_directory=False,
+            )
+        )
+
         self.__live_stream_reader_start_button.clicked.connect(self.live_stream_reader_start_button_click_event)
         self.__live_stream_reader_stop_button.clicked.connect(self.live_stream_reader_stop_button_click_event)
 
@@ -97,7 +140,7 @@ class ReaderWindowController(QMainWindow, ViewController):
                 self.field_text_has_changed_update_status,
                 self.__file_reader_file_path_field,
                 self.__file_path_field_status_label,
-                is_directory=True,
+                True,  # is_directory
             )
         )
         self.__file_reader_inference_path_field.textChanged.connect(
@@ -105,7 +148,7 @@ class ReaderWindowController(QMainWindow, ViewController):
                 self.field_text_has_changed_update_status,
                 self.__file_reader_inference_path_field,
                 self.__file_reader_inference_path_status,
-                is_directory=False,
+                False,  # is_directory
                 desired_extension=Config.INFERENCE_GRAPH_FILE_EXTENSION
             )
         )
@@ -114,18 +157,53 @@ class ReaderWindowController(QMainWindow, ViewController):
                 self.field_text_has_changed_update_status,
                 self.__file_reader_labels_field,
                 self.__file_reader_labels_status,
-                is_directory=False,
+                False,  # is_directory
                 desired_extension=Config.OBJECT_LABELS_FILE_EXTENSION
             )
         )
 
-        #OBJECT_LABELS_FILE_EXTENSION
+        # live_stream_files_changed
+        self.__live_stream_reader_recordings_field.textChanged.connect(
+            partial(
+                self.field_text_has_changed_update_status,
+                self.__live_stream_reader_recordings_field,
+                self.__live_stream_reader_recordings_status,
+                True,  # is_directory
+            )
+        )
 
-    def open_nautilus_for_directory(self):
-        print("nautilus for directory")
+        self.__live_stream_reader_inference_graph_field.textChanged.connect(
+            partial(
+                self.field_text_has_changed_update_status,
+                self.__live_stream_reader_inference_graph_field,
+                self.__live_stream_reader_inference_graph_status,
+                False,  # is_directory
+                desired_extension=Config.INFERENCE_GRAPH_FILE_EXTENSION
+            )
+        )
 
-    def open_nautilus_for_file(self):
-        print("nautilus for file")
+        self.__live_stream_reader_label_path_field.textChanged.connect(
+            partial(
+                self.field_text_has_changed_update_status,
+                self.__live_stream_reader_label_path_field,
+                self.__live_stream_reader_label_path_status,
+                False,  # is_directory
+                desired_extension=Config.OBJECT_LABELS_FILE_EXTENSION
+            )
+        )
+
+    def open_nautilus(self, field_to_fill_in, is_directory):
+        self.__get_file_path_from_nautilus_signal.connect(self.update_input_field)
+        self.__reader_window_model.get_file_path_through_nautilus(
+            self.__get_file_path_from_nautilus_signal,
+            is_directory,
+            field_to_fill_in
+        )
+
+    @staticmethod
+    def update_input_field(message):
+        field, message_to_insert = message
+        field.setText(message_to_insert)
 
     def file_reader_start_button_click_event(self):
         print("file_reader_start_button_click_event ")
@@ -161,7 +239,7 @@ class ReaderWindowController(QMainWindow, ViewController):
             _thread.start_new_thread(
                 self.__reader_window_model.check_connection_with_live_stream,
                 (
-                    self.__test_connection_to_livestream_signal,
+                    self.__test_connection_to_live_stream_signal,
                     self.__live_stream_reader_ip_field.text()
                 )
             )
@@ -174,7 +252,7 @@ class ReaderWindowController(QMainWindow, ViewController):
                 ""
             )
         )
-        self.__test_connection_to_livestream_signal.connect(self.update_live_stream_connection_status)
+        self.__test_connection_to_live_stream_signal.connect(self.update_live_stream_connection_status)
 
     def update_live_stream_connection_status(self, message):
         new_status, stylesheet = message

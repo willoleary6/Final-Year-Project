@@ -1,6 +1,10 @@
 import os
 import subprocess
 import cv2
+import gi
+
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
 
 
 class ReaderWindowModel:
@@ -42,3 +46,41 @@ class ReaderWindowModel:
         elif not is_directory and field.text().endswith(desired_extension):
             return os.path.isfile(field.text())
 
+    @staticmethod
+    def get_file_path_through_nautilus(signal, is_directory, field_to_fill_in):
+        window = Gtk.Window()
+        if is_directory:
+            dialog = Gtk.FileChooserDialog("Please choose a folder", window,
+                                           Gtk.FileChooserAction.SELECT_FOLDER,
+                                           (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                            "Select", Gtk.ResponseType.OK))
+
+            response = dialog.run()
+            if response == Gtk.ResponseType.OK:
+                signal.emit(
+                    (
+                        field_to_fill_in,
+                        dialog.get_filename()+"/"
+                    )
+                )
+            elif response == Gtk.ResponseType.CANCEL:
+                pass
+
+            dialog.destroy()
+        else:
+            dialog = Gtk.FileChooserDialog("Please choose a file", window,
+                                           Gtk.FileChooserAction.OPEN,
+                                           (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                            Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+            response = dialog.run()
+            if response == Gtk.ResponseType.OK:
+                signal.emit(
+                    (
+                        field_to_fill_in,
+                        dialog.get_filename()
+                    )
+                )
+            elif response == Gtk.ResponseType.CANCEL:
+                pass
+
+            dialog.destroy()
