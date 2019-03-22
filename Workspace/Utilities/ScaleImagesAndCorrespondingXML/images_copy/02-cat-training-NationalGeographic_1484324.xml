@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>02-cat-training-NationalGeographic_1484324.jpg</filename>
+	<path>/home/will/SourceCode/Final-Year-Project/Workspace/Utilities/ScaleImagesAndCorrespondingXML/images/02-cat-training-NationalGeographic_1484324.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2048</width>
+		<height>1365</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Cat</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>528</xmin>
+			<ymin>149</ymin>
+			<xmax>1640</xmax>
+			<ymax>1327</ymax>
+		</bndbox>
+	</object>
+</annotation>

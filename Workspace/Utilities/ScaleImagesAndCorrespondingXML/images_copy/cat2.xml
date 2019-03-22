@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>cat2.jpg</filename>
+	<path>/home/will/SourceCode/Final-Year-Project/Workspace/Utilities/ScaleImagesAndCorrespondingXML/images/cat2.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2560</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Cat</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>11</xmin>
+			<ymin>21</ymin>
+			<xmax>2473</xmax>
+			<ymax>1600</ymax>
+		</bndbox>
+	</object>
+</annotation>

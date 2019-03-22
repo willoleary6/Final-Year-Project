@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>01-cat-wants-to-tell-you-laptop.jpg</filename>
+	<path>/home/will/SourceCode/Final-Year-Project/Workspace/Utilities/ScaleImagesAndCorrespondingXML/images/01-cat-wants-to-tell-you-laptop.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2400</width>
+		<height>1600</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Cat</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>382</xmin>
+			<ymin>157</ymin>
+			<xmax>2266</xmax>
+			<ymax>1458</ymax>
+		</bndbox>
+	</object>
+</annotation>
