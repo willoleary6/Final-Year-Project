@@ -1,4 +1,7 @@
+import copy
 import subprocess
+import time
+
 import gi
 import cv2
 import numpy as np
@@ -8,7 +11,8 @@ import re
 import tensorflow as tf
 from Workspace.ObjectDetector.detector.Detector import Detector
 from Workspace.ObjectDetector.config import Config
-from distutils.version import StrictVersion
+import datetime
+
 # Here are the imports from the object detection module.
 # in the interest of cleanliness and sanity ive updated the paths
 # of the interpreter the IDE uses so we can call the object detection api from outside the
@@ -113,9 +117,7 @@ class ReaderWindowModel:
             with tf.gfile.GFile(inference_graph_path, 'rb') as file_id:
                 serialized_graph = file_id.read()
                 object_detection_graph_definition.ParseFromString(serialized_graph)
-                print("before import")
                 tf.import_graph_def(object_detection_graph_definition, name='')
-                print("after import")
 
     def file_reader(self, update_video_player_signal, videos_directory_path, object_labels_path):
 
@@ -216,20 +218,54 @@ class ReaderWindowModel:
         detector_object.flush_remaining_detections()
         self.__stop_reading = False
 
-    def live_stream_reader(self, update_video_player_signal, livestream_address, videos_directory_path, object_labels_path):
+    @staticmethod
+    def derive_file_path_for_video(parent_directory, date_time, extension):
+        file_path = parent_directory + '/'
+        formatted_date_time = str(date_time)
+        # replace spaces with underscores
+        formatted_date_time = formatted_date_time.replace(" ", "_")
+        # replace full stops with underscores
+        formatted_date_time = formatted_date_time.replace(".", "_")
+        # replace colons with dashes
+        formatted_date_time = formatted_date_time.replace(":", "-")
 
+        file_path = file_path + formatted_date_time + extension
+
+        return file_path
+
+    def live_stream_reader(self, update_video_player_signal, livestream_address, videos_directory_path,
+                           object_labels_path):
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         category_index = label_map_util.create_category_index_from_labelmap(object_labels_path, use_display_name=True)
         frame_number = 0
         # Detection
         detector_object = Detector()
+        start_time = datetime.datetime.now()
+
+        # time.sleep(10)
+        # current_time = datetime.datetime.now()
+        # time_subtraction = current_time - start_time
+        # print(time_subtraction.seconds)
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        writing_to_new_video = True
+        file_path_for_recording = ''
         with self.__detection_graph.as_default():
             with tf.Session(graph=self.__detection_graph) as sess:
                 cap = cv2.VideoCapture(livestream_address)
+                out = cv2.VideoWriter()
                 while not self.__stop_reading:
 
                     frame_number = frame_number + 1
                     # Read frame from camera
                     ret, image_np = cap.read()
+                    original_frame = copy.deepcopy(image_np)
+                    if writing_to_new_video:
+                        file_path_for_recording = self.derive_file_path_for_video(videos_directory_path, start_time,
+                                                                                  Config.RECORDINGS_FORMAT)
+                        out = cv2.VideoWriter(file_path_for_recording, fourcc, 20.0,
+                                              (image_np.shape[1], image_np.shape[0]))
+                        writing_to_new_video = False
+
                     if frame_number % Config.FRAME_DELIMITER_FOR_TENSORFLOW == 0:
                         # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                         image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -261,6 +297,8 @@ class ReaderWindowModel:
 
                         objects = []
                         threshold = 0.5
+                        current_time = datetime.datetime.now()
+                        time_subtraction = current_time - start_time
 
                         for index, value in enumerate(classes[0]):
                             object_dict = {}
@@ -270,13 +308,11 @@ class ReaderWindowModel:
                                 object_dict = re.findall('\'([^\']*)\'', str(object_dict))[0]
                                 objects.append(object_dict)
                         if len(objects) > 0:
-                            timestamp = round(cap.get(cv2.CAP_PROP_POS_MSEC) / 1000, 2)
                             # videos_directory_path
                             detector_object.new_detection(
                                 objects,
-                                '/home/will/SourceCode/Final-Year-Project/Workspace/'
-                                'ObjectDetector/test_videos/VID_20190303_200842.mp4',
-                                timestamp,
+                                file_path_for_recording,
+                                time_subtraction.seconds,
                                 len(objects)
                             )
                         # formatting the rgb
@@ -292,4 +328,16 @@ class ReaderWindowModel:
                         pix = QtGui.QPixmap.fromImage(new_q_image)
                         update_video_player_signal.emit(pix)
 
+                    current_time = datetime.datetime.now()
+                    time_subtraction = current_time - start_time
+                    out.write(original_frame)
+                    if time_subtraction.seconds >= Config.SECONDS_PER_RECORDING:
+                        writing_to_new_video = True
+                        start_time = current_time
+                        detector_object.flush_remaining_detections()
+                        out.release()
+
         detector_object.flush_remaining_detections()
+        out.release()
+
+

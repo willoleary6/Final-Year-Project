@@ -55,6 +55,7 @@ class Detector:
     def flush_remaining_detections(self):
         if len(self.__detections) > 0:
             self.insert_into_database()
+            self.__detections = []
 
     def remove_duplicate_objects(self):
         array_of_non_duplicate_objects = []

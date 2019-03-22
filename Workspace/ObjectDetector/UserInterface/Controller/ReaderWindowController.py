@@ -21,7 +21,6 @@ class ReaderWindowController(QMainWindow, ViewController):
         self.__reader_window_view = ReaderWindowView()
         self.__reader_window_model = ReaderWindowModel()
 
-        print(self.__reader_window_view)
         self.__file_reader_file_path_field = self.__reader_window_view.get_file_reader_file_path_field()
         self.__file_reader_file_path_open_nautilus_button = \
             self.__reader_window_view.get_self_file_reader_file_path_open_nautilus_button()

@@ -12,5 +12,4 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_window_view = TrainerWindowView()
 
     def initialise_view(self):
-        print(self.__trainer_window_view)
         self.__trainer_window_view.show()

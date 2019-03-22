@@ -1,5 +1,5 @@
 class Config:
-    SECONDS_ADDED_TO_EVENT_TIMESTAMP = .5
+    SECONDS_ADDED_TO_EVENT_TIMESTAMP = 5
     DETECTION_CSV_FILE_PATH = 'C:\\SourceCode\\Final-Year-Project\\Workspace\\Workspace.ObjectDetector\\CsvFiles\\detections.csv'
     FRAME_DELIMITER_FOR_TENSORFLOW = 5
     CAMERA_IP_ADDRESS = '192.168.1.210'
@@ -21,6 +21,10 @@ class Config:
     DATABASE_HOST = 'localhost'
     THREAD_LOOP_DELAY = .1
     VALID_VIDEO_FORMATS = ['.mp4']
-    #file extensions
+    # file extensions
     INFERENCE_GRAPH_FILE_EXTENSION = '.pb'
     OBJECT_LABELS_FILE_EXTENSION = '.pbtxt'
+
+    # live stream_recordings
+    SECONDS_PER_RECORDING = 20
+    RECORDINGS_FORMAT = '.mp4'
