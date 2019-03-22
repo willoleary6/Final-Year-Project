@@ -509,30 +509,30 @@ class ReaderWindowView(QMainWindow, BaseView):
     def __set_text_and_icons(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.__file_reader_title.setText(_translate("MainWindow", "FIle Reader"))
+        self.__file_reader_title.setText(_translate("MainWindow", "File Reader"))
         self.__file_reader_file_path_field_title.setText(_translate("MainWindow", "File path to videos"))
         self.__file_reader_file_path_field.setPlaceholderText(
             _translate("MainWindow", "/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos"))
         self.__file_reader_file_path_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__file_reader_file_path_field_status_label.setText(_translate("MainWindow", "No Filepath"))
+        self.__file_reader_file_path_field_status_label.setText(_translate("MainWindow", "No File Path"))
         self.__file_reader_inference_path_title.setText(_translate("MainWindow", "Inference path"))
         self.__file_reader_inference_path_field.setPlaceholderText(
             _translate("MainWindow",
                        "/Model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/frozen_inference_graph.pb"
                        ))
         self.__file_reader_inference_path_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__file_reader_inference_path_status.setText(_translate("MainWindow", "No FIlepath"))
-        self.__file_reader_labels_title.setText(_translate("MainWindow", "Labels path"))
+        self.__file_reader_inference_path_status.setText(_translate("MainWindow", "No File Path"))
+        self.__file_reader_labels_title.setText(_translate("MainWindow", "Labels Path"))
         self.__file_reader_labels_field.setPlaceholderText(
             _translate("MainWindow",
                        "/TensorFlowObjectDetectionCoinPrototype/training_resnet/object_detection.pbtxt\'"
                        ))
         self.__file_reader_labels_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__file_reader_labels_status.setText(_translate("MainWindow", "No Filepath"))
+        self.__file_reader_labels_status.setText(_translate("MainWindow", "No File Path"))
         self.__file_reader_start_button.setText(_translate("MainWindow", "Start"))
         self.__file_reader_stop_button.setText(_translate("MainWindow", "Stop"))
-        self.__live_stream_reader_title_label.setText(_translate("MainWindow", "LIve stream Reader"))
-        self.__live_stream_reader_ip_field_title.setText(_translate("MainWindow", "Livestream IP"))
+        self.__live_stream_reader_title_label.setText(_translate("MainWindow", "Live stream Reader"))
+        self.__live_stream_reader_ip_field_title.setText(_translate("MainWindow", "Live-stream Address"))
         self.__live_stream_reader_ip_field.setPlaceholderText(_translate("MainWindow", "192.168.0.56"))
         self.__live_stream_reader_ip_field_check_connection_button.setText(_translate("MainWindow", "Check "))
         self.__live_stream_reader_ip_field_status.setText(_translate("MainWindow", "No connection"))
@@ -540,21 +540,21 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__live_stream_reader_recordings_field.setPlaceholderText(
             _translate("MainWindow", "/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos"))
         self.__live_stream_reader_recordings_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__live_stream_reader_recordings_status.setText(_translate("MainWindow", "No Filepath"))
-        self.__live_stream_reader_inference_graph_title.setText(_translate("MainWindow", "inference graph "))
+        self.__live_stream_reader_recordings_status.setText(_translate("MainWindow", "No File Path"))
+        self.__live_stream_reader_inference_graph_title.setText(_translate("MainWindow", "Inference Graph "))
         self.__live_stream_reader_inference_graph_field.setPlaceholderText(
             _translate("MainWindow",
                        "/Model/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28/frozen_inference_graph.pb"
                        ))
         self.__live_stream_reader_inference_graph_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__live_stream_reader_inference_graph_status.setText(_translate("MainWindow", "No Filepath"))
-        self.__live_stream_reader_label_path_title.setText(_translate("MainWindow", "Labels path"))
+        self.__live_stream_reader_inference_graph_status.setText(_translate("MainWindow", "No File Path"))
+        self.__live_stream_reader_label_path_title.setText(_translate("MainWindow", "Labels Path"))
         self.__live_stream_reader_label_path_field.setPlaceholderText(
             _translate("MainWindow",
                        "/TensorFlowObjectDetectionCoinPrototype/training_resnet/object_detection.pbtxt\'"
                        ))
         self.__live_stream_reader_label_path_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__live_stream_reader_label_path_status.setText(_translate("MainWindow", "No FIlepath"))
+        self.__live_stream_reader_label_path_status.setText(_translate("MainWindow", "No File Path"))
         self.__live_stream_reader_start_button.setText(_translate("MainWindow", "Start"))
         self.__live_stream_reader_stop_button.setText(_translate("MainWindow", "Stop"))
 

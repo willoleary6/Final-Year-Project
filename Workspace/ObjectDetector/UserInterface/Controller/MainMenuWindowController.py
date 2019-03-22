@@ -2,7 +2,13 @@ from Workspace.ObjectDetector.UserInterface.Controller.viewController import Vie
 from PyQt5.QtWidgets import QMainWindow
 
 from Workspace.ObjectDetector.UserInterface.View.MainMenuWindowView import MainMenuWindowView
-
+from Workspace.ObjectDetector.UserInterface.Controller.DetectionReviewerWindowController import \
+    DetectionReviewerWindowController
+from Workspace.ObjectDetector.UserInterface.Controller.TrainerWindowController import TrainerWindowController
+from Workspace.ObjectDetector.UserInterface.Controller.ReaderWindowController import ReaderWindowController
+from Workspace.ObjectDetector.UserInterface.Coordinator.TrainerWindowCoordinator import TrainerWindowCoordinator
+from Workspace.ObjectDetector.UserInterface.Coordinator.ReaderWindowCoordinator import ReaderWindowCoordinator
+from Workspace.ObjectDetector.UserInterface.Coordinator.DetectionReviewerWindowCoordinator import DetectionReviewerWindowCoordinator
 
 class MainMenuWindowController(QMainWindow, ViewController):
 
@@ -31,11 +37,9 @@ class MainMenuWindowController(QMainWindow, ViewController):
 
     def go_to_reader_screen(self):
         self.__coordinator.run_new_instance_of_reader()
-        self.__main_menu_window_view.destroy()
 
-    @staticmethod
-    def go_to_trainer_screen():
-        print("trainer")
+    def go_to_trainer_screen(self):
+        self.__coordinator.run_new_instance_of_trainer()
 
     @staticmethod
     def go_to_documentation_screen():

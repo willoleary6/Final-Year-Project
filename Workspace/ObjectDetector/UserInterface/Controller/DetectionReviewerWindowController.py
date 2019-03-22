@@ -61,7 +61,10 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
         except Exception as e:
             print("Error: unable to start thread")
             print(e)
+
         self.signal.connect(self.update_detections)
+
+
 
     def get_array_of_detection_events(self):
         return self.__array_of_detection_events
