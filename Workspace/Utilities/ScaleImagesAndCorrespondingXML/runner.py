@@ -3,7 +3,7 @@ from Workspace.Utilities.ScaleImagesAndCorrespondingXML.ScaleImagesAndCorrespond
 
 scaler = ScaleImagesAndCorrespondingXML(
     '/home/will/SourceCode/Final-Year-Project/Workspace/Utilities/ScaleImagesAndCorrespondingXML/images/',
-    .4
+    .1
 )
 
 scaler.downscale_images()
