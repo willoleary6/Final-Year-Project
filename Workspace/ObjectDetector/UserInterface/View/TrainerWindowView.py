@@ -14,7 +14,7 @@ from Workspace.ObjectDetector.config import Config
 
 
 class TrainerWindowView(QMainWindow, BaseView):
-    
+
     def __init__(self, window_height=Config.TRAINER_WINDOW_HEIGHT,
                  window_width=Config.TRAINER_WINDOW_HEIGHT):
         super(QMainWindow, self).__init__(parent=None)
@@ -24,23 +24,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__central_widget = QtWidgets.QWidget(self)
         self.__central_widget.setObjectName("__central_widget")
         self.__vertical_layout_widget = QtWidgets.QWidget(self.__central_widget)
-        self.__vertical_layout_widget.setGeometry(
-            QtCore.QRect(
-                self.__percentage_of_width(0),
-                self.__percentage_of_height(0),
-                window_height,
-                window_width
-            )
-        )
         self.__vertical_layout_widget.setObjectName("__vertical_layout_widget")
 
         self.__trainer_main_layout = QtWidgets.QVBoxLayout(self.__vertical_layout_widget)
-        self.__trainer_main_layout.setContentsMargins(
-            self.__percentage_of_width(0),
-            self.__percentage_of_height(0),
-            self.__percentage_of_height(0),
-            self.__percentage_of_width(0)
-        )
         self.__trainer_main_layout.setObjectName("__trainer_main_layout")
 
         self.__trainer_directory_vertical_layout = QtWidgets.QVBoxLayout()
@@ -83,18 +69,12 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_directory_horizontal_layout.addItem(self.__spacer_item)
 
-        self.__trainer_directory_field_ = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_directory_field_.setAlignment(QtCore.Qt.AlignCenter)
-        self.__trainer_directory_field_.setObjectName("__trainer_directory_field_")
-        self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field_)
-
+        self.__trainer_directory_field = QtWidgets.QLabel(self.__vertical_layout_widget)
+        self.__trainer_directory_field.setAlignment(QtCore.Qt.AlignCenter)
+        self.__trainer_directory_field.setObjectName("__trainer_directory_field")
+        self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field)
         self.__trainer_directory_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-        self.__trainer_directory_field.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(52),
-                self.__percentage_of_height(0)
-            )
-        )
+
         self.__trainer_directory_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_directory_field.setObjectName("__trainer_directory_field")
         self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field)
@@ -159,12 +139,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.__trainer_image_data_set_field_title.sizePolicy().hasHeightForWidth())
         self.__trainer_image_data_set_field_title.setSizePolicy(sizePolicy)
-        self.__trainer_image_data_set_field_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(15),
-                self.__percentage_of_height(0)
-            )
-        )
         self.__trainer_image_data_set_field_title.setObjectName("__trainer_image_data_set_field_title")
         self.__trainer_image_data_set_directory_field_horizontal_layout.addWidget(
             self.__trainer_image_data_set_field_title)
@@ -175,12 +149,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.__trainer_image_data_set_field.sizePolicy().hasHeightForWidth())
         self.__trainer_image_data_set_field.setSizePolicy(sizePolicy)
-        self.__trainer_image_data_set_field.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(52),
-                self.__percentage_of_height(0)
-            )
-        )
         self.__trainer_image_data_set_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_image_data_set_field.setObjectName("__trainer_image_data_set_field")
 
@@ -222,11 +190,12 @@ class TrainerWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_image_data_set_commit_to_training_directory_horizontal_layout.addItem(self.__spacer_item_4)
-        self.__trainer_image_data_set_commit_to_training_directory = QtWidgets.QPushButton(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_commit_to_training_directory.setObjectName(
-            "__trainer_image_data_set_commit_to_training_directory")
+        self.__trainer_image_data_set_commit_to_training_directory_button = QtWidgets.QPushButton(
+            self.__vertical_layout_widget)
+        self.__trainer_image_data_set_commit_to_training_directory_button.setObjectName(
+            "__trainer_image_data_set_commit_to_training_directory_button")
         self.__trainer_image_data_set_commit_to_training_directory_horizontal_layout.addWidget(
-            self.__trainer_image_data_set_commit_to_training_directory)
+            self.__trainer_image_data_set_commit_to_training_directory_button)
         self.__spacer_item_5 = QtWidgets.QSpacerItem(
             self.__percentage_of_width(3),
             self.__percentage_of_height(1.5),
@@ -253,12 +222,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
 
         self.__trainer_image_data_set_checks_title_label = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_checks_title_label.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(22),
-                self.__percentage_of_height(0)
-            )
-        )
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_checks_title_label.setFont(font)
@@ -282,12 +246,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_file_format_check_horizontal_layout.addItem(self.__spacer_item_6)
 
         self.__trainer_image_data_set_file_format_check_title = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_file_format_check_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(18.5),
-                self.__percentage_of_height(0)
-            )
-        )
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_file_format_check_title.setFont(font)
@@ -305,12 +264,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_image_data_set_file_format_check_horizontal_layout.addItem(self.__spacer_item_7)
         self.__trainer_image_data_set_file_format_check_status = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_file_format_check_status.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(22),
-                self.__percentage_of_height(0)
-            )
-        )
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_file_format_check_status.setFont(font)
@@ -330,7 +284,8 @@ class TrainerWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_image_data_set_file_format_check_horizontal_layout.addItem(self.__spacer_item_8)
-        self.__trainer_image_data_set_file_format_check_fix_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
+        self.__trainer_image_data_set_file_format_check_fix_button = QtWidgets.QPushButton(
+            self.__vertical_layout_widget)
         self.__trainer_image_data_set_file_format_check_fix_button.setObjectName(
             "__trainer_image_data_set_file_format_check_fix_button"
         )
@@ -358,17 +313,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_file_number_of_images_check_horizontal_layout.addItem(self.__spacer_item_10)
 
         self.__trainer_image_data_set_number_of_images_check_title = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_number_of_images_check_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(18.5),
-                self.__percentage_of_height(0)
-            ))
-        self.__trainer_image_data_set_number_of_images_check_title.setSizeIncrement(
-            QtCore.QSize(
-                self.__percentage_of_width(0),
-                self.__percentage_of_height(0)
-            )
-        )
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_number_of_images_check_title.setFont(font)
@@ -387,13 +332,9 @@ class TrainerWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_image_data_set_file_number_of_images_check_horizontal_layout.addItem(self.__spacer_item_11)
-        self.__trainer_image_data_set_file_number_of_images_check_status = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_file_number_of_images_check_status.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(22),
-                self.__percentage_of_height(0)
-            )
-        )
+        self.__trainer_image_data_set_file_number_of_images_check_status = QtWidgets.QLabel(
+            self.__vertical_layout_widget)
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_file_number_of_images_check_status.setFont(font)
@@ -442,17 +383,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_image_data_set_file_image_size_check_horizontal_layout.addItem(self.__spacer_item_14)
         self.__trainer_image_data_set_image_size_check_title = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_image_size_check_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(18.5),
-                self.__percentage_of_height(0)
-            )
-        )
-        self.__trainer_image_data_set_image_size_check_title.setSizeIncrement(
-            QtCore.QSize(
-                self.__percentage_of_width(0),
-                self.__percentage_of_height(0)
-            ))
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_image_size_check_title.setFont(font)
@@ -472,12 +403,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_file_image_size_check_horizontal_layout.addItem(self.__spacer_item_15)
 
         self.__trainer_image_data_set_image_size_check_status = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_image_size_check_status.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(22),
-                self.__percentage_of_height(0)
-            )
-        )
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_image_size_check_status.setFont(font)
@@ -524,19 +450,8 @@ class TrainerWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_image_data_set_file_corresponding_xml_check_horizontal_layout.addItem(self.__spacer_item_18)
-        self.__trainer_image_data_set_corresponding_xml_files_check_title = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_corresponding_xml_files_check_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(18.5),
-                self.__percentage_of_height(0)
-            )
-        )
-        self.__trainer_image_data_set_corresponding_xml_files_check_title.setSizeIncrement(
-            QtCore.QSize(
-                self.__percentage_of_width(0),
-                self.__percentage_of_height(0)
-            )
-        )
+        self.__trainer_image_data_set_corresponding_xml_files_check_title = QtWidgets.QLabel(
+            self.__vertical_layout_widget)
 
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -558,12 +473,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_file_corresponding_xml_check_horizontal_layout.addItem(self.__spacer_item_19)
         self.__trainer_image_data_set_file_corresponding_xml_files_check_status = QtWidgets.QLabel(
             self.__vertical_layout_widget)
-        self.__trainer_image_data_set_file_corresponding_xml_files_check_status.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(22),
-                self.__percentage_of_height(0)
-            )
-        )
+
         font = QtGui.QFont()
         font.setPointSize(14)
         self.__trainer_image_data_set_file_corresponding_xml_files_check_status.setFont(font)
@@ -614,18 +524,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_image_data_set_file_xml_file_validity_check_horizontal_layout.addItem(self.__spacer_item_22)
         self.__trainer_image_data_set_xml_file_validity_check_title = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_xml_file_validity_check_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(18.5),
-                self.__percentage_of_height(0)
-            )
-        )
-        self.__trainer_image_data_set_xml_file_validity_check_title.setSizeIncrement(
-            QtCore.QSize(
-                self.__percentage_of_width(0),
-                self.__percentage_of_height(0)
-            )
-        )
 
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -645,13 +543,8 @@ class TrainerWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_image_data_set_file_xml_file_validity_check_horizontal_layout.addItem(self.__spacer_item_23)
-        self.__trainer_image_data_set_file_xml_file_validity_check_status = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_file_xml_file_validity_check_status.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(22),
-                self.__percentage_of_height(0)
-            )
-        )
+        self.__trainer_image_data_set_file_xml_file_validity_check_status = QtWidgets.QLabel(
+            self.__vertical_layout_widget)
 
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -718,18 +611,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_image_data_set_horizontal_layout.addItem(self.__spacer_item_26)
         self.__trainer_image_data_set_split_field_title = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_split_field_title.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(11),
-                self.__percentage_of_height(0)
-            )
-        )
-        self.__trainer_image_data_set_split_field_title.setSizeIncrement(
-            QtCore.QSize(
-                self.__percentage_of_width(0),
-                self.__percentage_of_height(0)
-            )
-        )
 
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -739,12 +620,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_split_field_title.setObjectName("__trainer_image_data_set_split_field_title")
         self.__trainer_image_data_set_horizontal_layout.addWidget(self.__trainer_image_data_set_split_field_title)
         self.__trainer_image_data_set_split_percentage_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_split_percentage_field.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(52),
-                self.__percentage_of_height(0)
-            )
-        )
+
         self.__trainer_image_data_set_split_percentage_field.setInputMask("")
         self.__trainer_image_data_set_split_percentage_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_image_data_set_split_percentage_field.setObjectName(
@@ -753,12 +629,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_horizontal_layout.addWidget(self.__trainer_image_data_set_split_percentage_field)
 
         self.__trainer_image_data_set_split_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
-        self.__trainer_image_data_set_split_button.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(11),
-                self.__percentage_of_height(0)
-            )
-        )
+
         self.__trainer_image_data_set_split_button.setObjectName("__trainer_image_data_set_split_button")
         self.__trainer_image_data_set_horizontal_layout.addWidget(self.__trainer_image_data_set_split_button)
 
@@ -806,23 +677,18 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout.addWidget(
             self.__trainer_image_data_convert_to_tf_record_button)
-        self.__trainer_image_data_convert_to_tf_record_label = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_image_data_convert_to_tf_record_label.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(11), 
-                self.__percentage_of_height(0)
-            )
-        )
-        self.__trainer_image_data_convert_to_tf_record_label.setObjectName(
-            "__trainer_image_data_convert_to_tf_record_label"
+        self.__trainer_image_data_convert_to_tf_record_status = QtWidgets.QLabel(self.__vertical_layout_widget)
+
+        self.__trainer_image_data_convert_to_tf_record_status.setObjectName(
+            "__trainer_image_data_convert_to_tf_record_status"
         )
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout.addWidget(
-            self.__trainer_image_data_convert_to_tf_record_label)
+            self.__trainer_image_data_convert_to_tf_record_status)
 
         self.__spacer_item_29 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout.addItem(self.__spacer_item_29)
@@ -851,9 +717,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_field_horizontal_layout.setObjectName("__trainer_field_horizontal_layout")
 
         self.__spacer_item_30 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_field_horizontal_layout.addItem(self.__spacer_item_30)
@@ -862,12 +728,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_model_field_title.setObjectName("__trainer_model_field_title")
         self.__trainer_field_horizontal_layout.addWidget(self.__trainer_model_field_title)
         self.__trainer_model_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-        self.__trainer_model_field.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(52), 
-                self.__percentage_of_height(0)
-            )
-        )
+
         self.__trainer_model_field.setObjectName("__trainer_model_field")
         self.__trainer_field_horizontal_layout.addWidget(self.__trainer_model_field)
         self.__trainer_model_field_open_nautilus_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
@@ -878,9 +739,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_field_horizontal_layout.addWidget(self.__trainer_model_field_status)
 
         self.__spacer_item_31 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_field_horizontal_layout.addItem(self.__spacer_item_31)
@@ -889,9 +750,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_config_horizontal_layout.setObjectName("__trainer_config_horizontal_layout")
 
         self.__spacer_item_32 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_config_horizontal_layout.addItem(self.__spacer_item_32)
@@ -899,12 +760,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_config_field_title.setObjectName("__trainer_config_field_title")
         self.__trainer_config_horizontal_layout.addWidget(self.__trainer_config_field_title)
         self.__trainer_config_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-        self.__trainer_config_field.setMinimumSize(
-            QtCore.QSize(
-                self.__percentage_of_width(52), 
-                self.__percentage_of_height(0)
-            )
-        )
+
         self.__trainer_config_field.setObjectName("__trainer_config_field")
         self.__trainer_config_horizontal_layout.addWidget(self.__trainer_config_field)
         self.__trainer_config_field_open_nautilus_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
@@ -915,9 +771,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_config_horizontal_layout.addWidget(self.__trainer_config_field_status)
 
         self.__spacer_item_33 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_config_horizontal_layout.addItem(self.__spacer_item_33)
@@ -926,9 +782,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_model_commit_horizontal_layout.setObjectName("__trainer_model_commit_horizontal_layout")
 
         self.__spacer_item_34 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_model_commit_horizontal_layout.addItem(self.__spacer_item_34)
@@ -946,9 +802,9 @@ class TrainerWindowView(QMainWindow, BaseView):
             self.__trainer_model_commit_to_training_directory_status)
 
         self.__spacer_item_35 = QtWidgets.QSpacerItem(
-            self.__percentage_of_width(3), 
-            self.__percentage_of_height(1.5), 
-            QtWidgets.QSizePolicy.Expanding, 
+            self.__percentage_of_width(3),
+            self.__percentage_of_height(1.5),
+            QtWidgets.QSizePolicy.Expanding,
             QtWidgets.QSizePolicy.Minimum
         )
         self.__trainer_model_commit_horizontal_layout.addItem(self.__spacer_item_35)
@@ -983,7 +839,8 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_stop_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
         self.__trainer_control_panel_stop_button.setObjectName("__trainer_control_panel_stop_button")
         self.__trainer_control_panel_controls_vertical_layout.addWidget(self.__trainer_control_panel_stop_button)
-        self.__trainer_control_panel_export_inference_graph_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
+        self.__trainer_control_panel_export_inference_graph_button = QtWidgets.QPushButton(
+            self.__vertical_layout_widget)
         self.__trainer_control_panel_export_inference_graph_button.setObjectName(
             "__trainer_control_panel_export_inference_graph_button"
         )
@@ -1006,45 +863,56 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_main_layout.addLayout(self.__trainer_control_panel_vertical_layout)
         self.setCentralWidget(self.__central_widget)
 
-        self.__set_text_and_icons(self)
+        self.__set_text_and_icons()
+        self.__update_geometry()
         QtCore.QMetaObject.connectSlotsByName(self)
 
-    def __set_text_and_icons(self, MainWindow):
+    def __set_text_and_icons(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.__trainer_title.setText(_translate("MainWindow", "Trainer"))
         self.__trainer_directory_title.setText(_translate("MainWindow", "Training Directory"))
-        self.__trainer_directory_field_.setText(_translate("MainWindow", "Training Directory"))
+        self.__trainer_directory_field.setText(_translate("MainWindow", "Training Directory"))
         self.__trainer_directory_open_nautilus_button.setText(_translate("MainWindow", "..."))
         self.__trainer_directory_status.setText(_translate("MainWindow", "No Directory set"))
         self.__trainer_image_data_set_title.setText(_translate("MainWindow", "Image Dataset"))
         self.__trainer_image_data_set_field_title.setText(_translate("MainWindow", "Directory Of Image Dataset"))
         self.__trainer_image_data_set_field_open_nautilus_button.setText(_translate("MainWindow", "..."))
         self.__trainer_image_data_set_field_status.setText(_translate("MainWindow", "No Directory Set"))
-        self.__trainer_image_data_set_commit_to_training_directory.setText(_translate("MainWindow", "Commit Dataset to Training Directory"))
+        self.__trainer_image_data_set_commit_to_training_directory_button.setText(
+            _translate("MainWindow", "Commit Dataset to Training Directory"))
         self.__trainer_image_data_set_checks_title_label.setText(_translate("MainWindow", "Checking Dataset"))
         self.__trainer_image_data_set_file_format_check_title.setText(_translate("MainWindow", "File Format:"))
         self.__trainer_image_data_set_file_format_check_status.setText(_translate("MainWindow", "Checking..."))
         self.__trainer_image_data_set_file_format_check_fix_button.setText(_translate("MainWindow", "Fix"))
-        self.__trainer_image_data_set_number_of_images_check_title.setText(_translate("MainWindow", "Number Of Images:"))
-        self.__trainer_image_data_set_file_number_of_images_check_status.setText(_translate("MainWindow", "Waiting for previous Check."))
+        self.__trainer_image_data_set_number_of_images_check_title.setText(
+            _translate("MainWindow", "Number Of Images:"))
+        self.__trainer_image_data_set_file_number_of_images_check_status.setText(
+            _translate("MainWindow", "Waiting for previous Check."))
         self.__trainer_image_data_set_number_of_images_check_fix_button.setText(_translate("MainWindow", "Fix"))
         self.__trainer_image_data_set_image_size_check_title.setText(_translate("MainWindow", "Image Size:"))
-        self.__trainer_image_data_set_image_size_check_status.setText(_translate("MainWindow", "Waiting for previous Check."))
+        self.__trainer_image_data_set_image_size_check_status.setText(
+            _translate("MainWindow", "Waiting for previous Check."))
         self.__trainer_image_data_set_image_size_check_fix_button.setText(_translate("MainWindow", "Fix"))
-        self.__trainer_image_data_set_corresponding_xml_files_check_title.setText(_translate("MainWindow", "Corresponding XML files:"))
-        self.__trainer_image_data_set_file_corresponding_xml_files_check_status.setText(_translate("MainWindow", "Waiting for previous Check."))
+        self.__trainer_image_data_set_corresponding_xml_files_check_title.setText(
+            _translate("MainWindow", "Corresponding XML files:"))
+        self.__trainer_image_data_set_file_corresponding_xml_files_check_status.setText(
+            _translate("MainWindow", "Waiting for previous Check."))
         self.__trainer_image_data_set_corresponding_xml_files_check_fix_button.setText(_translate("MainWindow", "Fix"))
-        self.__trainer_image_data_set_xml_file_validity_check_title.setText(_translate("MainWindow", "XML File Validity:"))
-        self.__trainer_image_data_set_file_xml_file_validity_check_status.setText(_translate("MainWindow", "Waiting for previous Check."))
+        self.__trainer_image_data_set_xml_file_validity_check_title.setText(
+            _translate("MainWindow", "XML File Validity:"))
+        self.__trainer_image_data_set_file_xml_file_validity_check_status.setText(
+            _translate("MainWindow", "Waiting for previous Check."))
         self.__trainer_image_data_set_xml_file_validity_check_fix_button.setText(_translate("MainWindow", "Fix"))
-        self.__trainer_image_data_set_split_title.setText(_translate("MainWindow", "Splitting the data set into test and train sets"))
+        self.__trainer_image_data_set_split_title.setText(
+            _translate("MainWindow", "Splitting the data set into test and train sets"))
         self.__trainer_image_data_set_split_field_title.setText(_translate("MainWindow", "Percentage of test images:"))
         self.__trainer_image_data_set_split_percentage_field.setText(_translate("MainWindow", "10"))
         self.__trainer_image_data_set_split_button.setText(_translate("MainWindow", "Split"))
         self.__trainer_image_data_convert_to_tf_record.setText(_translate("MainWindow", "Convert to TF Record"))
         self.__trainer_image_data_convert_to_tf_record_button.setText(_translate("MainWindow", "Convert"))
-        self.__trainer_image_data_convert_to_tf_record_label.setText(_translate("MainWindow", "Waiting for Checks to Clear"))
+        self.__trainer_image_data_convert_to_tf_record_status.setText(
+            _translate("MainWindow", "Waiting for Checks to Clear"))
         self.__trainer_model_selection_title.setText(_translate("MainWindow", "Model Selection"))
         self.__trainer_model_field_title.setText(_translate("MainWindow", "Model Directory:"))
         self.__trainer_model_field_open_nautilus_button.setText(_translate("MainWindow", "..."))
@@ -1057,11 +925,273 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_start_button.setText(_translate("MainWindow", "Start Training"))
         self.__trainer_control_panel_open_tensor_board_button.setText(_translate("MainWindow", "Open Tensorboard"))
         self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
-        self.__trainer_control_panel_export_inference_graph_button.setText(_translate("MainWindow", "Export Inference Graph"))
+        self.__trainer_control_panel_export_inference_graph_button.setText(
+            _translate("MainWindow", "Export Inference Graph"))
         self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
 
+    def get_trainer_directory_field(self):
+        return self.__trainer_directory_field
+
+    def get_trainer_directory_open_nautilus_button(self):
+        return self.__trainer_directory_open_nautilus_button
+
+    def get_trainer_directory_status(self):
+        return self.__trainer_directory_status
+
+    def get_trainer_image_data_set_field_open_nautilus_button(self):
+        return self.__trainer_image_data_set_field_open_nautilus_button
+
+    def get_trainer_image_data_set_field_status(self):
+        return self.__trainer_image_data_set_field_status
+
+    def get_trainer_image_data_set_field(self):
+        return self.__trainer_image_data_set_field
+
+    def get_trainer_image_data_set_commit_to_training_directory_button(self):
+        return self.__trainer_image_data_set_commit_to_training_directory_button
+
+    def get_trainer_image_data_set_file_format_check_status(self):
+        return self.__trainer_image_data_set_file_format_check_status
+
+    def get_trainer_image_data_set_file_format_check_fix_button(self):
+        return self.__trainer_image_data_set_file_format_check_fix_button
+
+    def get_trainer_image_data_set_file_number_of_images_check_status(self):
+        return self.__trainer_image_data_set_file_number_of_images_check_status
+
+    def get_trainer_image_data_set_number_of_images_check_fix_button(self):
+        return self.__trainer_image_data_set_number_of_images_check_fix_button
+
+    def get_trainer_image_data_set_image_size_check_status(self):
+        return self.__trainer_image_data_set_image_size_check_status
+
+    def get_trainer_image_data_set_image_size_check_fix_button(self):
+        return self.__trainer_image_data_set_image_size_check_fix_button
+
+    def get_trainer_image_data_set_file_corresponding_xml_files_check_status(self):
+        return self.__trainer_image_data_set_file_corresponding_xml_files_check_status
+
+    def get_trainer_image_data_set_corresponding_xml_files_check_fix_button(self):
+        return self.__trainer_image_data_set_corresponding_xml_files_check_fix_button
+
+    def get_trainer_image_data_set_file_xml_file_validity_check_status(self):
+        return self.__trainer_image_data_set_file_xml_file_validity_check_status
+
+    def get_trainer_image_data_set_xml_file_validity_check_fix_button(self):
+        return self.__trainer_image_data_set_xml_file_validity_check_fix_button
+
+    def get_trainer_image_data_set_split_percentage_field(self):
+        return self.__trainer_image_data_set_split_percentage_field
+
+    def get_trainer_image_data_set_split_button(self):
+        return self.__trainer_image_data_set_split_button
+
+    def get_trainer_image_data_convert_to_tf_record_status(self):
+        return self.__trainer_image_data_convert_to_tf_record_status
+
+    def get_trainer_model_field_open_nautilus_button(self):
+        return self.__trainer_model_field_open_nautilus_button
+
+    def get_trainer_model_field_status(self):
+        return self.__trainer_model_field_status
+
+    def get_trainer_model_field(self):
+        return self.__trainer_model_field
+
+    def get_trainer_config_field_open_nautilus_button(self):
+        return self.__trainer_config_field_open_nautilus_button
+
+    def get_trainer_config_field_status(self):
+        return self.__trainer_config_field_status
+
+    def get_trainer_config_field(self):
+        return self.__trainer_config_field
+
+    def get_trainer_model_commit_to_training_directory_button(self):
+        return self.__trainer_model_commit_to_training_directory_button
+
+    def get_trainer_model_commit_to_training_directory_status(self):
+        return self.__trainer_model_commit_to_training_directory_status
+
+    def get_trainer_control_panel_start_button(self):
+        return self.__trainer_control_panel_start_button
+
+    def get_trainer_control_panel_open_tensor_board_button(self):
+        return self.__trainer_control_panel_open_tensor_board_button
+
+    def get_trainer_control_panel_stop_button(self):
+        return self.__trainer_control_panel_stop_button
+
+    def get_trainer_control_panel_export_inference_graph_button(self):
+        return self.__trainer_control_panel_export_inference_graph_button
+
+    def get_trainer_control_panel_output_area(self):
+        return self.__trainer_control_panel_output_area
+
     def __update_geometry(self):
-        print("test")
+        self.__vertical_layout_widget.setGeometry(
+            QtCore.QRect(
+                self.__percentage_of_width(.925),  # margin - left
+                self.__percentage_of_height(1),  # margin - top
+                self.__percentage_of_width(99),  # width
+                self.__percentage_of_height(99)  # height
+            )
+        )
+        self.__trainer_main_layout.setContentsMargins(
+            self.__percentage_of_width(0),
+            self.__percentage_of_height(0),
+            self.__percentage_of_height(0),
+            self.__percentage_of_width(0)
+        )
+        self.__trainer_directory_field.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(52),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_field_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(15),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_field.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(52),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_checks_title_label.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(22),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_file_format_check_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(18.5),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_file_format_check_status.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(22),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_number_of_images_check_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(18.5),
+                self.__percentage_of_height(0)
+            ))
+        self.__trainer_image_data_set_number_of_images_check_title.setSizeIncrement(
+            QtCore.QSize(
+                self.__percentage_of_width(0),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_file_number_of_images_check_status.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(22),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_image_size_check_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(18.5),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_image_size_check_title.setSizeIncrement(
+            QtCore.QSize(
+                self.__percentage_of_width(0),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_image_size_check_status.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(22),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_corresponding_xml_files_check_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(18.5),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_corresponding_xml_files_check_title.setSizeIncrement(
+            QtCore.QSize(
+                self.__percentage_of_width(0),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_file_corresponding_xml_files_check_status.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(22),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_xml_file_validity_check_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(18.5),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_xml_file_validity_check_title.setSizeIncrement(
+            QtCore.QSize(
+                self.__percentage_of_width(0),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_file_xml_file_validity_check_status.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(22),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_split_field_title.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(11),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_split_field_title.setSizeIncrement(
+            QtCore.QSize(
+                self.__percentage_of_width(0),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_split_percentage_field.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(52),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_set_split_button.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(11),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_image_data_convert_to_tf_record_status.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(11),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_model_field.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(52),
+                self.__percentage_of_height(0)
+            )
+        )
+        self.__trainer_config_field.setMinimumSize(
+            QtCore.QSize(
+                self.__percentage_of_width(52),
+                self.__percentage_of_height(0)
+            )
+        )
 
     def __percentage_of_height(self, percentage):
         return (percentage / 100) * self.geometry().height()
@@ -1072,13 +1202,3 @@ class TrainerWindowView(QMainWindow, BaseView):
     def resizeEvent(self, event):
         self.__update_geometry()  # call your update method
         QtWidgets.QMainWindow.resizeEvent(self, event)
-
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    ui = TrainerWindowView()
-    ui.show()
-    sys.exit(app.exec_())
-
