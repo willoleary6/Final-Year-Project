@@ -25,7 +25,7 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__central_widget.setObjectName("central_widget")
 
         self.__vertical_layout_widget = QtWidgets.QWidget(self.__central_widget)
-        self.__vertical_layout_widget.setObjectName("verticalLayoutWidget")
+        self.__vertical_layout_widget.setObjectName("__vertical_layout_widget")
 
         self.__main_layout = QtWidgets.QVBoxLayout(self.__vertical_layout_widget)
         self.__main_layout.setObjectName("main_layout")

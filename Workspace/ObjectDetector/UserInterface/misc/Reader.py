@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
         self.central_widget.setObjectName("central_widget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.central_widget)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 20, 2921, 1638))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayoutWidget.setObjectName("__vertical_layout_widget")
         self.main_layout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
         self.main_layout.setObjectName("main_layout")
