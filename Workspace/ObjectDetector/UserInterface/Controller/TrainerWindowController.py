@@ -251,6 +251,11 @@ class TrainerWindowController(QMainWindow, ViewController):
         else:
             self.toggle_corresponding_xml_check_functionality(True)
 
+        if self.__trainer_image_data_set_file_xml_file_validity_check_status.property("valid_to_run"):
+            self.toggle_xml_file_validity_check_functionality(False)
+        else:
+            self.toggle_xml_file_validity_check_functionality(True)
+
     def initialise_image_data_set_checks(self):
         print('test')
         self.__currently_check_image_data_set = True
@@ -301,7 +306,27 @@ class TrainerWindowController(QMainWindow, ViewController):
                     )
                     if corresponding_xml_results['check_outcome']:
                         corresponding_xml_stylesheet = "background-color: green; color: white"
-                        print('proceed')
+                        self.update_status_label(
+                            self.__trainer_image_data_set_file_xml_file_validity_check_status,
+                            'Checking...',
+                            '',
+                            False
+                        )
+                        validity_xml_results = self.__trainer_window_model.validity_xml_file_test(
+                            self.__directory_of_image_data_set
+                        )
+                        if validity_xml_results['check_outcome']:
+                            validity_xml_stylesheet = "background-color: green; color: white"
+                            print('proceed')
+                        else:
+                            validity_xml_stylesheet = "background-color: red; color: white"
+                            self.__trainer_image_data_set_xml_file_validity_check_fix_button.clicked.connect(
+                                partial(
+                                    self.open_label_img_on_invalid_files,
+                                    validity_xml_results['invalid_files']
+                                )
+                            )
+
                     else:
                         corresponding_xml_stylesheet = "background-color: red; color: white"
                         self.__trainer_image_data_set_corresponding_xml_files_check_fix_button.setDisabled(False)
@@ -362,6 +387,13 @@ class TrainerWindowController(QMainWindow, ViewController):
             corresponding_xml_results['description'],
             corresponding_xml_stylesheet,
             corresponding_xml_results['check_outcome']
+        )
+
+        self.update_status_label(
+            self.__trainer_image_data_set_file_xml_file_validity_check_status,
+            validity_xml_results['description'],
+            validity_xml_stylesheet,
+            validity_xml_results['check_outcome']
         )
 
         self.__currently_check_image_data_set = False
@@ -453,15 +485,16 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_image_data_set_image_size_check_fix_button.setDisabled(toggle_value)
 
     def toggle_corresponding_xml_check_functionality(self, toggle_value):
-        print('')
+        self
         #self.__trainer_image_data_set_corresponding_xml_files_check_title.setDisabled(toggle_value)
         #self.__trainer_image_data_set_file_corresponding_xml_files_check_status.setDisabled(toggle_value)
         #self.__trainer_image_data_set_corresponding_xml_files_check_fix_button.setDisabled(toggle_value)
 
     def toggle_xml_file_validity_check_functionality(self, toggle_value):
-        self.__trainer_image_data_set_xml_file_validity_check_title.setDisabled(toggle_value)
-        self.__trainer_image_data_set_file_xml_file_validity_check_status.setDisabled(toggle_value)
-        self.__trainer_image_data_set_xml_file_validity_check_fix_button.setDisabled(toggle_value)
+        self
+        #self.__trainer_image_data_set_xml_file_validity_check_title.setDisabled(toggle_value)
+        #self.__trainer_image_data_set_file_xml_file_validity_check_status.setDisabled(toggle_value)
+        #self.__trainer_image_data_set_xml_file_validity_check_fix_button.setDisabled(toggle_value)
 
     def toggle_split_data_set_functionality(self, toggle_value):
         self.__trainer_image_data_set_split_title.setDisabled(toggle_value)

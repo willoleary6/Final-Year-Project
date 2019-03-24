@@ -230,7 +230,6 @@ class TrainerWindowModel:
 
         return check_result
     def open_label_img_with_invalid_files(self, invalid_files, recheck_signal):
-        print(invalid_files[0])
         argv = []
         self.__label_img_instance = MainWindow(
             recheck_signal,
@@ -242,5 +241,47 @@ class TrainerWindowModel:
         self.__label_img_instance.loadFile(invalid_files[0])
         self.__label_img_instance.import_array_of_file_paths(invalid_files)
 
-        print("hello!")
 
+    def validity_xml_file_test(self, data_set_directory):
+        check_result = {
+            'check_outcome': True,
+            'description': 'Pass',
+            'invalid_files': []
+        }
+
+        list_of_files = os.listdir(data_set_directory)
+        for file in list_of_files:
+            extension = file.split('.')[-1]
+            if extension == 'xml':
+                tree = ET.parse(data_set_directory+file)
+                root = tree.getroot()
+                for member in root.findall('object'):
+                    last_member_index = len(member) - 1
+                    try:
+                        value = (root.find('filename').text,
+                                 int(root.find('size')[self.get_index(root.find('size'), 'width')].text),
+                                 int(root.find('size')[self.get_index(root.find('size'), 'height')].text),
+                                 member[0].text,
+                                 int(member[last_member_index][self.get_index(member[last_member_index], 'xmin')].text),
+                                 int(member[last_member_index][self.get_index(member[last_member_index], 'ymin')].text),
+                                 int(member[last_member_index][self.get_index(member[last_member_index], 'xmax')].text),
+                                 int(member[last_member_index][self.get_index(member[last_member_index], 'ymax')].text)
+                                 )
+                        for i in value:
+                            if i == '' or i == None:
+                                check_result['check_outcome'] = False
+                                check_result['description'] = "Invalid xml files found"
+                                check_result['invalid_files'].append(data_set_directory + file.split('.')[0]+'.jpg')
+                    except Exception as e:
+                        check_result['check_outcome'] = False
+                        check_result['description'] = "Invalid xml files found"
+                        check_result['invalid_files'].append(data_set_directory + file.split('.')[0]+'.jpg')
+
+
+        return check_result
+
+    @staticmethod
+    def get_index(root, desired_attribute):
+        for i, x in enumerate(root):
+            if x.tag == desired_attribute:
+                return i
