@@ -69,12 +69,11 @@ class TrainerWindowView(QMainWindow, BaseView):
         )
         self.__trainer_directory_horizontal_layout.addItem(self.__spacer_item)
 
-        self.__trainer_directory_field = QtWidgets.QLabel(self.__vertical_layout_widget)
-        self.__trainer_directory_field.setAlignment(QtCore.Qt.AlignCenter)
-        self.__trainer_directory_field.setObjectName("__trainer_directory_field")
-        self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field)
+        self.__trainer_directory_field_title = QtWidgets.QLabel(self.__vertical_layout_widget)
+        self.__trainer_directory_field_title.setAlignment(QtCore.Qt.AlignCenter)
+        self.__trainer_directory_field_title.setObjectName("__trainer_directory_field")
+        self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field_title)
         self.__trainer_directory_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-
         self.__trainer_directory_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_directory_field.setObjectName("__trainer_directory_field")
         self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field)
@@ -173,12 +172,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_vertical_layout.addLayout(
             self.__trainer_image_data_set_directory_field_horizontal_layout)
 
-        self.line_2 = QtWidgets.QFrame(self.__vertical_layout_widget)
-        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_2.setObjectName("line_2")
-
-        self.__trainer_image_data_set_vertical_layout.addWidget(self.line_2)
         self.__trainer_image_data_set_commit_to_training_directory_horizontal_layout = QtWidgets.QHBoxLayout()
         self.__trainer_image_data_set_commit_to_training_directory_horizontal_layout.setObjectName(
             "__trainer_image_data_set_commit_to_training_directory_horizontal_layout"
@@ -651,14 +644,14 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_vertical_layout.addWidget(self.line_9)
         self.__trainer_image_data_commit_to_tensorflow = QtWidgets.QVBoxLayout()
         self.__trainer_image_data_commit_to_tensorflow.setObjectName("__trainer_image_data_commit_to_tensorflow")
-        self.__trainer_image_data_convert_to_tf_record = QtWidgets.QLabel(self.__vertical_layout_widget)
+        self.__trainer_image_data_convert_to_tf_record_title = QtWidgets.QLabel(self.__vertical_layout_widget)
 
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.__trainer_image_data_convert_to_tf_record.setFont(font)
-        self.__trainer_image_data_convert_to_tf_record.setAlignment(QtCore.Qt.AlignCenter)
-        self.__trainer_image_data_convert_to_tf_record.setObjectName("__trainer_image_data_convert_to_tf_record")
-        self.__trainer_image_data_commit_to_tensorflow.addWidget(self.__trainer_image_data_convert_to_tf_record)
+        self.__trainer_image_data_convert_to_tf_record_title.setFont(font)
+        self.__trainer_image_data_convert_to_tf_record_title.setAlignment(QtCore.Qt.AlignCenter)
+        self.__trainer_image_data_convert_to_tf_record_title.setObjectName("__trainer_image_data_convert_to_tf_record_title")
+        self.__trainer_image_data_commit_to_tensorflow.addWidget(self.__trainer_image_data_convert_to_tf_record_title)
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout = QtWidgets.QHBoxLayout()
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout.setObjectName(
             "__trainer_image_data_commit_to_tensorflow_horizontal_layout"
@@ -872,7 +865,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.__trainer_title.setText(_translate("MainWindow", "Trainer"))
         self.__trainer_directory_title.setText(_translate("MainWindow", "Training Directory"))
-        self.__trainer_directory_field.setText(_translate("MainWindow", "Training Directory"))
+        self.__trainer_directory_field_title.setText(_translate("MainWindow", "Training Directory"))
         self.__trainer_directory_open_nautilus_button.setText(_translate("MainWindow", "..."))
         self.__trainer_directory_status.setText(_translate("MainWindow", "No Directory set"))
         self.__trainer_image_data_set_title.setText(_translate("MainWindow", "Image Dataset"))
@@ -883,7 +876,7 @@ class TrainerWindowView(QMainWindow, BaseView):
             _translate("MainWindow", "Commit Dataset to Training Directory"))
         self.__trainer_image_data_set_checks_title_label.setText(_translate("MainWindow", "Checking Dataset"))
         self.__trainer_image_data_set_file_format_check_title.setText(_translate("MainWindow", "File Format:"))
-        self.__trainer_image_data_set_file_format_check_status.setText(_translate("MainWindow", "Checking..."))
+        self.__trainer_image_data_set_file_format_check_status.setText(_translate("MainWindow", "Waiting to start..."))
         self.__trainer_image_data_set_file_format_check_fix_button.setText(_translate("MainWindow", "Fix"))
         self.__trainer_image_data_set_number_of_images_check_title.setText(
             _translate("MainWindow", "Number Of Images:"))
@@ -909,10 +902,11 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_split_field_title.setText(_translate("MainWindow", "Percentage of test images:"))
         self.__trainer_image_data_set_split_percentage_field.setText(_translate("MainWindow", "10"))
         self.__trainer_image_data_set_split_button.setText(_translate("MainWindow", "Split"))
-        self.__trainer_image_data_convert_to_tf_record.setText(_translate("MainWindow", "Convert to TF Record"))
+        self.__trainer_image_data_convert_to_tf_record_title.setText(_translate("MainWindow", "Convert to TF Record"))
         self.__trainer_image_data_convert_to_tf_record_button.setText(_translate("MainWindow", "Convert"))
         self.__trainer_image_data_convert_to_tf_record_status.setText(
             _translate("MainWindow", "Waiting for Checks to Clear"))
+
         self.__trainer_model_selection_title.setText(_translate("MainWindow", "Model Selection"))
         self.__trainer_model_field_title.setText(_translate("MainWindow", "Model Directory:"))
         self.__trainer_model_field_open_nautilus_button.setText(_translate("MainWindow", "..."))
@@ -929,6 +923,16 @@ class TrainerWindowView(QMainWindow, BaseView):
             _translate("MainWindow", "Export Inference Graph"))
         self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
 
+    # training directory
+    def get_trainer_directory_title(self):
+        return self.__trainer_directory_title
+
+    def get_trainer_directory_title(self):
+        return self.__trainer_directory_title
+
+    def get_trainer_directory_field_title(self):
+        return self.__trainer_directory_field_title
+
     def get_trainer_directory_field(self):
         return self.__trainer_directory_field
 
@@ -938,17 +942,31 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_directory_status(self):
         return self.__trainer_directory_status
 
+    # image dataset location
+    def get_trainer_image_data_set_title(self):
+        return self.__trainer_image_data_set_title
+
     def get_trainer_image_data_set_field_open_nautilus_button(self):
         return self.__trainer_image_data_set_field_open_nautilus_button
 
     def get_trainer_image_data_set_field_status(self):
         return self.__trainer_image_data_set_field_status
 
+    def get_trainer_image_data_set_field_title(self):
+        return self.__trainer_image_data_set_field_title
+
     def get_trainer_image_data_set_field(self):
         return self.__trainer_image_data_set_field
 
     def get_trainer_image_data_set_commit_to_training_directory_button(self):
         return self.__trainer_image_data_set_commit_to_training_directory_button
+
+    # checks
+    def get_trainer_image_data_set_checks_title_label(self):
+        return self.__trainer_image_data_set_checks_title_label
+
+    def get_trainer_image_data_set_file_format_check_title(self):
+        return self.__trainer_image_data_set_file_format_check_title
 
     def get_trainer_image_data_set_file_format_check_status(self):
         return self.__trainer_image_data_set_file_format_check_status
@@ -959,8 +977,14 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_image_data_set_file_number_of_images_check_status(self):
         return self.__trainer_image_data_set_file_number_of_images_check_status
 
+    def get_trainer_image_data_set_number_of_images_check_title(self):
+        return self.__trainer_image_data_set_number_of_images_check_title
+
     def get_trainer_image_data_set_number_of_images_check_fix_button(self):
         return self.__trainer_image_data_set_number_of_images_check_fix_button
+
+    def get_trainer_image_data_set_image_size_check_title(self):
+        return self.__trainer_image_data_set_image_size_check_title
 
     def get_trainer_image_data_set_image_size_check_status(self):
         return self.__trainer_image_data_set_image_size_check_status
@@ -968,11 +992,17 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_image_data_set_image_size_check_fix_button(self):
         return self.__trainer_image_data_set_image_size_check_fix_button
 
+    def get_trainer_image_data_set_corresponding_xml_files_check_title(self):
+        return self.__trainer_image_data_set_corresponding_xml_files_check_title
+
     def get_trainer_image_data_set_file_corresponding_xml_files_check_status(self):
         return self.__trainer_image_data_set_file_corresponding_xml_files_check_status
 
     def get_trainer_image_data_set_corresponding_xml_files_check_fix_button(self):
         return self.__trainer_image_data_set_corresponding_xml_files_check_fix_button
+
+    def get_trainer_image_data_set_xml_file_validity_check_title(self):
+        return self.__trainer_image_data_set_xml_file_validity_check_title
 
     def get_trainer_image_data_set_file_xml_file_validity_check_status(self):
         return self.__trainer_image_data_set_file_xml_file_validity_check_status
@@ -980,14 +1010,32 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_image_data_set_xml_file_validity_check_fix_button(self):
         return self.__trainer_image_data_set_xml_file_validity_check_fix_button
 
+    def get_trainer_image_data_set_split_title(self):
+        return self.__trainer_image_data_set_split_title
+
+    def get_trainer_image_data_set_split_field_title(self):
+        return self.__trainer_image_data_set_split_field_title
+
     def get_trainer_image_data_set_split_percentage_field(self):
         return self.__trainer_image_data_set_split_percentage_field
 
     def get_trainer_image_data_set_split_button(self):
         return self.__trainer_image_data_set_split_button
 
+    def get_trainer_image_data_convert_to_tf_record_title(self):
+        return self.__trainer_image_data_convert_to_tf_record_title
+
+    def get_trainer_image_data_convert_to_tf_record_button(self):
+        return self.__trainer_image_data_convert_to_tf_record_button
+
     def get_trainer_image_data_convert_to_tf_record_status(self):
         return self.__trainer_image_data_convert_to_tf_record_status
+
+    def get_trainer_model_selection_title(self):
+        return self.__trainer_model_selection_title
+
+    def get_trainer_model_field_title(self):
+        return self.__trainer_model_field_title
 
     def get_trainer_model_field_open_nautilus_button(self):
         return self.__trainer_model_field_open_nautilus_button
@@ -997,6 +1045,9 @@ class TrainerWindowView(QMainWindow, BaseView):
 
     def get_trainer_model_field(self):
         return self.__trainer_model_field
+
+    def get_trainer_config_field_title(self):
+        return self.__trainer_config_field_title
 
     def get_trainer_config_field_open_nautilus_button(self):
         return self.__trainer_config_field_open_nautilus_button

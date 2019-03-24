@@ -366,7 +366,7 @@ class Ui_MainWindow(object):
         font.setPointSize(14)
         self.__trainer_image_data_convert_to_tf_record.setFont(font)
         self.__trainer_image_data_convert_to_tf_record.setAlignment(QtCore.Qt.AlignCenter)
-        self.__trainer_image_data_convert_to_tf_record.setObjectName("__trainer_image_data_convert_to_tf_record")
+        self.__trainer_image_data_convert_to_tf_record.setObjectName("__trainer_image_data_convert_to_tf_record_title")
         self.__trainer_image_data_commit_to_tensorflow.addWidget(self.__trainer_image_data_convert_to_tf_record)
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout = QtWidgets.QHBoxLayout()
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout.setObjectName("__trainer_image_data_commit_to_tensorflow_horizontal_layout")
