@@ -1,3 +1,4 @@
+import _thread
 import copy
 import glob
 import random
@@ -12,7 +13,7 @@ import numpy as np
 import os
 from os import walk
 import re
-
+from subprocess import Popen, PIPE
 import pandas as pd
 import tensorflow as tf
 from PIL import Image
@@ -33,6 +34,7 @@ from object_detection.utils import visualization_utils as vis_util
 import xml.etree.ElementTree as ET
 from PyQt5 import QtGui
 from subprocess import call
+
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -408,12 +410,20 @@ class TrainerWindowModel:
         return xml_df
 
     @staticmethod
-    def get_config_path_from_model(model_directory):
-        list_of_files = os.listdir(model_directory)
+    def get_config_path_from_tensorflow(model_directory):
+        # print(model_directory)
+        model_name_width_date = (model_directory.split('/'))[len(model_directory.split('/')) - 1]
+        model_name = ''
+        for segment in model_name_width_date.split('_'):
+            try:
+                int(segment)
+            except Exception as e:
+                model_name = model_name + segment + '_'
+        model_name = model_name[:-1]
+        list_of_files = os.listdir(Config.MODEL_CONFIG_DIRECTORY)
         for file in list_of_files:
-            extension = file.split('.')[-1]
-            if extension == 'config':
-                return model_directory + '/' + file
+            if file == model_name + '.config':
+                return Config.MODEL_CONFIG_DIRECTORY + '/' + file
         return ''
 
     def commit_model_training_directory(
@@ -424,9 +434,90 @@ class TrainerWindowModel:
             list_of_xml_labels,
             test_record_path,
             train_record_path):
-        print('test')
-        with open(model_config_path, 'rb') as f:
-            read_metric = metric_pb2.Metric()
-            read_metric.ParseFromString(f.read())
-            # do something with read_metric
-            print(read_metric)
+        training_directory_path = trainer_directory + '/training'
+        if not os.path.isdir(training_directory_path):
+            os.mkdir(training_directory_path)
+
+        label_file_path = training_directory_path + '/object_detection.pbtxt'
+        if os.path.isfile(label_file_path):
+            os.remove(label_file_path)
+
+        file_writer = open(label_file_path, "w+")
+        count = 1
+        for label in list_of_xml_labels:
+            file_writer.write(
+                'item {\n'
+                '   id: ' + str(count) + '\n'
+                                         '   name: \'' + label + '\'' + '\n'
+                                                                        '} \n \n'
+            )
+            count += 1
+        file_writer.close()
+
+        parser = open(model_config_path, "r")
+        config_file = parser.read()
+        config_file = config_file.replace('PATH_TO_BE_CONFIGURED/model.ckpt', model_directory + '/model.ckpt')
+        config_file = config_file.replace('PATH_TO_BE_CONFIGURED/mscoco_label_map.pbtxt', label_file_path)
+        config_file = config_file.replace('PATH_TO_BE_CONFIGURED/mscoco_train.record-?????-of-00100', train_record_path)
+        config_file = config_file.replace('PATH_TO_BE_CONFIGURED/mscoco_val.record-?????-of-00010', test_record_path)
+
+        config_file_directory = training_directory_path + '/pipeline.config'
+        if os.path.isfile(config_file_directory):
+            os.remove(config_file_directory)
+
+        file_writer = open(config_file_directory, "w+")
+        file_writer.write(config_file)
+        file_writer.close()
+        return training_directory_path
+
+    def commence_training(self, training_directory, update_console_output_signal):
+        print(training_directory)
+        # update_console_output_signal.emit('test')
+        '''
+        try:
+            _thread.start_new_thread(
+                self.pipe_std_output,
+                (
+                    update_console_output_signal,
+                )
+            )
+        except Exception as e:
+            print("Error: unable to start thread")
+            print(e)
+        output = subprocess.check_output('ls')
+        
+        (stdout, stderr) = Popen(
+            [
+                'python3',
+                '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py',
+                '--logtostderr',
+                '--train_dir=/home/will/Documents/training_test/training',
+                '--pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config'
+            ],
+            stdout=PIPE).communicate()
+        print(stdout)
+        
+
+        sys.stdout = Stream(update_console_output_signal)
+        '''
+        p = subprocess.check_output([
+            'python3',
+            '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py',
+            '--logtostderr',
+            '--train_dir=/home/will/Documents/training_test/training',
+            '--pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config'
+        ])
+
+        #for path in self.run("python3 /home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py --train_dir=/home/will/Documents/training_test/training --pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config"):
+         #   print(path)
+            #update_console_output_signal.emit(str(path))
+
+    def run(self, command):
+        process = Popen(command, stderr=PIPE, shell=True)
+        while True:
+            line = process.stderr.readline().rstrip()
+            if not line:
+                break
+            yield line
+
+

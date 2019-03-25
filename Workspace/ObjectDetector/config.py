@@ -35,3 +35,7 @@ class Config:
     MINIMUM_NUMBER_OF_IMAGES = 200
     DEFAULT_TEST_PERCENTAGE = 10
     MAXIMUM_IMAGE_SIZE_IN_MEGABYTES = 1
+
+
+    #models
+    MODEL_CONFIG_DIRECTORY='/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/samples/configs'

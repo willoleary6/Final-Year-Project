@@ -18,6 +18,7 @@ from Workspace.ObjectDetector.config import Config
 class TrainerWindowController(QMainWindow, ViewController):
     __get_file_path_from_nautilus_signal = QtCore.pyqtSignal(object)
     __get_label_img_update_signal = QtCore.pyqtSignal()
+    __update_console_output_signal = QtCore.pyqtSignal(object)
 
     def __init__(self, coordinator, parent=None):
         super(TrainerWindowController, self).__init__(parent)
@@ -138,6 +139,7 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__currently_check_image_data_set = False
         self.__list_of_xml_labels = []
         self.__trainer_directory = ''
+        self.__model_training_directory = ''
         self.__test_record_path = ''
         self.__train_record_path = ''
         self.__model_directory = ''
@@ -150,7 +152,8 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_image_data_convert_to_tf_record_button.click()
         self.__trainer_model_field.setText(
             '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
-
+        self.__trainer_model_commit_to_training_directory_button.click()
+        self.__update_console_output_signal.connect(self.update_console_output)
     def connect_ui_elements_to_methods(self):
         # self.__trainer_directory_field
         # self.__trainer_directory_status
@@ -202,6 +205,11 @@ class TrainerWindowController(QMainWindow, ViewController):
             self.__trainer_model_commit_to_training_directory_button
         )
 
+        self.wire_up_button(
+            self.commence_training,
+            self.__trainer_control_panel_start_button
+        )
+
         # on change events
         self.__trainer_directory_field.textChanged.connect(
             partial(
@@ -243,8 +251,26 @@ class TrainerWindowController(QMainWindow, ViewController):
             self.validate_percentage_change,
         )
 
+    def commence_training(self):
+        try:
+            _thread.start_new_thread(
+                self.__trainer_window_model.commence_training,
+                (
+                    self.__model_training_directory,
+                    self.__update_console_output_signal
+                )
+            )
+        except Exception as e:
+            print("Error: unable to start thread")
+            print(e)
+
+    def update_console_output(self, text):
+        current_text = self.__trainer_control_panel_output_area.toPlainText()
+        self.__trainer_control_panel_output_area.clear()
+        self.__trainer_control_panel_output_area.setText(current_text + text + '\n')
+
     def commit_model_to_training_directory(self):
-        self.__trainer_window_model.commit_model_training_directory(
+        self.__model_training_directory = self.__trainer_window_model.commit_model_training_directory(
             self.__model_directory,
             self.__model_config_path,
             self.__trainer_directory,
@@ -252,6 +278,7 @@ class TrainerWindowController(QMainWindow, ViewController):
             self.__test_record_path,
             self.__train_record_path,
         )
+        self.toggle_control_panel_functionality(False)
 
     def unlock_convert_to_tf_record(self):
         is_split = \
@@ -353,7 +380,7 @@ class TrainerWindowController(QMainWindow, ViewController):
             )
 
     def get_config_file_from_model(self):
-        self.__model_config_path = self.__trainer_window_model.get_config_path_from_model(self.__model_directory)
+        self.__model_config_path = self.__trainer_window_model.get_config_path_from_tensorflow(self.__model_directory)
 
     def update_status_label_and_run_checks(self, status_label, new_message, stylesheet, valid_to_run):
         status_label.setText(new_message)
