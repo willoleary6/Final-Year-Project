@@ -74,7 +74,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_directory_field_title.setObjectName("__trainer_directory_field")
         self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field_title)
         self.__trainer_directory_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-        self.__trainer_directory_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_directory_field.setObjectName("__trainer_directory_field")
         self.__trainer_directory_horizontal_layout.addWidget(self.__trainer_directory_field)
 
@@ -148,7 +147,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.__trainer_image_data_set_field.sizePolicy().hasHeightForWidth())
         self.__trainer_image_data_set_field.setSizePolicy(sizePolicy)
-        self.__trainer_image_data_set_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_image_data_set_field.setObjectName("__trainer_image_data_set_field")
 
         self.__trainer_image_data_set_directory_field_horizontal_layout.addWidget(self.__trainer_image_data_set_field)
@@ -615,7 +613,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_image_data_set_split_percentage_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
 
         self.__trainer_image_data_set_split_percentage_field.setInputMask("")
-        self.__trainer_image_data_set_split_percentage_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__trainer_image_data_set_split_percentage_field.setObjectName(
             "__trainer_image_data_set_split_percentage_field"
         )
@@ -845,12 +842,12 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_output_vertical_layout.setObjectName(
             "__trainer_control_panel_output_vertical_layout"
         )
-        self.__trainer_control_panel_output_area = QtWidgets.QTextEdit(self.__vertical_layout_widget)
-        self.__trainer_control_panel_output_area.setStyleSheet("background-color:black;\n"
-                                                               "color:white;")
-        self.__trainer_control_panel_output_area.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
-        self.__trainer_control_panel_output_area.setObjectName("__trainer_control_panel_output_area")
-        self.__trainer_control_panel_output_vertical_layout.addWidget(self.__trainer_control_panel_output_area)
+        #self.__trainer_control_panel_output_area = QtWidgets.QTextEdit(self.__vertical_layout_widget)
+        #self.__trainer_control_panel_output_area.setStyleSheet("background-color:black;\n"
+         #                                                      "color:white;")
+        #self.__trainer_control_panel_output_area.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        #self.__trainer_control_panel_output_area.setObjectName("__trainer_control_panel_output_area")
+        #self.__trainer_control_panel_output_vertical_layout.addWidget(self.__trainer_control_panel_output_area)
         self.__trainer_control_panel_horizontal_layout.addLayout(self.__trainer_control_panel_output_vertical_layout)
         self.__trainer_control_panel_vertical_layout.addLayout(self.__trainer_control_panel_horizontal_layout)
         self.__trainer_main_layout.addLayout(self.__trainer_control_panel_vertical_layout)
@@ -921,7 +918,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
         self.__trainer_control_panel_export_inference_graph_button.setText(
             _translate("MainWindow", "Export Inference Graph"))
-        self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
+        #self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
 
     # training directory
     def get_trainer_directory_title(self):
@@ -1076,8 +1073,8 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_control_panel_export_inference_graph_button(self):
         return self.__trainer_control_panel_export_inference_graph_button
 
-    def get_trainer_control_panel_output_area(self):
-        return self.__trainer_control_panel_output_area
+    # def get_trainer_control_panel_output_area(self):
+        #return self.__trainer_control_panel_output_area
 
     def __update_geometry(self):
         self.__vertical_layout_widget.setGeometry(

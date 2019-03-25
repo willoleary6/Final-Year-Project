@@ -260,7 +260,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__live_stream_reader_ip_field_horizontal_layout.addWidget(self.__live_stream_reader_ip_field_title)
 
         self.__live_stream_reader_ip_field = QtWidgets.QLineEdit(self.__vertical_layout_widget)
-        self.__live_stream_reader_ip_field.setAlignment(QtCore.Qt.AlignCenter)
         self.__live_stream_reader_ip_field.setObjectName("live_stream_reader_ip_field")
 
         self.__live_stream_reader_ip_field_horizontal_layout.addWidget(self.__live_stream_reader_ip_field)

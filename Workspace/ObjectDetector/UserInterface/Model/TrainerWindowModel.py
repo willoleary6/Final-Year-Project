@@ -3,6 +3,7 @@ import copy
 import glob
 import random
 import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -23,6 +24,7 @@ from Workspace.ObjectDetector.config import Config
 from Workspace.labelImg.labelImg import MainWindow
 from Workspace.ObjectDetector.Utilities.ScaleImagesAndCorrespondingXML import ScaleImagesAndCorrespondingXML
 from Workspace.ObjectDetector.Utilities.GenerateTfRecord import GenerateTfRecord
+
 import datetime
 
 # Here are the imports from the object detection module.
@@ -35,7 +37,6 @@ import xml.etree.ElementTree as ET
 from PyQt5 import QtGui
 from subprocess import call
 
-
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
@@ -43,6 +44,7 @@ from gi.repository import Gtk
 class TrainerWindowModel:
     def __init__(self):
         self.__label_img_instance = None
+        self.process = None
 
     @staticmethod
     def get_file_path_through_nautilus(signal, is_directory, field_to_fill_in):
@@ -411,7 +413,6 @@ class TrainerWindowModel:
 
     @staticmethod
     def get_config_path_from_tensorflow(model_directory):
-        # print(model_directory)
         model_name_width_date = (model_directory.split('/'))[len(model_directory.split('/')) - 1]
         model_name = ''
         for segment in model_name_width_date.split('_'):
@@ -471,7 +472,6 @@ class TrainerWindowModel:
         return training_directory_path
 
     def commence_training(self, training_directory, update_console_output_signal):
-        print(training_directory)
         # update_console_output_signal.emit('test')
         '''
         try:
@@ -499,25 +499,30 @@ class TrainerWindowModel:
         
 
         sys.stdout = Stream(update_console_output_signal)
-        '''
-        p = subprocess.check_output([
+        
+
+        self.process = subprocess.check_output([
             'python3',
             '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py',
             '--logtostderr',
             '--train_dir=/home/will/Documents/training_test/training',
             '--pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config'
         ])
+        '''
+        os.system("gnome-terminal -e 'bash -c \"python3 /home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py --logtostderr --train_dir=/home/will/Documents/training_test/training --pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config\" '")
+        # test = TensorFlowTrain('/home/will/Documents/training_test/training','/home/will/Documents/training_test/training/pipeline.config')
+        #for path in self.run("python3 /home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py --logtostderr --train_dir=/home/will/Documents/training_test/training --pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config"):
+            #print(path)
+         #   update_console_output_signal.emit(str(path))
+        #for path in self.run(
+         #       "ping -c 40 google.com"):
+          #  update_console_output_signal.emit(str(path))
 
-        #for path in self.run("python3 /home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py --train_dir=/home/will/Documents/training_test/training --pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config"):
-         #   print(path)
-            #update_console_output_signal.emit(str(path))
+    #def run(self, command):
+       # process = subprocess.Popen(command, stdout=subprocess.PIPE)
+        #for c in iter(lambda: process.stdout.read(1), ''):  # replace '' with b'' for Python 3
+           # print('hello')
+            #sys.stdout.write(c)
 
-    def run(self, command):
-        process = Popen(command, stderr=PIPE, shell=True)
-        while True:
-            line = process.stderr.readline().rstrip()
-            if not line:
-                break
-            yield line
-
-
+    def stop_process(self):
+        os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)

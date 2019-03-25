@@ -120,10 +120,11 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_control_panel_start_button = self.__trainer_window_view.get_trainer_control_panel_start_button()
         self.__trainer_control_panel_open_tensor_board_button = \
             self.__trainer_window_view.get_trainer_control_panel_open_tensor_board_button()
-        self.__trainer_control_panel_stop_button = self.__trainer_window_view.get_trainer_control_panel_stop_button()
+        # self.__trainer_control_panel_stop_button = self.__trainer_window_view.get_trainer_control_panel_stop_button()
         self.__trainer_control_panel_export_inference_graph_button = \
             self.__trainer_window_view.get_trainer_control_panel_export_inference_graph_button()
-        self.__trainer_control_panel_output_area = self.__trainer_window_view.get_trainer_control_panel_output_area()
+
+        # self.__trainer_control_panel_output_area = self.__trainer_window_view.get_trainer_control_panel_output_area()
 
         # self.toggle_training_directory_functionality(True)
         self.toggle_image_fields_functionality(True)
@@ -144,16 +145,17 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__train_record_path = ''
         self.__model_directory = ''
         self.__model_config_path = ''
-        self.__trainer_directory_field.setText('/home/will/Documents/training_test')
-        self.__trainer_image_data_set_field.setText('/home/will/Documents/Stanford40_JPEGImages')
+        # self.__trainer_directory_field.setText('/home/will/Documents/training_directory_for_demonstration')
+        # self.__trainer_image_data_set_field.setText('/home/will/Documents/image_data_set_for_demo')
         # self.__trainer_image_data_set_field.setText('/home/will/Documents/empty')
-        self.__trainer_image_data_set_commit_to_training_directory_button.click()
-        self.__trainer_image_data_set_split_button.click()
-        self.__trainer_image_data_convert_to_tf_record_button.click()
-        self.__trainer_model_field.setText(
-            '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
-        self.__trainer_model_commit_to_training_directory_button.click()
-        self.__update_console_output_signal.connect(self.update_console_output)
+        # self.__trainer_image_data_set_commit_to_training_directory_button.click()
+        # self.__trainer_image_data_set_split_button.click()
+        # self.__trainer_image_data_convert_to_tf_record_button.click()
+        # self.__trainer_model_field.setText(
+        #   '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
+        # self.__trainer_model_commit_to_training_directory_button.click()
+        # self.__update_console_output_signal.connect(self.update_console_output)
+
     def connect_ui_elements_to_methods(self):
         # self.__trainer_directory_field
         # self.__trainer_directory_status
@@ -201,6 +203,15 @@ class TrainerWindowController(QMainWindow, ViewController):
         )
 
         self.wire_up_button(
+            partial(
+                self.open_nautilus,
+                self.__trainer_config_field,
+                False,
+            ),
+            self.__trainer_config_field_open_nautilus_button
+        )
+
+        self.wire_up_button(
             self.commit_model_to_training_directory,
             self.__trainer_model_commit_to_training_directory_button
         )
@@ -209,6 +220,12 @@ class TrainerWindowController(QMainWindow, ViewController):
             self.commence_training,
             self.__trainer_control_panel_start_button
         )
+        '''
+        self.wire_up_button(
+            self.stop_training,
+            self.__trainer_control_panel_stop_button
+        )
+        '''
 
         # on change events
         self.__trainer_directory_field.textChanged.connect(
@@ -250,6 +267,11 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_image_data_set_split_percentage_field.textChanged.connect(
             self.validate_percentage_change,
         )
+
+    '''
+    def stop_training(self):
+        self.__trainer_window_model.stop_process()
+    '''
 
     def commence_training(self):
         try:
@@ -389,7 +411,8 @@ class TrainerWindowController(QMainWindow, ViewController):
 
         self.sections_that_can_be_unlocked()
 
-    def update_status_label(self, status_label, new_message, stylesheet):
+    @staticmethod
+    def update_status_label(status_label, new_message, stylesheet):
         status_label.setText(new_message)
         status_label.setStyleSheet(stylesheet)
 
@@ -660,7 +683,6 @@ class TrainerWindowController(QMainWindow, ViewController):
     def get_xml_labels_from_data_set(self):
         self.__list_of_xml_labels = \
             self.__trainer_window_model.extract_labels_from_xml_files(self.__directory_of_image_data_set)
-        print('labels: ' + str(self.__list_of_xml_labels))
 
     def open_label_img_on_invalid_files(self, invalid_files):
         self.__trainer_window_model.open_label_img_with_invalid_files(
@@ -788,6 +810,6 @@ class TrainerWindowController(QMainWindow, ViewController):
     def toggle_control_panel_functionality(self, toggle_value):
         self.__trainer_control_panel_start_button.setDisabled(toggle_value)
         self.__trainer_control_panel_open_tensor_board_button.setDisabled(toggle_value)
-        self.__trainer_control_panel_stop_button.setDisabled(toggle_value)
+        #self.__trainer_control_panel_stop_button.setDisabled(toggle_value)
         self.__trainer_control_panel_export_inference_graph_button.setDisabled(toggle_value)
-        self.__trainer_control_panel_output_area.setDisabled(toggle_value)
+        #self.__trainer_control_panel_output_area.setDisabled(toggle_value)
