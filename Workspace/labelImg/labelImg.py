@@ -71,8 +71,9 @@ class WindowMixin(object):
 class MainWindow(QMainWindow, WindowMixin):
     FIT_WINDOW, FIT_WIDTH, MANUAL_ZOOM = list(range(3))
 
-    def __init__(self, signal, defaultFilename=None, defaultPrefdefClassFile=None, defaultSaveDir=None):
+    def __init__(self, signal=None, defaultFilename=None, defaultPrefdefClassFile=None, defaultSaveDir=None):
         super(MainWindow, self).__init__()
+
         self.update_checks_signal = signal
         self.setWindowTitle(__appname__)
 
@@ -1084,7 +1085,8 @@ class MainWindow(QMainWindow, WindowMixin):
         return w / self.canvas.pixmap.width()
 
     def closeEvent(self, event):
-        self.update_checks_signal.emit()
+        if self.update_checks_signal is not None:
+            self.update_checks_signal.emit()
         if not self.mayContinue():
             event.ignore()
         settings = self.settings
@@ -1303,7 +1305,8 @@ class MainWindow(QMainWindow, WindowMixin):
             self._saveFile(savedPath if self.labelFile
                            else self.saveFileDialog(removeExt=False))
 
-        self.update_checks_signal.emit()
+        if self.update_checks_signal is not None:
+            self.update_checks_signal.emit()
 
     def saveFileAs(self, _value=False):
         assert not self.image.isNull(), "cannot save empty image"
@@ -1470,7 +1473,7 @@ def get_main_app(argv=[]):
     app.setWindowIcon(newIcon("app"))
     # Tzutalin 201705+: Accept extra agruments to change predefined class file
     # Usage : labelImg.py image predefClassFile saveDir
-    win = MainWindow(argv[1] if len(argv) >= 2 else None,
+    win = MainWindow(None, argv[1] if len(argv) >= 2 else None,
                      argv[2] if len(argv) >= 3 else os.path.join(
                          os.path.dirname(sys.argv[0]),
                          'data', 'predefined_classes.txt'),

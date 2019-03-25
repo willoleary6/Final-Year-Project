@@ -1,4 +1,6 @@
 import copy
+import glob
+import random
 import shutil
 import subprocess
 import sys
@@ -10,6 +12,8 @@ import numpy as np
 import os
 from os import walk
 import re
+
+import pandas as pd
 import tensorflow as tf
 from PIL import Image
 
@@ -17,6 +21,7 @@ from Workspace.ObjectDetector.detector.Detector import Detector
 from Workspace.ObjectDetector.config import Config
 from Workspace.labelImg.labelImg import MainWindow
 from Workspace.ObjectDetector.Utilities.ScaleImagesAndCorrespondingXML import ScaleImagesAndCorrespondingXML
+from Workspace.ObjectDetector.Utilities.GenerateTfRecord import GenerateTfRecord
 import datetime
 
 # Here are the imports from the object detection module.
@@ -36,7 +41,6 @@ from gi.repository import Gtk
 class TrainerWindowModel:
     def __init__(self):
         self.__label_img_instance = None
-
 
     @staticmethod
     def get_file_path_through_nautilus(signal, is_directory, field_to_fill_in):
@@ -144,9 +148,13 @@ class TrainerWindowModel:
         for file in invalid_files:
             extension = file.split('.')[-1]
             file_name = file.split('/')[len(file.split('/')) - 1]
-            if extension == 'png':
+            if extension == 'png' or extension == 'jpeg':
                 self.convert_png_to_jpg(file, file_name)
-            os.remove(file)
+
+            if os.path.isdir(file):
+                shutil.rmtree(file)
+            else:
+                os.remove(file)
 
     @staticmethod
     def convert_png_to_jpg(file_path, file_name):
@@ -157,13 +165,16 @@ class TrainerWindowModel:
         img = Image.fromarray(x, 'RGB')
         img.save(file_path.split('.')[0] + '.jpg')
         if os.path.isfile(file_path.split('.')[0] + '.xml'):
-            tree = ET.parse(file_path.split('.')[0] + '.xml')
-            root = tree.getroot()
-            root.find('filename').text = str(file_name.split('.')[0] + '.jpg')
-            root.find('path').text = str(file_path.split('.')[0] + '.jpg')
-            str_data = re.findall('\'([^\']*)\'', str(ET.tostring(root)))
-            my_file = open(file_path.split('.')[0] + '.xml', "w")
-            my_file.write(str_data[0])
+            try:
+                tree = ET.parse(file_path.split('.')[0] + '.xml')
+                root = tree.getroot()
+                root.find('filename').text = str(file_name.split('.')[0] + '.jpg')
+                root.find('path').text = str(file_path.split('.')[0] + '.jpg')
+                str_data = re.findall('\'([^\']*)\'', str(ET.tostring(root)))
+                my_file = open(file_path.split('.')[0] + '.xml', "w")
+                my_file.write(str_data[0])
+            except Exception as e:
+                pass
 
     @staticmethod
     def open_nautilus(file_path):
@@ -181,7 +192,7 @@ class TrainerWindowModel:
         count = 0
         for file in list_of_files:
             extension = file.split('.')[-1]
-            if extension == '.jpg' or extension == '.jpeg':
+            if extension == '.jpg':
                 count += 1
 
         if count < Config.MINIMUM_NUMBER_OF_IMAGES:
@@ -200,7 +211,7 @@ class TrainerWindowModel:
         list_of_files = os.listdir(data_set_directory)
         for file in list_of_files:
             extension = file.split('.')[-1]
-            if extension == 'jpg' or extension == 'jpeg':
+            if extension == 'jpg':
                 file_size = (os.path.getsize(data_set_directory + file)) / 1000000
                 if file_size >= Config.MAXIMUM_IMAGE_SIZE_IN_MEGABYTES + .02:
                     check_result['check_outcome'] = False
@@ -222,25 +233,25 @@ class TrainerWindowModel:
         list_of_files = os.listdir(data_set_directory)
         for file in list_of_files:
             extension = file.split('.')[-1]
-            if extension == 'jpg' or extension == 'jpeg':
-                if not os.path.isfile(data_set_directory+file.split('.')[0]+'.xml'):
+            if extension == 'jpg':
+                if not os.path.isfile(data_set_directory + file.split('.')[0] + '.xml'):
                     check_result['check_outcome'] = False
                     check_result['description'] = 'images present without xml file'
-                    check_result['invalid_files'].append(data_set_directory+file)
+                    check_result['invalid_files'].append(data_set_directory + file)
 
         return check_result
+
     def open_label_img_with_invalid_files(self, invalid_files, recheck_signal):
         argv = []
         self.__label_img_instance = MainWindow(
             recheck_signal,
             argv[1] if len(argv) >= 2 else None,
             argv[2] if len(argv) >= 3 else os.path.join(
-                os.path.dirname(sys.argv[0]),'data', 'predefined_classes.txt'),
+                os.path.dirname(sys.argv[0]), 'data', 'predefined_classes.txt'),
             argv[3] if len(argv) >= 4 else None)
         self.__label_img_instance.show()
         self.__label_img_instance.loadFile(invalid_files[0])
         self.__label_img_instance.import_array_of_file_paths(invalid_files)
-
 
     def validity_xml_file_test(self, data_set_directory):
         check_result = {
@@ -253,7 +264,7 @@ class TrainerWindowModel:
         for file in list_of_files:
             extension = file.split('.')[-1]
             if extension == 'xml':
-                tree = ET.parse(data_set_directory+file)
+                tree = ET.parse(data_set_directory + file)
                 root = tree.getroot()
                 for member in root.findall('object'):
                     last_member_index = len(member) - 1
@@ -271,12 +282,11 @@ class TrainerWindowModel:
                             if i == '' or i == None:
                                 check_result['check_outcome'] = False
                                 check_result['description'] = "Invalid xml files found"
-                                check_result['invalid_files'].append(data_set_directory + file.split('.')[0]+'.jpg')
+                                check_result['invalid_files'].append(data_set_directory + file.split('.')[0] + '.jpg')
                     except Exception as e:
                         check_result['check_outcome'] = False
                         check_result['description'] = "Invalid xml files found"
-                        check_result['invalid_files'].append(data_set_directory + file.split('.')[0]+'.jpg')
-
+                        check_result['invalid_files'].append(data_set_directory + file.split('.')[0] + '.jpg')
 
         return check_result
 
@@ -285,3 +295,138 @@ class TrainerWindowModel:
         for i, x in enumerate(root):
             if x.tag == desired_attribute:
                 return i
+
+    def extract_labels_from_xml_files(self, data_set_directory):
+        list_of_files = os.listdir(data_set_directory)
+        list_of_objects = []
+        for file in list_of_files:
+            extension = file.split('.')[-1]
+            if extension == 'xml':
+                tree = ET.parse(data_set_directory + file)
+                root = tree.getroot()
+                for member in root.findall('object'):
+                    object_name = member.find('name').text
+                    if not self.check_for_duplicates(list_of_objects, object_name):
+                        list_of_objects.append(object_name)
+        return list_of_objects
+
+    @staticmethod
+    def check_for_duplicates(current_array, object_to_be_checked):
+        for i in current_array:
+            if i == object_to_be_checked:
+                return True
+        return False
+
+    @staticmethod
+    def split_data_set(data_set_directory, split_percentage):
+        test_set_path = data_set_directory + 'test/'
+        train_set_path = data_set_directory + 'train/'
+        if os.path.isdir(test_set_path):
+            list_of_files = os.listdir(test_set_path)
+            for file in list_of_files:
+                shutil.move(test_set_path + file, data_set_directory)
+            shutil.rmtree(test_set_path)
+        if os.path.isdir(train_set_path):
+            list_of_files = os.listdir(train_set_path)
+            for file in list_of_files:
+                shutil.move(train_set_path + file, data_set_directory)
+            shutil.rmtree(train_set_path)
+
+        os.mkdir(test_set_path)
+        os.mkdir(train_set_path)
+        list_of_files = os.listdir(data_set_directory)
+        for file in list_of_files:
+            extension = file.split('.')[-1]
+            if extension == 'jpg':
+                filename = data_set_directory + file.split('.')[0]
+                if random.randint(0, 100) <= split_percentage:
+                    # test
+                    shutil.move(filename + '.jpg', test_set_path)
+                    shutil.move(filename + '.xml', test_set_path)
+                else:
+                    # train
+                    shutil.move(filename + '.jpg', train_set_path)
+                    shutil.move(filename + '.xml', train_set_path)
+
+    @staticmethod
+    def check_if_image_data_set_has_been_split(data_set_directory):
+        list_of_files = os.listdir(data_set_directory)
+        for file in list_of_files:
+            if file == 'test' or file == 'train':
+                pass
+            else:
+                return False
+        return True
+
+    def generate_tf_records(self, trainer_directory, data_set_directory, list_of_labels):
+
+        data_directory = trainer_directory + '/data'
+        if os.path.isdir(data_directory):
+            shutil.rmtree(data_directory)
+        os.mkdir(data_directory)
+        test_set_path = data_set_directory + 'test/'
+        train_set_path = data_set_directory + 'train/'
+
+        test_xml = self.xml_to_csv(test_set_path)
+        train_xml = self.xml_to_csv(train_set_path)
+
+        test_xml_path = data_directory + '/test' + '_labels.csv'
+        train_xml_path = data_directory + '/train' + '_labels.csv'
+
+        test_record_path = data_directory + '/test.record'
+        train_record_path = data_directory + '/train.record'
+
+        test_xml.to_csv(data_directory + '/test' + '_labels.csv', index=None)
+        train_xml.to_csv(data_directory + '/train' + '_labels.csv', index=None)
+
+        test_record = GenerateTfRecord(test_xml_path, test_record_path, test_set_path, list_of_labels)
+        test_record_success = test_record.write_record()
+        train_record = GenerateTfRecord(train_xml_path, train_record_path, train_set_path, list_of_labels)
+        train_record_success = train_record.write_record()
+
+        return test_record_path, train_record_path, test_record_success, train_record_success
+
+    def xml_to_csv(self, path):
+        xml_list = []
+        for xml_file in glob.glob(path + '/*.xml'):
+            tree = ET.parse(xml_file)
+            root = tree.getroot()
+            for member in root.findall('object'):
+                last_member_index = len(member) - 1
+                value = (root.find('filename').text,
+                         int(root.find('size')[self.get_index(root.find('size'), 'width')].text),
+                         int(root.find('size')[self.get_index(root.find('size'), 'height')].text),
+                         member[0].text,
+                         int(member[last_member_index][self.get_index(member[last_member_index], 'xmin')].text),
+                         int(member[last_member_index][self.get_index(member[last_member_index], 'ymin')].text),
+                         int(member[last_member_index][self.get_index(member[last_member_index], 'xmax')].text),
+                         int(member[last_member_index][self.get_index(member[last_member_index], 'ymax')].text)
+                         )
+                xml_list.append(value)
+        column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
+        xml_df = pd.DataFrame(xml_list, columns=column_name)
+        return xml_df
+
+    @staticmethod
+    def get_config_path_from_model(model_directory):
+        list_of_files = os.listdir(model_directory)
+        for file in list_of_files:
+            extension = file.split('.')[-1]
+            if extension == 'config':
+                return model_directory + '/' + file
+        return ''
+
+    def commit_model_training_directory(
+            self,
+            model_directory,
+            model_config_path,
+            trainer_directory,
+            list_of_xml_labels,
+            test_record_path,
+            train_record_path):
+        print('test')
+        with open(model_config_path, 'rb') as f:
+            read_metric = metric_pb2.Metric()
+            read_metric.ParseFromString(f.read())
+            # do something with read_metric
+            print(read_metric)

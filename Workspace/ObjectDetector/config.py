@@ -26,11 +26,12 @@ class Config:
     # file extensions
     INFERENCE_GRAPH_FILE_EXTENSION = '.pb'
     OBJECT_LABELS_FILE_EXTENSION = '.pbtxt'
-    VALID_IMAGE_EXTENSIONS = ['xml', 'jpg', 'jpeg']
+    VALID_IMAGE_EXTENSIONS = ['xml', 'jpg']
 
     # live stream_recordings
     SECONDS_PER_RECORDING = 20
     RECORDINGS_FORMAT = '.mp4'
 
     MINIMUM_NUMBER_OF_IMAGES = 200
+    DEFAULT_TEST_PERCENTAGE = 10
     MAXIMUM_IMAGE_SIZE_IN_MEGABYTES = 1

@@ -98,3 +98,4 @@ class ScaleImagesAndCorrespondingXML:
         for i, x in enumerate(root):
             if x.tag == desired_attribute:
                 return i
+

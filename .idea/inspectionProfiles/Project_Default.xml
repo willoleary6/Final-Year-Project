@@ -5,6 +5,7 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="gi.repository.Gtk" />
+          <option value="metric_pb2" />
         </list>
       </option>
     </inspection_tool>
