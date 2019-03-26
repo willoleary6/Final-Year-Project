@@ -826,9 +826,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_controls_vertical_layout.addWidget(
             self.__trainer_control_panel_open_tensor_board_button)
 
-        self.__trainer_control_panel_stop_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
-        self.__trainer_control_panel_stop_button.setObjectName("__trainer_control_panel_stop_button")
-        self.__trainer_control_panel_controls_vertical_layout.addWidget(self.__trainer_control_panel_stop_button)
+        #self.__trainer_control_panel_stop_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
+        #self.__trainer_control_panel_stop_button.setObjectName("__trainer_control_panel_stop_button")
+        #self.__trainer_control_panel_controls_vertical_layout.addWidget(self.__trainer_control_panel_stop_button)
         self.__trainer_control_panel_export_inference_graph_button = QtWidgets.QPushButton(
             self.__vertical_layout_widget)
         self.__trainer_control_panel_export_inference_graph_button.setObjectName(
@@ -842,12 +842,12 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_output_vertical_layout.setObjectName(
             "__trainer_control_panel_output_vertical_layout"
         )
-        #self.__trainer_control_panel_output_area = QtWidgets.QTextEdit(self.__vertical_layout_widget)
-        #self.__trainer_control_panel_output_area.setStyleSheet("background-color:black;\n"
-         #                                                      "color:white;")
-        #self.__trainer_control_panel_output_area.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
-        #self.__trainer_control_panel_output_area.setObjectName("__trainer_control_panel_output_area")
-        #self.__trainer_control_panel_output_vertical_layout.addWidget(self.__trainer_control_panel_output_area)
+        # self.__trainer_control_panel_output_area = QtWidgets.QTextEdit(self.__vertical_layout_widget)
+        # self.__trainer_control_panel_output_area.setStyleSheet("background-color:black;\n"
+        #                                                      "color:white;")
+        # self.__trainer_control_panel_output_area.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
+        # self.__trainer_control_panel_output_area.setObjectName("__trainer_control_panel_output_area")
+        # self.__trainer_control_panel_output_vertical_layout.addWidget(self.__trainer_control_panel_output_area)
         self.__trainer_control_panel_horizontal_layout.addLayout(self.__trainer_control_panel_output_vertical_layout)
         self.__trainer_control_panel_vertical_layout.addLayout(self.__trainer_control_panel_horizontal_layout)
         self.__trainer_main_layout.addLayout(self.__trainer_control_panel_vertical_layout)
@@ -914,8 +914,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_model_commit_to_training_directory_button.setText(_translate("MainWindow", "Commit Model"))
         self.__trainer_model_commit_to_training_directory_status.setText(_translate("MainWindow", "Waiting for models"))
         self.__trainer_control_panel_start_button.setText(_translate("MainWindow", "Start Training"))
+       # self.__trainer_control_panel_start_button.s(QtCore.Qt.AlignCenter)
         self.__trainer_control_panel_open_tensor_board_button.setText(_translate("MainWindow", "Open Tensorboard"))
-        self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
+        #self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
         self.__trainer_control_panel_export_inference_graph_button.setText(
             _translate("MainWindow", "Export Inference Graph"))
         #self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
@@ -1067,8 +1068,8 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_control_panel_open_tensor_board_button(self):
         return self.__trainer_control_panel_open_tensor_board_button
 
-    def get_trainer_control_panel_stop_button(self):
-        return self.__trainer_control_panel_stop_button
+    #def get_trainer_control_panel_stop_button(self):
+        #return self.__trainer_control_panel_stop_button
 
     def get_trainer_control_panel_export_inference_graph_button(self):
         return self.__trainer_control_panel_export_inference_graph_button
@@ -1240,6 +1241,8 @@ class TrainerWindowView(QMainWindow, BaseView):
                 self.__percentage_of_height(0)
             )
         )
+
+
 
     def __percentage_of_height(self, percentage):
         return (percentage / 100) * self.geometry().height()

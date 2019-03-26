@@ -1,7 +1,7 @@
 class Config:
     SECONDS_ADDED_TO_EVENT_TIMESTAMP = 5
-    DETECTION_CSV_FILE_PATH = 'C:\\SourceCode\\Final-Year-Project\\Workspace\\Workspace.ObjectDetector\\CsvFiles\\detections.csv'
-    FRAME_DELIMITER_FOR_TENSORFLOW = 5
+    FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW = 25
+    FRAME_DELIMITER_FOR_SSD_TENSORFLOW = 5
     CAMERA_IP_ADDRESS = '192.168.1.210'
     CAMERA_PORT = '554'
     CAMERA_USERNAME = 'willoleary6'
@@ -9,8 +9,8 @@ class Config:
     DETECTION_CSV_COLUMNS = ['detection_id', 'video_file_path', 'start_timestamp', 'end_timestamp',
                              'minimum_detections', 'maximum_detections']
     WINDOW_TITLE_FONT_SIZE = 16
-    READER_REVIEWER_WINDOW_WIDTH = 2000
-    READER_REVIEWER_WINDOW_HEIGHT = 1080
+    READER_REVIEWER_WINDOW_WIDTH = 2300
+    READER_REVIEWER_WINDOW_HEIGHT = 1380
     DETECTION_REVIEWER_WINDOW_WIDTH = 1080
     DETECTION_REVIEWER_WINDOW_HEIGHT = 1920
     MAIN_MENU_WINDOW_WIDTH = 720
@@ -38,4 +38,7 @@ class Config:
 
 
     #models
-    MODEL_CONFIG_DIRECTORY='/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/samples/configs'
+    TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY= '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/'
+    TENSOR_FLOW_PYTHON_PATH = 'export PYTHONPATH=$PYTHONPATH:/home/will/Tensorflow_Object_Detection_API/models' \
+                              '/research:/home/will/Tensorflow_Object_Detection_API/models/research/slim '
+

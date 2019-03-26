@@ -24,7 +24,7 @@ from object_detection.utils import visualization_utils as vis_util
 if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
-# Model preparation Variables Any model exported using the export_inference_graph.py tool can be loaded here simply
+# Model preparation Variables Any model exported using the open_nautilus_to_get_model_checkpoint_location.py tool can be loaded here simply
 # by changing PATH_TO_FROZEN_GRAPH_OF_MODEL to point to a new .pb file.
 
 # By default we use an "SSD with Mobilenet" model here. See the detection model zoo for a list of other models that

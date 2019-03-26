@@ -18,7 +18,7 @@ from subprocess import Popen, PIPE
 import pandas as pd
 import tensorflow as tf
 from PIL import Image
-
+import webbrowser
 from Workspace.ObjectDetector.detector.Detector import Detector
 from Workspace.ObjectDetector.config import Config
 from Workspace.labelImg.labelImg import MainWindow
@@ -47,7 +47,7 @@ class TrainerWindowModel:
         self.process = None
 
     @staticmethod
-    def get_file_path_through_nautilus(signal, is_directory, field_to_fill_in):
+    def get_file_path_through_nautilus(qt_signal, is_directory, field_to_fill_in):
         window = Gtk.Window()
         if is_directory:
             dialog = Gtk.FileChooserDialog("Please choose a folder", window,
@@ -57,7 +57,7 @@ class TrainerWindowModel:
 
             response = dialog.run()
             if response == Gtk.ResponseType.OK:
-                signal.emit(
+                qt_signal.emit(
                     (
                         field_to_fill_in,
                         dialog.get_filename()
@@ -74,7 +74,7 @@ class TrainerWindowModel:
                                             Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
             response = dialog.run()
             if response == Gtk.ResponseType.OK:
-                signal.emit(
+                qt_signal.emit(
                     (
                         field_to_fill_in,
                         dialog.get_filename()
@@ -421,10 +421,10 @@ class TrainerWindowModel:
             except Exception as e:
                 model_name = model_name + segment + '_'
         model_name = model_name[:-1]
-        list_of_files = os.listdir(Config.MODEL_CONFIG_DIRECTORY)
+        list_of_files = os.listdir(Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + "/samples/configs")
         for file in list_of_files:
             if file == model_name + '.config':
-                return Config.MODEL_CONFIG_DIRECTORY + '/' + file
+                return Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + '/samples/configs/' + file
         return ''
 
     def commit_model_training_directory(
@@ -471,58 +471,42 @@ class TrainerWindowModel:
         file_writer.close()
         return training_directory_path
 
-    def commence_training(self, training_directory, update_console_output_signal):
-        # update_console_output_signal.emit('test')
-        '''
+    @staticmethod
+    def commence_training(training_directory):
+        print(training_directory)
+        command = "python3 " + Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + "legacy/train.py " \
+                  "--logtostderr --train_dir=" + training_directory + " --pipeline_config_path=" + training_directory \
+                  + "/pipeline.config "
         try:
-            _thread.start_new_thread(
-                self.pipe_std_output,
-                (
-                    update_console_output_signal,
-                )
-            )
+            os.system("gnome-terminal -e 'bash -c \"" + str(Config.TENSOR_FLOW_PYTHON_PATH) + "\" '")
+            os.system("gnome-terminal -e 'bash -c \"" + str(command) + "\" '")
         except Exception as e:
-            print("Error: unable to start thread")
             print(e)
-        output = subprocess.check_output('ls')
-        
-        (stdout, stderr) = Popen(
-            [
-                'python3',
-                '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py',
-                '--logtostderr',
-                '--train_dir=/home/will/Documents/training_test/training',
-                '--pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config'
-            ],
-            stdout=PIPE).communicate()
-        print(stdout)
-        
 
-        sys.stdout = Stream(update_console_output_signal)
-        
+    @staticmethod
+    def open_tensor_board(training_directory):
+        command = "tensorboard --logdir=" + training_directory + " --host localhost --port 8088"
+        os.system("gnome-terminal -e 'bash -c \"" + str(command) + "\"'")
+        url = 'http://localhost:8088'
 
-        self.process = subprocess.check_output([
-            'python3',
-            '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py',
-            '--logtostderr',
-            '--train_dir=/home/will/Documents/training_test/training',
-            '--pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config'
-        ])
-        '''
-        os.system("gnome-terminal -e 'bash -c \"python3 /home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py --logtostderr --train_dir=/home/will/Documents/training_test/training --pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config\" '")
-        # test = TensorFlowTrain('/home/will/Documents/training_test/training','/home/will/Documents/training_test/training/pipeline.config')
-        #for path in self.run("python3 /home/will/Tensorflow_Object_Detection_API/models/research/object_detection/legacy/train.py --logtostderr --train_dir=/home/will/Documents/training_test/training --pipeline_config_path=/home/will/Documents/training_test/training/pipeline.config"):
-            #print(path)
-         #   update_console_output_signal.emit(str(path))
-        #for path in self.run(
-         #       "ping -c 40 google.com"):
-          #  update_console_output_signal.emit(str(path))
+        time.sleep(3)
+        webbrowser.open_new(url)
 
-    #def run(self, command):
-       # process = subprocess.Popen(command, stdout=subprocess.PIPE)
-        #for c in iter(lambda: process.stdout.read(1), ''):  # replace '' with b'' for Python 3
-           # print('hello')
-            #sys.stdout.write(c)
+    @staticmethod
+    def export_inference_graph(model_directory, file_path_to_checkpoint):
+        checkpoint_pre_extension_array = file_path_to_checkpoint.split('.')
+        checkpoint_pre_extension = checkpoint_pre_extension_array[0] + '.' + checkpoint_pre_extension_array[1]
+        command = "python3 " + Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY \
+                  + "/export_inference_graph.py " \
+                  "--input_type image_tensor " \
+                  "--pipeline_config_path " + model_directory + "/training/pipeline.config " \
+                  "--trained_checkpoint_prefix " + checkpoint_pre_extension + " "\
+                  "--output_directory " + model_directory + "/graph/"
 
-    def stop_process(self):
-        os.killpg(os.getpgid(self.process.pid), signal.SIGTERM)
+        print(command)
+        try:
+            os.system("gnome-terminal -e 'bash -c \"" + str(Config.TENSOR_FLOW_PYTHON_PATH) + "\" '")
+            os.system("gnome-terminal -e 'bash -c \"" + str(command) + "\" '")
+        except Exception as e:
+            print(e)
+

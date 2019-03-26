@@ -37,15 +37,18 @@ class DetectionDatabaseHandler:
     def insert_new_detection(self, objects_detected, file_path, start_timestamp, end_timestamp,
                              minimum_number_of_detections,
                              maximum_number_of_detections):
-        with self.connection.cursor() as cur:
-            # run query
-            cur.execute("INSERT INTO `detections` (`auto_id`, `objects_detected`, `file_path`, `start_timestamp`, "
-                        "`end_timestamp`, `minimum_number_of_detections`, `maximum_number_of_detections`) "
-                        "VALUES (""NULL, \'" + str(objects_detected).replace("\'", "\\'") + "\r\n', \'" + str(
-                file_path).replace("\\", "\\\\") + "\',\'" + str(start_timestamp)
-                        + "\',\'" + str(end_timestamp) + "\',\'"
-                        + str(minimum_number_of_detections) + "\',\'" + str(maximum_number_of_detections) + "\');")
-            self.connection.commit()
+        try:
+            with self.connection.cursor() as cur:
+                # run query
+                cur.execute("INSERT INTO `detections` (`auto_id`, `objects_detected`, `file_path`, `start_timestamp`, "
+                            "`end_timestamp`, `minimum_number_of_detections`, `maximum_number_of_detections`) "
+                            "VALUES (""NULL, \'" + str(objects_detected).replace("\'", "\\'") + "\r\n', \'" + str(
+                    file_path).replace("\\", "\\\\") + "\',\'" + str(start_timestamp)
+                            + "\',\'" + str(end_timestamp) + "\',\'"
+                            + str(minimum_number_of_detections) + "\',\'" + str(maximum_number_of_detections) + "\');")
+                self.connection.commit()
+        except Exception as  e:
+            pass
         return cur.description
 
     def delete_detection(self, detection_id):

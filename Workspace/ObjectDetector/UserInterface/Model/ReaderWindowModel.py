@@ -120,7 +120,7 @@ class ReaderWindowModel:
                 tf.import_graph_def(object_detection_graph_definition, name='')
 
     def file_reader(self, update_video_player_signal, videos_directory_path, object_labels_path):
-
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         # get all the video files
         files_in_directory = []
         for (directory_path, directory_names, file_names) in walk(videos_directory_path):
@@ -153,7 +153,7 @@ class ReaderWindowModel:
                         if image_np is None:
                             end_of_video = True
                         else:
-                            if frame_number % Config.FRAME_DELIMITER_FOR_TENSORFLOW == 0:
+                            if frame_number % Config.FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW == 0:
 
                                 # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                                 image_np_expanded = np.expand_dims(image_np, axis=0)
@@ -190,10 +190,11 @@ class ReaderWindowModel:
                                 for index, value in enumerate(classes[0]):
                                     object_dict = {}
                                     if scores[0, index] > threshold:
-                                        object_dict[(category_index.get(value)).get('name').encode('utf8')] = \
-                                            scores[0, index]
-                                        object_dict = re.findall('\'([^\']*)\'', str(object_dict))[0]
-                                        objects.append(object_dict)
+                                        if (category_index.get(value)) is not None:
+                                            object_dict[(category_index.get(value)).get('name').encode('utf8')] = \
+                                                scores[0, index]
+                                            object_dict = re.findall('\'([^\']*)\'', str(object_dict))[0]
+                                            objects.append(object_dict)
                                 if len(objects) > 0:
                                     timestamp = round(cap.get(cv2.CAP_PROP_POS_MSEC) / 1000, 2)
                                     detector_object.new_detection(objects, video, timestamp, len(objects))
@@ -257,85 +258,89 @@ class ReaderWindowModel:
 
                     frame_number = frame_number + 1
                     # Read frame from camera
+
                     ret, image_np = cap.read()
+
                     original_frame = copy.deepcopy(image_np)
-                    if writing_to_new_video:
-                        file_path_for_recording = self.derive_file_path_for_video(videos_directory_path, start_time,
-                                                                                  Config.RECORDINGS_FORMAT)
-                        out = cv2.VideoWriter(file_path_for_recording, fourcc, 20.0,
-                                              (image_np.shape[1], image_np.shape[0]))
-                        writing_to_new_video = False
 
-                    if frame_number % Config.FRAME_DELIMITER_FOR_TENSORFLOW == 0:
-                        # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-                        image_np_expanded = np.expand_dims(image_np, axis=0)
-                        # Extract image tensor
-                        image_tensor = self.__detection_graph.get_tensor_by_name('image_tensor:0')
-                        # Extract detection boxes
-                        boxes = self.__detection_graph.get_tensor_by_name('detection_boxes:0')
-                        # Extract detection scores
-                        scores = self.__detection_graph.get_tensor_by_name('detection_scores:0')
-                        # Extract detection classes
-                        classes = self.__detection_graph.get_tensor_by_name('detection_classes:0')
+                    if image_np is not None:
+                        if writing_to_new_video:
+                            file_path_for_recording = self.derive_file_path_for_video(videos_directory_path, start_time,
+                                                                                      Config.RECORDINGS_FORMAT)
+                            out = cv2.VideoWriter(file_path_for_recording, fourcc, 20.0,
+                                                  (image_np.shape[1], image_np.shape[0]))
+                            writing_to_new_video = False
+                        if frame_number % Config.FRAME_DELIMITER_FOR_SSD_TENSORFLOW == 0:
+                            # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
+                            image_np_expanded = np.expand_dims(image_np, axis=0)
+                            # Extract image tensor
+                            image_tensor = self.__detection_graph.get_tensor_by_name('image_tensor:0')
+                            # Extract detection boxes
+                            boxes = self.__detection_graph.get_tensor_by_name('detection_boxes:0')
+                            # Extract detection scores
+                            scores = self.__detection_graph.get_tensor_by_name('detection_scores:0')
+                            # Extract detection classes
+                            classes = self.__detection_graph.get_tensor_by_name('detection_classes:0')
 
-                        # Extract number of detectionsd
-                        num_detections = self.__detection_graph.get_tensor_by_name(
-                            'num_detections:0')
-                        # Actual detection.
-                        (boxes, scores, classes, num_detections) = sess.run(
-                            [boxes, scores, classes, num_detections],
-                            feed_dict={image_tensor: image_np_expanded})
-                        # Visualization of the results of a detection.
-                        vis_util.visualize_boxes_and_labels_on_image_array(
-                            image_np,
-                            np.squeeze(boxes),
-                            np.squeeze(classes).astype(np.int32),
-                            np.squeeze(scores),
-                            category_index,
-                            use_normalized_coordinates=True,
-                            line_thickness=8)
+                            # Extract number of detectionsd
+                            num_detections = self.__detection_graph.get_tensor_by_name(
+                                'num_detections:0')
+                            # Actual detection.
+                            (boxes, scores, classes, num_detections) = sess.run(
+                                [boxes, scores, classes, num_detections],
+                                feed_dict={image_tensor: image_np_expanded})
+                            # Visualization of the results of a detection.
+                            vis_util.visualize_boxes_and_labels_on_image_array(
+                                image_np,
+                                np.squeeze(boxes),
+                                np.squeeze(classes).astype(np.int32),
+                                np.squeeze(scores),
+                                category_index,
+                                use_normalized_coordinates=True,
+                                line_thickness=8)
 
-                        objects = []
-                        threshold = 0.5
+                            objects = []
+                            threshold = 0.5
+                            current_time = datetime.datetime.now()
+                            time_subtraction = current_time - start_time
+
+                            for index, value in enumerate(classes[0]):
+                                object_dict = {}
+                                if scores[0, index] > threshold:
+                                    object_dict[(category_index.get(value)).get('name').encode('utf8')] = \
+                                        scores[0, index]
+                                    object_dict = re.findall('\'([^\']*)\'', str(object_dict))[0]
+                                    objects.append(object_dict)
+                            if len(objects) > 0:
+                                # videos_directory_path
+                                detector_object.new_detection(
+                                    objects,
+                                    file_path_for_recording,
+                                    time_subtraction.seconds,
+                                    len(objects)
+                                )
+                            # formatting the rgb
+                            image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
+                            # converting image_np to a q image
+                            new_q_image = QtGui.QImage(
+                                image_np,
+                                image_np.shape[1],
+                                image_np.shape[0],
+                                QtGui.QImage.Format_RGB888
+                            )
+                            # converting the QImage to pix for the label
+                            pix = QtGui.QPixmap.fromImage(new_q_image)
+                            update_video_player_signal.emit(pix)
+
                         current_time = datetime.datetime.now()
                         time_subtraction = current_time - start_time
+                        out.write(original_frame)
+                        if time_subtraction.seconds >= Config.SECONDS_PER_RECORDING:
+                            writing_to_new_video = True
+                            start_time = current_time
+                            detector_object.flush_remaining_detections()
+                            out.release()
 
-                        for index, value in enumerate(classes[0]):
-                            object_dict = {}
-                            if scores[0, index] > threshold:
-                                object_dict[(category_index.get(value)).get('name').encode('utf8')] = \
-                                    scores[0, index]
-                                object_dict = re.findall('\'([^\']*)\'', str(object_dict))[0]
-                                objects.append(object_dict)
-                        if len(objects) > 0:
-                            # videos_directory_path
-                            detector_object.new_detection(
-                                objects,
-                                file_path_for_recording,
-                                time_subtraction.seconds,
-                                len(objects)
-                            )
-                        # formatting the rgb
-                        image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
-                        # converting image_np to a q image
-                        new_q_image = QtGui.QImage(
-                            image_np,
-                            image_np.shape[1],
-                            image_np.shape[0],
-                            QtGui.QImage.Format_RGB888
-                        )
-                        # converting the QImage to pix for the label
-                        pix = QtGui.QPixmap.fromImage(new_q_image)
-                        update_video_player_signal.emit(pix)
-
-                    current_time = datetime.datetime.now()
-                    time_subtraction = current_time - start_time
-                    out.write(original_frame)
-                    if time_subtraction.seconds >= Config.SECONDS_PER_RECORDING:
-                        writing_to_new_video = True
-                        start_time = current_time
-                        detector_object.flush_remaining_detections()
-                        out.release()
 
         detector_object.flush_remaining_detections()
         out.release()

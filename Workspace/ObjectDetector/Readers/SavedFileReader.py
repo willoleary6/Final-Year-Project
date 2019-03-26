@@ -35,7 +35,7 @@ if StrictVersion(tf.__version__) < StrictVersion('1.9.0'):
     raise ImportError('Please upgrade your TensorFlow installation to v1.9.* or later!')
 
 # Model preparation Variables Any model
-# exported using the export_inference_graph.py tool can be loaded here simply
+# exported using the open_nautilus_to_get_model_checkpoint_location.py tool can be loaded here simply
 # by changing PATH_TO_FROZEN_GRAPH_OF_MODEL to point to a new .pb file.
 
 # By default we use an "SSD with Mobilenet" model here. See the detection model zoo for a list of other models that
@@ -85,7 +85,7 @@ with detection_graph.as_default():
                 if image_np is None:
                     end_of_video = True
                 else:
-                    if frame_number % Config.FRAME_DELIMITER_FOR_TENSORFLOW == 0:
+                    if frame_number % Config.FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW == 0:
 
                         # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                         image_np_expanded = np.expand_dims(image_np, axis=0)

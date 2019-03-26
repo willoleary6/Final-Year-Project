@@ -3,7 +3,7 @@ from functools import partial
 
 from Workspace.ObjectDetector.UserInterface.Controller.viewController import ViewController
 from PyQt5.QtWidgets import QMainWindow
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from Workspace.ObjectDetector.UserInterface.Model.ReaderWindowModel import ReaderWindowModel
 from Workspace.ObjectDetector.UserInterface.View.ReaderWindowView import ReaderWindowView
 from Workspace.ObjectDetector.config import Config
@@ -79,16 +79,15 @@ class ReaderWindowController(QMainWindow, ViewController):
         # debug options
 
         self.__file_reader_file_path_field.setText(
-            '/home/will/SourceCode/Final-Year-Project/Workspace/ObjectDetector/test_videos'
+            '/home/will/Documents/sample videos'
         )
         self.__file_reader_inference_path_field.setText(
-            '/home/will/SourceCode/Final-Year-Project/Workspace/Prototypes/'
-            'TensorFlowObjectDetectionCoinPrototype/coin_graph/frozen_inference_graph.pb'
+            '/home/will/Documents/training_directory_for_demonstration/graph/frozen_inference_graph.pb'
         )
         self.__file_reader_labels_field.setText(
-            '/home/will/SourceCode/Final-Year-Project/Workspace/Prototypes/'
-            'TensorFlowObjectDetectionCoinPrototype/training/object_detection.pbtxt'
+            '/home/will/Documents/training_directory_for_demonstration/training/object_detection.pbtxt'
         )
+
 
         self.__live_stream_reader_ip_field.setText('rtsp://willoleary6: password1@192.168.1.210:554/videoMain')
         self.__live_stream_reader_recordings_field.setText(
@@ -96,13 +95,12 @@ class ReaderWindowController(QMainWindow, ViewController):
             'ObjectDetector/destination_for_livestreams'
         )
         self.__live_stream_reader_inference_graph_field.setText(
-            '/home/will/SourceCode/Final-Year-Project/Workspace'
-            '/Prototypes/TensorFlowObjectDetectionCoinPrototype/coin_graph/frozen_inference_graph.pb'
+            '/home/will/Documents/live_stream_training/graph/frozen_inference_graph.pb'
         )
         self.__live_stream_reader_label_path_field.setText(
-            '/home/will/SourceCode/Final-Year-Project/Workspace/Prototypes/'
-            'TensorFlowObjectDetectionCoinPrototype/training/object_detection.pbtxt'
+            '/home/will/Documents/live_stream_training/training/object_detection.pbtxt'
         )
+
 
     def update_frame_display(self, image):
         self.__frame_display.setPixmap(image)
@@ -238,6 +236,7 @@ class ReaderWindowController(QMainWindow, ViewController):
 
     def file_reader_start_button_click_event(self):
         self.toggle_live_stream_reader_functionality(True)
+        self.__file_reader_start_button.setDisabled(True)
         videos_directory_path = self.__file_reader_file_path_field.text()
         inference_graph_path = self.__file_reader_inference_path_field.text()
         object_labels_path = self.__file_reader_labels_field.text()
@@ -259,9 +258,12 @@ class ReaderWindowController(QMainWindow, ViewController):
     def file_reader_stop_button_click_event(self):
         self.__reader_window_model.stop_reader_now()
         self.toggle_live_stream_reader_functionality(False)
+        self.toggle_file_reader_functionality(False)
+        self.__reader_window_model = ReaderWindowModel()
 
     def live_stream_reader_start_button_click_event(self):
         self.toggle_file_reader_functionality(True)
+        self.__live_stream_reader_start_button.setDisabled(True)
         live_stream_address = self.__live_stream_reader_ip_field.text()
         videos_directory_path = self.__live_stream_reader_recordings_field.text()
         inference_graph_path = self.__live_stream_reader_inference_graph_field.text()
@@ -285,6 +287,8 @@ class ReaderWindowController(QMainWindow, ViewController):
     def live_stream_reader_stop_button_click_event(self):
         self.__reader_window_model.stop_reader_now()
         self.toggle_file_reader_functionality(False)
+        self.toggle_live_stream_reader_functionality(False)
+        self.__reader_window_model = ReaderWindowModel()
 
     def field_text_has_changed_update_status(self, field, status, is_directory, desired_extension):
         file_path_check = self.__reader_window_model.check_if_file_path_is_valid(field, is_directory, desired_extension)

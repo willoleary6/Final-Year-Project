@@ -93,11 +93,12 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
 
     def update_detections(self, new_detections):
         self.__array_of_detection_events = new_detections
-        self.initialise_detections()
+        self.initialise_detections(False)
 
-    def initialise_detections(self):
+    def initialise_detections(self, initialise=True):
         items = []
-        for detection_event in self.__array_of_detection_events:
+        
+        for detection_event in self.__array_of_detection_events[::-1]:
             list_widget = QtWidgets.QListWidget(self.__detection_reviewer_window_detections_vertical_layout)
             list_widget_item = QtWidgets.QListWidgetItem(list_widget)
             size = QtCore.QSize(10, 100)
@@ -114,12 +115,13 @@ class DetectionReviewerWindowController(QMainWindow, ViewController):
             scroll_layout.addWidget(item)
         self.__detection_reviewer_window_detection_list_scroll_area.setWidgetResizable(True)
         self.__detection_reviewer_window_detection_list_scroll_area.setWidget(scroll_content)
-        if len(self.__array_of_detection_events) > 0:
-            first_detection = self.__array_of_detection_events[0]
-            self.change_video_playing(first_detection)
-            self.__detection_reviewer_window_play_button.setEnabled(True)
-        else:
-            self.__detection_reviewer_window_play_button.setEnabled(False)
+        if initialise:
+            if len(self.__array_of_detection_events) > 0:
+                first_detection = self.__array_of_detection_events[0]
+                self.change_video_playing(first_detection)
+                self.__detection_reviewer_window_play_button.setEnabled(True)
+            else:
+                self.__detection_reviewer_window_play_button.setEnabled(False)
 
     def initialise_view(self):
         self.__detection_reviewer_window_view.show()

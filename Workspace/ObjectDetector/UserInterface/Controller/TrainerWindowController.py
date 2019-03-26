@@ -17,6 +17,7 @@ from Workspace.ObjectDetector.config import Config
 
 class TrainerWindowController(QMainWindow, ViewController):
     __get_file_path_from_nautilus_signal = QtCore.pyqtSignal(object)
+    __get_file_path_to_model = QtCore.pyqtSignal(object)
     __get_label_img_update_signal = QtCore.pyqtSignal()
     __update_console_output_signal = QtCore.pyqtSignal(object)
 
@@ -145,6 +146,7 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__train_record_path = ''
         self.__model_directory = ''
         self.__model_config_path = ''
+        self.disable_all_fix_buttons()
         # self.__trainer_directory_field.setText('/home/will/Documents/training_directory_for_demonstration')
         # self.__trainer_image_data_set_field.setText('/home/will/Documents/image_data_set_for_demo')
         # self.__trainer_image_data_set_field.setText('/home/will/Documents/empty')
@@ -155,6 +157,16 @@ class TrainerWindowController(QMainWindow, ViewController):
         #   '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
         # self.__trainer_model_commit_to_training_directory_button.click()
         # self.__update_console_output_signal.connect(self.update_console_output)
+
+        self.__trainer_directory_field.setText('/home/will/Documents/demo_day_directory')
+        self.__trainer_image_data_set_field.setText('/home/will/Documents/Stanford40_JPEGImages')
+        self.__trainer_image_data_set_commit_to_training_directory_button.click()
+        self.__trainer_image_data_set_split_button.click()
+        self.__trainer_image_data_convert_to_tf_record_button.click()
+        self.__trainer_model_field.setText(
+            '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
+        self.__trainer_model_commit_to_training_directory_button.click()
+        self.__update_console_output_signal.connect(self.update_console_output)
 
     def connect_ui_elements_to_methods(self):
         # self.__trainer_directory_field
@@ -220,12 +232,16 @@ class TrainerWindowController(QMainWindow, ViewController):
             self.commence_training,
             self.__trainer_control_panel_start_button
         )
-        '''
+
         self.wire_up_button(
-            self.stop_training,
-            self.__trainer_control_panel_stop_button
+            self.open_tensor_board,
+            self.__trainer_control_panel_open_tensor_board_button
         )
-        '''
+
+        self.wire_up_button(
+            self.open_nautilus_to_get_model_checkpoint_location,
+            self.__trainer_control_panel_export_inference_graph_button
+        )
 
         # on change events
         self.__trainer_directory_field.textChanged.connect(
@@ -268,23 +284,36 @@ class TrainerWindowController(QMainWindow, ViewController):
             self.validate_percentage_change,
         )
 
-    '''
-    def stop_training(self):
-        self.__trainer_window_model.stop_process()
-    '''
+    def open_nautilus_to_get_model_checkpoint_location(self):
+        self.__get_file_path_to_model.connect(self.export_inference_graph)
+        self.__trainer_window_model.get_file_path_through_nautilus(
+            self.__get_file_path_to_model,
+            False,
+            None
+        )
 
-    def commence_training(self):
+    def export_inference_graph(self, signal_message):
+        null, file_path_to_checkpoint = signal_message
+        self.__trainer_window_model.export_inference_graph(
+            self.__trainer_directory,
+            file_path_to_checkpoint
+        )
+
+    def open_tensor_board(self):
         try:
             _thread.start_new_thread(
-                self.__trainer_window_model.commence_training,
+                self.__trainer_window_model.open_tensor_board,
                 (
                     self.__model_training_directory,
-                    self.__update_console_output_signal
                 )
             )
         except Exception as e:
             print("Error: unable to start thread")
             print(e)
+
+    def commence_training(self):
+        self.__trainer_window_model.commence_training(self.__model_training_directory)
+        self.toggle_control_panel_functionality(False)
 
     def update_console_output(self, text):
         current_text = self.__trainer_control_panel_output_area.toPlainText()
@@ -292,15 +321,28 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_control_panel_output_area.setText(current_text + text + '\n')
 
     def commit_model_to_training_directory(self):
-        self.__model_training_directory = self.__trainer_window_model.commit_model_training_directory(
-            self.__model_directory,
-            self.__model_config_path,
-            self.__trainer_directory,
-            self.__list_of_xml_labels,
-            self.__test_record_path,
-            self.__train_record_path,
-        )
-        self.toggle_control_panel_functionality(False)
+        try:
+            self.__model_training_directory = self.__trainer_window_model.commit_model_training_directory(
+                self.__model_directory,
+                self.__model_config_path,
+                self.__trainer_directory,
+                self.__list_of_xml_labels,
+                self.__test_record_path,
+                self.__train_record_path,
+            )
+            self.__trainer_control_panel_start_button.setDisabled(False)
+            self.update_status_label(
+                self.__trainer_model_commit_to_training_directory_status,
+                "Success",
+                "background-color: green; color: white",
+            )
+        except Exception as e:
+            self.update_status_label(
+                self.__trainer_model_commit_to_training_directory_status,
+                "Success",
+                "background-color: red; color: white",
+            )
+
 
     def unlock_convert_to_tf_record(self):
         is_split = \
@@ -810,6 +852,4 @@ class TrainerWindowController(QMainWindow, ViewController):
     def toggle_control_panel_functionality(self, toggle_value):
         self.__trainer_control_panel_start_button.setDisabled(toggle_value)
         self.__trainer_control_panel_open_tensor_board_button.setDisabled(toggle_value)
-        #self.__trainer_control_panel_stop_button.setDisabled(toggle_value)
         self.__trainer_control_panel_export_inference_graph_button.setDisabled(toggle_value)
-        #self.__trainer_control_panel_output_area.setDisabled(toggle_value)
