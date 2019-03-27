@@ -18,7 +18,7 @@ class TrainerWindowView(QMainWindow, BaseView):
     def __init__(self, window_height=Config.TRAINER_WINDOW_HEIGHT,
                  window_width=Config.TRAINER_WINDOW_HEIGHT):
         super(QMainWindow, self).__init__(parent=None)
-        self.setObjectName("MainWindow")
+        self.setObjectName("Trainer")
         self.resize(window_height, window_width)
         self.setMinimumSize(QtCore.QSize(window_height, window_width))
         self.__central_widget = QtWidgets.QWidget(self)
@@ -647,7 +647,8 @@ class TrainerWindowView(QMainWindow, BaseView):
         font.setPointSize(14)
         self.__trainer_image_data_convert_to_tf_record_title.setFont(font)
         self.__trainer_image_data_convert_to_tf_record_title.setAlignment(QtCore.Qt.AlignCenter)
-        self.__trainer_image_data_convert_to_tf_record_title.setObjectName("__trainer_image_data_convert_to_tf_record_title")
+        self.__trainer_image_data_convert_to_tf_record_title.setObjectName(
+            "__trainer_image_data_convert_to_tf_record_title")
         self.__trainer_image_data_commit_to_tensorflow.addWidget(self.__trainer_image_data_convert_to_tf_record_title)
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout = QtWidgets.QHBoxLayout()
         self.__trainer_image_data_commit_to_tensorflow_horizontal_layout.setObjectName(
@@ -826,9 +827,6 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_controls_vertical_layout.addWidget(
             self.__trainer_control_panel_open_tensor_board_button)
 
-        #self.__trainer_control_panel_stop_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
-        #self.__trainer_control_panel_stop_button.setObjectName("__trainer_control_panel_stop_button")
-        #self.__trainer_control_panel_controls_vertical_layout.addWidget(self.__trainer_control_panel_stop_button)
         self.__trainer_control_panel_export_inference_graph_button = QtWidgets.QPushButton(
             self.__vertical_layout_widget)
         self.__trainer_control_panel_export_inference_graph_button.setObjectName(
@@ -842,12 +840,7 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_control_panel_output_vertical_layout.setObjectName(
             "__trainer_control_panel_output_vertical_layout"
         )
-        # self.__trainer_control_panel_output_area = QtWidgets.QTextEdit(self.__vertical_layout_widget)
-        # self.__trainer_control_panel_output_area.setStyleSheet("background-color:black;\n"
-        #                                                      "color:white;")
-        # self.__trainer_control_panel_output_area.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
-        # self.__trainer_control_panel_output_area.setObjectName("__trainer_control_panel_output_area")
-        # self.__trainer_control_panel_output_vertical_layout.addWidget(self.__trainer_control_panel_output_area)
+
         self.__trainer_control_panel_horizontal_layout.addLayout(self.__trainer_control_panel_output_vertical_layout)
         self.__trainer_control_panel_vertical_layout.addLayout(self.__trainer_control_panel_horizontal_layout)
         self.__trainer_main_layout.addLayout(self.__trainer_control_panel_vertical_layout)
@@ -859,7 +852,7 @@ class TrainerWindowView(QMainWindow, BaseView):
 
     def __set_text_and_icons(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "Trainer"))
         self.__trainer_title.setText(_translate("MainWindow", "Trainer"))
         self.__trainer_directory_title.setText(_translate("MainWindow", "Training Directory"))
         self.__trainer_directory_field_title.setText(_translate("MainWindow", "Training Directory"))
@@ -914,12 +907,12 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_model_commit_to_training_directory_button.setText(_translate("MainWindow", "Commit Model"))
         self.__trainer_model_commit_to_training_directory_status.setText(_translate("MainWindow", "Waiting for models"))
         self.__trainer_control_panel_start_button.setText(_translate("MainWindow", "Start Training"))
-       # self.__trainer_control_panel_start_button.s(QtCore.Qt.AlignCenter)
+        # self.__trainer_control_panel_start_button.s(QtCore.Qt.AlignCenter)
         self.__trainer_control_panel_open_tensor_board_button.setText(_translate("MainWindow", "Open Tensorboard"))
-        #self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
+        # self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
         self.__trainer_control_panel_export_inference_graph_button.setText(
             _translate("MainWindow", "Export Inference Graph"))
-        #self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
+        # self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
 
     # training directory
     def get_trainer_directory_title(self):
@@ -1068,14 +1061,14 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_control_panel_open_tensor_board_button(self):
         return self.__trainer_control_panel_open_tensor_board_button
 
-    #def get_trainer_control_panel_stop_button(self):
-        #return self.__trainer_control_panel_stop_button
+    # def get_trainer_control_panel_stop_button(self):
+    # return self.__trainer_control_panel_stop_button
 
     def get_trainer_control_panel_export_inference_graph_button(self):
         return self.__trainer_control_panel_export_inference_graph_button
 
     # def get_trainer_control_panel_output_area(self):
-        #return self.__trainer_control_panel_output_area
+    # return self.__trainer_control_panel_output_area
 
     def __update_geometry(self):
         self.__vertical_layout_widget.setGeometry(
@@ -1241,8 +1234,6 @@ class TrainerWindowView(QMainWindow, BaseView):
                 self.__percentage_of_height(0)
             )
         )
-
-
 
     def __percentage_of_height(self, percentage):
         return (percentage / 100) * self.geometry().height()

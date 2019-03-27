@@ -20,14 +20,12 @@ class MainMenuWindowController(QMainWindow, ViewController):
         self.__main_menu_window_reviewer_button = self.__main_menu_window_view.get_reviewer_button()
         self.__main_menu_window_reader_button = self.__main_menu_window_view.get_reader_button()
         self.__main_menu_window_trainer_button = self.__main_menu_window_view.get_trainer_button()
-        self.__main_menu_window_documentation_button = self.__main_menu_window_view.get_documentation_button()
         self.connect_ui_elements_to_methods()
 
     def connect_ui_elements_to_methods(self):
         self.__main_menu_window_reviewer_button.clicked.connect(self.go_to_review_screen)
         self.__main_menu_window_reader_button.clicked.connect(self.go_to_reader_screen)
         self.__main_menu_window_trainer_button.clicked.connect(self.go_to_trainer_screen)
-        self.__main_menu_window_documentation_button.clicked.connect(self.go_to_documentation_screen)
 
     def initialise_view(self):
         self.__main_menu_window_view.show()

@@ -70,10 +70,7 @@ class MainMenuWindowView(QMainWindow, BaseView):
             QtWidgets.QSizePolicy.Minimum,
             QtWidgets.QSizePolicy.Expanding
         )
-        self.__menu_buttons_layout.addItem(self.__trainer_documentation_button_spacer)
-        self.__documentation_button = QtWidgets.QPushButton(self.__base_layout)
-        self.__documentation_button.setObjectName("__documentation_button")
-        self.__menu_buttons_layout.addWidget(self.__documentation_button)
+
         self.setCentralWidget(self.__central_widget)
 
         self.__set_text_and_icons()
@@ -87,7 +84,6 @@ class MainMenuWindowView(QMainWindow, BaseView):
         self.__reviewer_button.setText(_translate("StreamlinedObjectDetector", "Reviewer"))
         self.__reader_button.setText(_translate("StreamlinedObjectDetector", "Reader"))
         self.__trainer_button.setText(_translate("StreamlinedObjectDetector", "Trainer"))
-        self.__documentation_button.setText(_translate("StreamlinedObjectDetector", "Documentation"))
 
     def __update_geometry(self):
         self.__base_layout.setGeometry(
@@ -118,5 +114,3 @@ class MainMenuWindowView(QMainWindow, BaseView):
     def get_trainer_button(self):
         return self.__trainer_button
 
-    def get_documentation_button(self):
-        return self.__documentation_button

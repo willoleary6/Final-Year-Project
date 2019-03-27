@@ -496,6 +496,9 @@ class TrainerWindowModel:
     def export_inference_graph(model_directory, file_path_to_checkpoint):
         checkpoint_pre_extension_array = file_path_to_checkpoint.split('.')
         checkpoint_pre_extension = checkpoint_pre_extension_array[0] + '.' + checkpoint_pre_extension_array[1]
+        if os.path.isdir(model_directory + "/graph/"):
+            shutil.rmtree(model_directory + "/graph/")
+
         command = "python3 " + Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY \
                   + "/export_inference_graph.py " \
                   "--input_type image_tensor " \
@@ -503,7 +506,6 @@ class TrainerWindowModel:
                   "--trained_checkpoint_prefix " + checkpoint_pre_extension + " "\
                   "--output_directory " + model_directory + "/graph/"
 
-        print(command)
         try:
             os.system("gnome-terminal -e 'bash -c \"" + str(Config.TENSOR_FLOW_PYTHON_PATH) + "\" '")
             os.system("gnome-terminal -e 'bash -c \"" + str(command) + "\" '")

@@ -507,7 +507,7 @@ class ReaderWindowView(QMainWindow, BaseView):
 
     def __set_text_and_icons(self):
         _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.setWindowTitle(_translate("MainWindow", "Reader"))
         self.__file_reader_title.setText(_translate("MainWindow", "File Reader"))
         self.__file_reader_file_path_field_title.setText(_translate("MainWindow", "Directory of videos"))
         self.__file_reader_file_path_field.setPlaceholderText(

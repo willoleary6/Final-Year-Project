@@ -71,7 +71,7 @@ class ReaderWindowController(QMainWindow, ViewController):
         # others
         self.__frame_display = self.__reader_window_view.get_frame_display()
         self.connect_ui_elements_to_methods()
-        # self.__reader_window_view.show()
+
         # setting both start buttons to disabled
         self.__live_stream_reader_start_button.setDisabled(True)
         self.__file_reader_start_button.setDisabled(True)
@@ -82,12 +82,11 @@ class ReaderWindowController(QMainWindow, ViewController):
             '/home/will/Documents/sample videos'
         )
         self.__file_reader_inference_path_field.setText(
-            '/home/will/Documents/training_directory_for_demonstration/graph/frozen_inference_graph.pb'
+            '/home/will/Documents/demo_day_directory/graph/frozen_inference_graph.pb'
         )
         self.__file_reader_labels_field.setText(
-            '/home/will/Documents/training_directory_for_demonstration/training/object_detection.pbtxt'
+            '/home/will/Documents/demo_day_directory/training/object_detection.pbtxt'
         )
-
 
         self.__live_stream_reader_ip_field.setText('rtsp://willoleary6: password1@192.168.1.210:554/videoMain')
         self.__live_stream_reader_recordings_field.setText(
@@ -100,7 +99,6 @@ class ReaderWindowController(QMainWindow, ViewController):
         self.__live_stream_reader_label_path_field.setText(
             '/home/will/Documents/live_stream_training/training/object_detection.pbtxt'
         )
-
 
     def update_frame_display(self, image):
         self.__frame_display.setPixmap(image)
