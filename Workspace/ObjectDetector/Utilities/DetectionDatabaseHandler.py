@@ -20,7 +20,7 @@ class DetectionDatabaseHandler:
                 db=db_name,
                 connect_timeout=100
             )
-        except Exception as  e:
+        except Exception as e:
             print("ERROR: Unexpected error: Could not connect to MySql instance.")
             print(e)
             sys.exit()
@@ -40,14 +40,32 @@ class DetectionDatabaseHandler:
         try:
             with self.connection.cursor() as cur:
                 # run query
-                cur.execute("INSERT INTO `detections` (`auto_id`, `objects_detected`, `file_path`, `start_timestamp`, "
-                            "`end_timestamp`, `minimum_number_of_detections`, `maximum_number_of_detections`) "
-                            "VALUES (""NULL, \'" + str(objects_detected).replace("\'", "\\'") + "\r\n', \'" + str(
-                    file_path).replace("\\", "\\\\") + "\',\'" + str(start_timestamp)
-                            + "\',\'" + str(end_timestamp) + "\',\'"
-                            + str(minimum_number_of_detections) + "\',\'" + str(maximum_number_of_detections) + "\');")
+                cur.execute(
+                    "INSERT INTO `detections` ("
+                    "`auto_id`, "
+                    "`objects_detected`, "
+                    "`file_path`, "
+                    "`start_timestamp`,"
+                    "`end_timestamp`, "
+                    "`minimum_number_of_detections`, "
+                    "`maximum_number_of_detections`"
+                    ")"
+                    "VALUES "
+                    "("
+                    "NULL, \'" +
+                    str(objects_detected).replace("\'", "\\'") +
+                    "\r\n', \'" + str(file_path).replace("\\", "\\\\") +
+                    "\',\'" + str(start_timestamp) + "\',\'" +
+                    str(end_timestamp) + "\',\'" +
+                    str(minimum_number_of_detections) +
+                    "\',\'" +
+                    str(maximum_number_of_detections) +
+                    "\'"
+                    ");"
+                )
                 self.connection.commit()
-        except Exception as  e:
+
+        except Exception as e:
             pass
         return cur.description
 

@@ -159,13 +159,13 @@ class TrainerWindowController(QMainWindow, ViewController):
         # self.__update_console_output_signal.connect(self.update_console_output)
 
         self.__trainer_directory_field.setText('/home/will/Documents/demo_day_directory')
-        self.__trainer_image_data_set_field.setText('/home/will/Documents/Stanford40_JPEGImages')
-        self.__trainer_image_data_set_commit_to_training_directory_button.click()
+        self.__trainer_image_data_set_field.setText('/home/will/Documents/demo_day_images')
+        # self.__trainer_image_data_set_commit_to_training_directory_button.click()
         self.__trainer_image_data_set_split_button.click()
-        self.__trainer_image_data_convert_to_tf_record_button.click()
+        # self.__trainer_image_data_convert_to_tf_record_button.click()
         self.__trainer_model_field.setText(
             '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
-        self.__trainer_model_commit_to_training_directory_button.click()
+        # self.__trainer_model_commit_to_training_directory_button.click()
         self.__update_console_output_signal.connect(self.update_console_output)
 
     def connect_ui_elements_to_methods(self):
@@ -343,7 +343,6 @@ class TrainerWindowController(QMainWindow, ViewController):
                 "background-color: red; color: white",
             )
 
-
     def unlock_convert_to_tf_record(self):
         is_split = \
             self.__trainer_window_model.check_if_image_data_set_has_been_split(self.__directory_of_image_data_set)
@@ -444,7 +443,7 @@ class TrainerWindowController(QMainWindow, ViewController):
             )
 
     def get_config_file_from_model(self):
-        self.__model_config_path = self.__trainer_window_model.get_config_path_from_tensorflow(self.__model_directory)
+        self.__model_config_path = self.__trainer_window_model.get_config_path_from_tensor_flow(self.__model_directory)
 
     def update_status_label_and_run_checks(self, status_label, new_message, stylesheet, valid_to_run):
         status_label.setText(new_message)

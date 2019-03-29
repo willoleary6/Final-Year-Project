@@ -1,6 +1,6 @@
 class Config:
     SECONDS_ADDED_TO_EVENT_TIMESTAMP = 5
-    FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW = 25
+    FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW = 20
     FRAME_DELIMITER_FOR_SSD_TENSORFLOW = 5
     CAMERA_IP_ADDRESS = '192.168.1.210'
     CAMERA_PORT = '554'
@@ -23,10 +23,12 @@ class Config:
     DATABASE_HOST = 'localhost'
     THREAD_LOOP_DELAY = .1
     VALID_VIDEO_FORMATS = ['.mp4']
+
     # file extensions
     INFERENCE_GRAPH_FILE_EXTENSION = '.pb'
     OBJECT_LABELS_FILE_EXTENSION = '.pbtxt'
-    VALID_IMAGE_EXTENSIONS = ['xml', 'jpg']
+    VALID_IMAGE_DATA_SET_EXTENSIONS = ['xml', 'jpg']
+    INVALID_IMAGE_FORMATS = ['png', 'jpeg', 'gif', 'TIF']
 
     # live stream_recordings
     SECONDS_PER_RECORDING = 20
@@ -34,11 +36,10 @@ class Config:
 
     MINIMUM_NUMBER_OF_IMAGES = 200
     DEFAULT_TEST_PERCENTAGE = 10
-    MAXIMUM_IMAGE_SIZE_IN_MEGABYTES = 1
+    MAXIMUM_IMAGE_SIZE_IN_MEGABYTES = .6
 
-
-    #models
-    TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY= '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/'
+    # models
+    TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY = \
+        '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/'
     TENSOR_FLOW_PYTHON_PATH = 'export PYTHONPATH=$PYTHONPATH:/home/will/Tensorflow_Object_Detection_API/models' \
                               '/research:/home/will/Tensorflow_Object_Detection_API/models/research/slim '
-

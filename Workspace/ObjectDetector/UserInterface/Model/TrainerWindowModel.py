@@ -1,40 +1,21 @@
-import _thread
-import copy
 import glob
 import random
 import shutil
-import signal
 import subprocess
 import sys
 import time
-
 import gi
-import cv2
 import numpy as np
 import os
-from os import walk
 import re
-from subprocess import Popen, PIPE
 import pandas as pd
-import tensorflow as tf
 from PIL import Image
 import webbrowser
-from Workspace.ObjectDetector.detector.Detector import Detector
 from Workspace.ObjectDetector.config import Config
 from Workspace.labelImg.labelImg import MainWindow
 from Workspace.ObjectDetector.Utilities.ScaleImagesAndCorrespondingXML import ScaleImagesAndCorrespondingXML
 from Workspace.ObjectDetector.Utilities.GenerateTfRecord import GenerateTfRecord
-
-import datetime
-
-# Here are the imports from the object detection module.
-# in the interest of cleanliness and sanity ive updated the paths
-# of the interpreter the IDE uses so we can call the object detection api from outside the
-# the models directory, using models.research.object_detection will also not work....
-from object_detection.utils import label_map_util
-from object_detection.utils import visualization_utils as vis_util
-import xml.etree.ElementTree as ET
-from PyQt5 import QtGui
+import xml.etree.ElementTree as ElementTree
 from subprocess import call
 
 gi.require_version("Gtk", "3.0")
@@ -111,15 +92,19 @@ class TrainerWindowModel:
         if os.path.isdir(training_image_data_sets_directory_path):
             shutil.rmtree(training_image_data_sets_directory_path)
 
-        self.cp_dir(image_data_set_directory_file_path, training_image_data_sets_directory_path)
+        self.copy_directory_to_destination_directory(
+            image_data_set_directory_file_path,
+            training_image_data_sets_directory_path
+        )
 
         return training_image_data_sets_directory_path
 
     @staticmethod
-    def cp_dir(source, target):
+    def copy_directory_to_destination_directory(source, target):
         call(['cp', '-a', source, target])  # Linux
 
     def image_data_set_file_format_test(self, data_set_directory):
+
         check_result = {
             'check_outcome': True,
             'description': 'Pass',
@@ -143,7 +128,7 @@ class TrainerWindowModel:
 
     @staticmethod
     def is_valid_extension(extension):
-        for valid_extension in Config.VALID_IMAGE_EXTENSIONS:
+        for valid_extension in Config.VALID_IMAGE_DATA_SET_EXTENSIONS:
             if extension == valid_extension:
                 return True
         return False
@@ -152,8 +137,9 @@ class TrainerWindowModel:
         for file in invalid_files:
             extension = file.split('.')[-1]
             file_name = file.split('/')[len(file.split('/')) - 1]
-            if extension == 'png' or extension == 'jpeg':
-                self.convert_png_to_jpg(file, file_name)
+            for file_format in Config.INVALID_IMAGE_FORMATS:
+                if extension == file_format:
+                    self.convert_invalid_image_format_to_jpg(file, file_name)
 
             if os.path.isdir(file):
                 shutil.rmtree(file)
@@ -161,7 +147,7 @@ class TrainerWindowModel:
                 os.remove(file)
 
     @staticmethod
-    def convert_png_to_jpg(file_path, file_name):
+    def convert_invalid_image_format_to_jpg(file_path, file_name):
         img = Image.open(file_path).convert('RGB')
         x = np.array(img)
         r, g, b = np.rollaxis(x, axis=-1)
@@ -170,11 +156,11 @@ class TrainerWindowModel:
         img.save(file_path.split('.')[0] + '.jpg')
         if os.path.isfile(file_path.split('.')[0] + '.xml'):
             try:
-                tree = ET.parse(file_path.split('.')[0] + '.xml')
+                tree = ElementTree.parse(file_path.split('.')[0] + '.xml')
                 root = tree.getroot()
                 root.find('filename').text = str(file_name.split('.')[0] + '.jpg')
                 root.find('path').text = str(file_path.split('.')[0] + '.jpg')
-                str_data = re.findall('\'([^\']*)\'', str(ET.tostring(root)))
+                str_data = re.findall('\'([^\']*)\'', str(ElementTree.tostring(root)))
                 my_file = open(file_path.split('.')[0] + '.xml', "w")
                 my_file.write(str_data[0])
             except Exception as e:
@@ -186,7 +172,7 @@ class TrainerWindowModel:
 
     @staticmethod
     def image_numbers_test(data_set_directory):
-        check_result = {
+        test_result = {
             'check_outcome': True,
             'description': 'Pass',
             'invalid_files': []
@@ -200,12 +186,13 @@ class TrainerWindowModel:
                 count += 1
 
         if count < Config.MINIMUM_NUMBER_OF_IMAGES:
-            check_result['check_outcome'] = False
-            check_result['description'] = 'Not enough images in dataset'
+            test_result['check_outcome'] = False
+            test_result['description'] = 'Not enough images in dataset'
 
-        return check_result
+        return test_result
 
-    def image_size_test(self, data_set_directory):
+    @staticmethod
+    def image_size_test(data_set_directory):
         check_result = {
             'check_outcome': True,
             'description': 'Pass',
@@ -222,9 +209,13 @@ class TrainerWindowModel:
                     check_result['description'] = 'Images too large'
         return check_result
 
-    def downscale_images(self, directory_of_data_set):
-        scaler = ScaleImagesAndCorrespondingXML(directory_of_data_set, Config.MAXIMUM_IMAGE_SIZE_IN_MEGABYTES)
-        scaler.downscale_images()
+    @staticmethod
+    def downscale_images(directory_of_data_set):
+        image_scalar = ScaleImagesAndCorrespondingXML(
+            directory_of_data_set,
+            Config.MAXIMUM_IMAGE_SIZE_IN_MEGABYTES
+        )
+        image_scalar.downscale_images()
 
     @staticmethod
     def corresponding_xml_file_test(data_set_directory):
@@ -246,6 +237,7 @@ class TrainerWindowModel:
         return check_result
 
     def open_label_img_with_invalid_files(self, invalid_files, recheck_signal):
+        # method that opens labelImg with a list of invalid images to get the user to look at
         argv = []
         self.__label_img_instance = MainWindow(
             recheck_signal,
@@ -258,7 +250,7 @@ class TrainerWindowModel:
         self.__label_img_instance.import_array_of_file_paths(invalid_files)
 
     def validity_xml_file_test(self, data_set_directory):
-        check_result = {
+        test_result = {
             'check_outcome': True,
             'description': 'Pass',
             'invalid_files': []
@@ -268,34 +260,40 @@ class TrainerWindowModel:
         for file in list_of_files:
             extension = file.split('.')[-1]
             if extension == 'xml':
-                tree = ET.parse(data_set_directory + file)
+                tree = ElementTree.parse(data_set_directory + file)
                 root = tree.getroot()
                 for member in root.findall('object'):
                     last_member_index = len(member) - 1
                     try:
                         value = (root.find('filename').text,
-                                 int(root.find('size')[self.get_index(root.find('size'), 'width')].text),
-                                 int(root.find('size')[self.get_index(root.find('size'), 'height')].text),
+                                 int(root.find('size')[self.get_xml_attribute_index(root.find('size'), 'width')].text),
+                                 int(root.find('size')[self.get_xml_attribute_index(root.find('size'), 'height')].text),
                                  member[0].text,
-                                 int(member[last_member_index][self.get_index(member[last_member_index], 'xmin')].text),
-                                 int(member[last_member_index][self.get_index(member[last_member_index], 'ymin')].text),
-                                 int(member[last_member_index][self.get_index(member[last_member_index], 'xmax')].text),
-                                 int(member[last_member_index][self.get_index(member[last_member_index], 'ymax')].text)
+                                 int(member[last_member_index][
+                                         self.get_xml_attribute_index(member[last_member_index], 'xmin')].text),
+                                 int(member[last_member_index][
+                                         self.get_xml_attribute_index(member[last_member_index], 'ymin')].text),
+                                 int(member[last_member_index][
+                                         self.get_xml_attribute_index(member[last_member_index], 'xmax')].text),
+                                 int(member[last_member_index][
+                                         self.get_xml_attribute_index(member[last_member_index], 'ymax')].text)
                                  )
                         for i in value:
-                            if i == '' or i == None:
-                                check_result['check_outcome'] = False
-                                check_result['description'] = "Invalid xml files found"
-                                check_result['invalid_files'].append(data_set_directory + file.split('.')[0] + '.jpg')
-                    except Exception as e:
-                        check_result['check_outcome'] = False
-                        check_result['description'] = "Invalid xml files found"
-                        check_result['invalid_files'].append(data_set_directory + file.split('.')[0] + '.jpg')
+                            # we know if the xml file is invalid if any one of the columns is empty
+                            if i == '' or i is None:
+                                test_result['check_outcome'] = False
+                                test_result['description'] = "Invalid xml files found"
+                                test_result['invalid_files'].append(data_set_directory + file.split('.')[0] + '.jpg')
 
-        return check_result
+                    except Exception as e:
+                        test_result['check_outcome'] = False
+                        test_result['description'] = "Invalid xml files found"
+                        test_result['invalid_files'].append(data_set_directory + file.split('.')[0] + '.jpg')
+
+        return test_result
 
     @staticmethod
-    def get_index(root, desired_attribute):
+    def get_xml_attribute_index(root, desired_attribute):
         for i, x in enumerate(root):
             if x.tag == desired_attribute:
                 return i
@@ -306,7 +304,7 @@ class TrainerWindowModel:
         for file in list_of_files:
             extension = file.split('.')[-1]
             if extension == 'xml':
-                tree = ET.parse(data_set_directory + file)
+                tree = ElementTree.parse(data_set_directory + file)
                 root = tree.getroot()
                 for member in root.findall('object'):
                     object_name = member.find('name').text
@@ -393,18 +391,22 @@ class TrainerWindowModel:
     def xml_to_csv(self, path):
         xml_list = []
         for xml_file in glob.glob(path + '/*.xml'):
-            tree = ET.parse(xml_file)
+            tree = ElementTree.parse(xml_file)
             root = tree.getroot()
             for member in root.findall('object'):
                 last_member_index = len(member) - 1
                 value = (root.find('filename').text,
-                         int(root.find('size')[self.get_index(root.find('size'), 'width')].text),
-                         int(root.find('size')[self.get_index(root.find('size'), 'height')].text),
+                         int(root.find('size')[self.get_xml_attribute_index(root.find('size'), 'width')].text),
+                         int(root.find('size')[self.get_xml_attribute_index(root.find('size'), 'height')].text),
                          member[0].text,
-                         int(member[last_member_index][self.get_index(member[last_member_index], 'xmin')].text),
-                         int(member[last_member_index][self.get_index(member[last_member_index], 'ymin')].text),
-                         int(member[last_member_index][self.get_index(member[last_member_index], 'xmax')].text),
-                         int(member[last_member_index][self.get_index(member[last_member_index], 'ymax')].text)
+                         int(member[last_member_index][
+                                 self.get_xml_attribute_index(member[last_member_index], 'xmin')].text),
+                         int(member[last_member_index][
+                                 self.get_xml_attribute_index(member[last_member_index], 'ymin')].text),
+                         int(member[last_member_index][
+                                 self.get_xml_attribute_index(member[last_member_index], 'xmax')].text),
+                         int(member[last_member_index][
+                                 self.get_xml_attribute_index(member[last_member_index], 'ymax')].text)
                          )
                 xml_list.append(value)
         column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
@@ -412,7 +414,7 @@ class TrainerWindowModel:
         return xml_df
 
     @staticmethod
-    def get_config_path_from_tensorflow(model_directory):
+    def get_config_path_from_tensor_flow(model_directory):
         model_name_width_date = (model_directory.split('/'))[len(model_directory.split('/')) - 1]
         model_name = ''
         for segment in model_name_width_date.split('_'):
@@ -421,20 +423,21 @@ class TrainerWindowModel:
             except Exception as e:
                 model_name = model_name + segment + '_'
         model_name = model_name[:-1]
-        list_of_files = os.listdir(Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + "/samples/configs")
+        list_of_files = os.listdir(Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + "samples/configs")
         for file in list_of_files:
             if file == model_name + '.config':
-                return Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + '/samples/configs/' + file
+                return Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + 'samples/configs/' + file
         return ''
 
+    @staticmethod
     def commit_model_training_directory(
-            self,
             model_directory,
             model_config_path,
             trainer_directory,
             list_of_xml_labels,
             test_record_path,
             train_record_path):
+        # updating the config file for the model
         training_directory_path = trainer_directory + '/training'
         if not os.path.isdir(training_directory_path):
             os.mkdir(training_directory_path)
@@ -473,9 +476,13 @@ class TrainerWindowModel:
 
     @staticmethod
     def commence_training(training_directory):
-        print(training_directory)
-        command = "python3 " + Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + "legacy/train.py " \
-                  "--logtostderr --train_dir=" + training_directory + " --pipeline_config_path=" + training_directory \
+        command = "python3 " + \
+                  Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + \
+                  "legacy/train.py " \
+                  "--logtostderr --train_dir=" + \
+                  training_directory + \
+                  " --pipeline_config_path=" + \
+                  training_directory \
                   + "/pipeline.config "
         try:
             os.system("gnome-terminal -e 'bash -c \"" + str(Config.TENSOR_FLOW_PYTHON_PATH) + "\" '")
@@ -499,16 +506,18 @@ class TrainerWindowModel:
         if os.path.isdir(model_directory + "/graph/"):
             shutil.rmtree(model_directory + "/graph/")
 
-        command = "python3 " + Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY \
-                  + "/export_inference_graph.py " \
+        command = "python3 " + Config.TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY + \
+                  "/export_inference_graph.py " \
                   "--input_type image_tensor " \
-                  "--pipeline_config_path " + model_directory + "/training/pipeline.config " \
-                  "--trained_checkpoint_prefix " + checkpoint_pre_extension + " "\
-                  "--output_directory " + model_directory + "/graph/"
+                  "--pipeline_config_path " + \
+                  model_directory + "/training/pipeline.config " \
+                                    "--trained_checkpoint_prefix " + \
+                  checkpoint_pre_extension + " " \
+                                             "--output_directory " + \
+                  model_directory + "/graph/"
 
         try:
             os.system("gnome-terminal -e 'bash -c \"" + str(Config.TENSOR_FLOW_PYTHON_PATH) + "\" '")
             os.system("gnome-terminal -e 'bash -c \"" + str(command) + "\" '")
         except Exception as e:
             print(e)
-

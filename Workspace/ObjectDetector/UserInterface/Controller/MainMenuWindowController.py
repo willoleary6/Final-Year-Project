@@ -8,7 +8,9 @@ from Workspace.ObjectDetector.UserInterface.Controller.TrainerWindowController i
 from Workspace.ObjectDetector.UserInterface.Controller.ReaderWindowController import ReaderWindowController
 from Workspace.ObjectDetector.UserInterface.Coordinator.TrainerWindowCoordinator import TrainerWindowCoordinator
 from Workspace.ObjectDetector.UserInterface.Coordinator.ReaderWindowCoordinator import ReaderWindowCoordinator
-from Workspace.ObjectDetector.UserInterface.Coordinator.DetectionReviewerWindowCoordinator import DetectionReviewerWindowCoordinator
+from Workspace.ObjectDetector.UserInterface.Coordinator.DetectionReviewerWindowCoordinator import \
+    DetectionReviewerWindowCoordinator
+
 
 class MainMenuWindowController(QMainWindow, ViewController):
 

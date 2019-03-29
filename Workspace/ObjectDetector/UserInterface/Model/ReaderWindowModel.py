@@ -1,7 +1,5 @@
 import copy
 import subprocess
-import time
-
 import gi
 import cv2
 import numpy as np
@@ -12,18 +10,11 @@ import tensorflow as tf
 from Workspace.ObjectDetector.detector.Detector import Detector
 from Workspace.ObjectDetector.config import Config
 import datetime
-
-# Here are the imports from the object detection module.
-# in the interest of cleanliness and sanity ive updated the paths
-# of the interpreter the IDE uses so we can call the object detection api from outside the
-# the models directory, using models.research.object_detection will also not work....
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
-
-from PyQt5 import QtGui
-
-gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
+from PyQt5 import QtGui
+gi.require_version("Gtk", "3.0")
 
 
 class ReaderWindowModel:
@@ -35,7 +26,7 @@ class ReaderWindowModel:
         self.__stop_reading = True
 
     @staticmethod
-    def open_file_in_explorer(file_path):
+    def open_file_in_nautilus(file_path):
         subprocess.check_call(['nautilus', '--', file_path])
 
     @staticmethod
@@ -74,6 +65,7 @@ class ReaderWindowModel:
 
     @staticmethod
     def get_file_path_through_nautilus(signal, is_directory, field_to_fill_in):
+        # method that opens up nautilus to select a file or directory
         window = Gtk.Window()
         if is_directory:
             dialog = Gtk.FileChooserDialog("Please choose a folder", window,
@@ -111,7 +103,8 @@ class ReaderWindowModel:
 
             dialog.destroy()
 
-    def tensorflow_import_object_detections(self, inference_graph_path):
+    def tensor_flow_import_object_detections(self, inference_graph_path):
+        # separated this method from reader methods to avoid threading issues
         with self.__detection_graph.as_default():
             object_detection_graph_definition = tf.GraphDef()
             with tf.gfile.GFile(inference_graph_path, 'rb') as file_id:
@@ -120,6 +113,7 @@ class ReaderWindowModel:
                 tf.import_graph_def(object_detection_graph_definition, name='')
 
     def file_reader(self, update_video_player_signal, videos_directory_path, object_labels_path):
+        # suppressing TensorFlow logs
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         # get all the video files
         files_in_directory = []
@@ -154,7 +148,6 @@ class ReaderWindowModel:
                             end_of_video = True
                         else:
                             if frame_number % Config.FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW == 0:
-
                                 # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
                                 image_np_expanded = np.expand_dims(image_np, axis=0)
                                 # Extract image tensor
@@ -221,6 +214,7 @@ class ReaderWindowModel:
 
     @staticmethod
     def derive_file_path_for_video(parent_directory, date_time, extension):
+        # Formatting the video name to not conflict with Ubuntu's file system
         file_path = parent_directory + '/'
         formatted_date_time = str(date_time)
         # replace spaces with underscores
@@ -234,8 +228,9 @@ class ReaderWindowModel:
 
         return file_path
 
-    def live_stream_reader(self, update_video_player_signal, livestream_address, videos_directory_path,
+    def live_stream_reader(self, update_video_player_signal, live_stream_address, videos_directory_path,
                            object_labels_path):
+        # suppressing TensorFlow logs
         os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
         category_index = label_map_util.create_category_index_from_labelmap(object_labels_path, use_display_name=True)
         frame_number = 0
@@ -243,16 +238,12 @@ class ReaderWindowModel:
         detector_object = Detector()
         start_time = datetime.datetime.now()
 
-        # time.sleep(10)
-        # current_time = datetime.datetime.now()
-        # time_subtraction = current_time - start_time
-        # print(time_subtraction.seconds)
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        video_format = cv2.VideoWriter_fourcc(*'mp4v')
         writing_to_new_video = True
         file_path_for_recording = ''
         with self.__detection_graph.as_default():
             with tf.Session(graph=self.__detection_graph) as sess:
-                cap = cv2.VideoCapture(livestream_address)
+                cap = cv2.VideoCapture(live_stream_address)
                 out = cv2.VideoWriter()
                 while not self.__stop_reading:
 
@@ -267,7 +258,7 @@ class ReaderWindowModel:
                         if writing_to_new_video:
                             file_path_for_recording = self.derive_file_path_for_video(videos_directory_path, start_time,
                                                                                       Config.RECORDINGS_FORMAT)
-                            out = cv2.VideoWriter(file_path_for_recording, fourcc, 20.0,
+                            out = cv2.VideoWriter(file_path_for_recording, video_format, 20.0,
                                                   (image_np.shape[1], image_np.shape[0]))
                             writing_to_new_video = False
                         if frame_number % Config.FRAME_DELIMITER_FOR_SSD_TENSORFLOW == 0:
@@ -282,7 +273,7 @@ class ReaderWindowModel:
                             # Extract detection classes
                             classes = self.__detection_graph.get_tensor_by_name('detection_classes:0')
 
-                            # Extract number of detectionsd
+                            # Extract number of detection sd
                             num_detections = self.__detection_graph.get_tensor_by_name(
                                 'num_detections:0')
                             # Actual detection.
@@ -341,8 +332,5 @@ class ReaderWindowModel:
                             detector_object.flush_remaining_detections()
                             out.release()
 
-
         detector_object.flush_remaining_detections()
         out.release()
-
-

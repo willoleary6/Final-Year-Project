@@ -2,7 +2,7 @@ import ast
 import subprocess
 
 from Workspace.ObjectDetector.detector.DetectionEvent import DetectionEvent
-from Workspace.ObjectDetector.DatabaseHandler.detectionDatabaseHandler import DetectionDatabaseHandler
+from Workspace.ObjectDetector.Utilities.DetectionDatabaseHandler import DetectionDatabaseHandler
 
 
 class DetectionReviewerWindowModel:

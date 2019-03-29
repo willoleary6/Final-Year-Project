@@ -238,7 +238,7 @@ class ReaderWindowController(QMainWindow, ViewController):
         videos_directory_path = self.__file_reader_file_path_field.text()
         inference_graph_path = self.__file_reader_inference_path_field.text()
         object_labels_path = self.__file_reader_labels_field.text()
-        self.__reader_window_model.tensorflow_import_object_detections(inference_graph_path)
+        self.__reader_window_model.tensor_flow_import_object_detections(inference_graph_path)
         try:
             _thread.start_new_thread(
                 self.__reader_window_model.file_reader,
@@ -266,7 +266,7 @@ class ReaderWindowController(QMainWindow, ViewController):
         videos_directory_path = self.__live_stream_reader_recordings_field.text()
         inference_graph_path = self.__live_stream_reader_inference_graph_field.text()
         object_labels_path = self.__live_stream_reader_label_path_field.text()
-        self.__reader_window_model.tensorflow_import_object_detections(inference_graph_path)
+        self.__reader_window_model.tensor_flow_import_object_detections(inference_graph_path)
         try:
             _thread.start_new_thread(
                 self.__reader_window_model.live_stream_reader,

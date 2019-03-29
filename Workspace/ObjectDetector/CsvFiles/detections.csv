@@ -1,7 +1,0 @@
-detection_id,video_file_path,start_timestamp,end_timestamp,minimum_detections,maximum_detections
-1552826244.9439511,['Ten Cent'],C:\SourceCode\Final-Year-Project\Workspace\Workspace.Human_detector\test_videos\VID_20190303_200842.mp4,5.58,9.08,1,1
-1552826244.9439511,['Ten Cent','Five Cent','One Euro'],C:\SourceCode\Final-Year-Project\Workspace\Workspace.Human_detector\test_videos\VID_20190303_200842.mp4,10.5,16.34,1,4
-1552826244.9439511,['Ten Cent'],C:\SourceCode\Final-Year-Project\Workspace\Workspace.Human_detector\test_videos\VID_20190303_200932.mp4,3.85,6.18,1,1
-1552826244.9439511,['Ten Cent'],C:\SourceCode\Final-Year-Project\Workspace\Workspace.Human_detector\test_videos\VID_20190303_200932.mp4,6.93,12.52,1,1
-1552826244.9439511,['Ten Cent','One Euro'],C:\SourceCode\Final-Year-Project\Workspace\Workspace.Human_detector\test_videos\VID_20190303_200957.mp4,3.88,7.96,1,2
-1552826244.9439511,['Two Euro','One Euro','Five Cent','Ten Cent'],C:\SourceCode\Final-Year-Project\Workspace\Workspace.Human_detector\test_videos\VID_20190303_200957.mp4,9.38,13.96,1,2
