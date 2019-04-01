@@ -264,7 +264,8 @@ class ReaderWindowView(QMainWindow, BaseView):
 
         self.__live_stream_reader_ip_field_horizontal_layout.addWidget(self.__live_stream_reader_ip_field)
 
-        self.__live_stream_reader_ip_field_check_connection_button = QtWidgets.QPushButton(self.__vertical_layout_widget)
+        self.__live_stream_reader_ip_field_check_connection_button = QtWidgets.QPushButton(
+            self.__vertical_layout_widget)
         self.__live_stream_reader_ip_field_check_connection_button.setObjectName(
             "live_stream_reader_ip_field_check_connection"
         )
@@ -470,7 +471,7 @@ class ReaderWindowView(QMainWindow, BaseView):
         )
         self.__frame_display_vertical_layout.addItem(self.__spacer_item_18)
 
-        self.__frame_display = QtWidgets.QLabel(self) # QVideoWidget(self.__vertical_layout_widget)
+        self.__frame_display = QtWidgets.QLabel(self)  # QVideoWidget(self.__vertical_layout_widget)
         self.__frame_display.setObjectName("frame_display")
         # place holder image!
         image = QtGui.QPixmap(
@@ -479,7 +480,6 @@ class ReaderWindowView(QMainWindow, BaseView):
         )
         self.__frame_display.setPixmap(image)
         self.__frame_display_vertical_layout.addWidget(self.__frame_display)
-
 
         self.__spacer_item_19 = QtWidgets.QSpacerItem(
             40,
@@ -532,7 +532,12 @@ class ReaderWindowView(QMainWindow, BaseView):
         self.__file_reader_stop_button.setText(_translate("MainWindow", "Stop"))
         self.__live_stream_reader_title_label.setText(_translate("MainWindow", "Live stream Reader"))
         self.__live_stream_reader_ip_field_title.setText(_translate("MainWindow", "Live-stream Address"))
-        self.__live_stream_reader_ip_field.setPlaceholderText(_translate("MainWindow", "192.168.0.56"))
+        self.__live_stream_reader_ip_field.setPlaceholderText(
+            _translate(
+                "MainWindow",
+                "rtsp://willoleary6: password1@192.168.1.210:554/videoMain"
+            )
+        )
         self.__live_stream_reader_ip_field_check_connection_button.setText(_translate("MainWindow", "Check "))
         self.__live_stream_reader_ip_field_status.setText(_translate("MainWindow", "No connection"))
         self.__live_stream_reader_recordings_title.setText(_translate("MainWindow", "Directory of Videos"))
@@ -797,4 +802,3 @@ class ReaderWindowView(QMainWindow, BaseView):
     def resizeEvent(self, event):
         self.__update_geometry()  # call your update method
         QtWidgets.QMainWindow.resizeEvent(self, event)
-

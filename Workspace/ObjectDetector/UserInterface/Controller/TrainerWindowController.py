@@ -121,11 +121,8 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__trainer_control_panel_start_button = self.__trainer_window_view.get_trainer_control_panel_start_button()
         self.__trainer_control_panel_open_tensor_board_button = \
             self.__trainer_window_view.get_trainer_control_panel_open_tensor_board_button()
-        # self.__trainer_control_panel_stop_button = self.__trainer_window_view.get_trainer_control_panel_stop_button()
         self.__trainer_control_panel_export_inference_graph_button = \
             self.__trainer_window_view.get_trainer_control_panel_export_inference_graph_button()
-
-        # self.__trainer_control_panel_output_area = self.__trainer_window_view.get_trainer_control_panel_output_area()
 
         # self.toggle_training_directory_functionality(True)
         self.toggle_image_fields_functionality(True)
@@ -147,32 +144,10 @@ class TrainerWindowController(QMainWindow, ViewController):
         self.__model_directory = ''
         self.__model_config_path = ''
         self.disable_all_fix_buttons()
-        # self.__trainer_directory_field.setText('/home/will/Documents/training_directory_for_demonstration')
-        # self.__trainer_image_data_set_field.setText('/home/will/Documents/image_data_set_for_demo')
-        # self.__trainer_image_data_set_field.setText('/home/will/Documents/empty')
-        # self.__trainer_image_data_set_commit_to_training_directory_button.click()
-        # self.__trainer_image_data_set_split_button.click()
-        # self.__trainer_image_data_convert_to_tf_record_button.click()
-        # self.__trainer_model_field.setText(
-        #   '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
-        # self.__trainer_model_commit_to_training_directory_button.click()
-        # self.__update_console_output_signal.connect(self.update_console_output)
 
-        self.__trainer_directory_field.setText('/home/will/Documents/demo_day_directory')
-        self.__trainer_image_data_set_field.setText('/home/will/Documents/demo_day_images')
-        # self.__trainer_image_data_set_commit_to_training_directory_button.click()
-        self.__trainer_image_data_set_split_button.click()
-        # self.__trainer_image_data_convert_to_tf_record_button.click()
-        self.__trainer_model_field.setText(
-            '/home/will/Documents/faster_rcnn_inception_resnet_v2_atrous_coco_2018_01_28')
-        # self.__trainer_model_commit_to_training_directory_button.click()
         self.__update_console_output_signal.connect(self.update_console_output)
 
     def connect_ui_elements_to_methods(self):
-        # self.__trainer_directory_field
-        # self.__trainer_directory_status
-        # button clicks
-
         self.wire_up_button(
             partial(
                 self.open_nautilus,

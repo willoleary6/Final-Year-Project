@@ -2,12 +2,11 @@ class Config:
     SECONDS_ADDED_TO_EVENT_TIMESTAMP = 5
     FRAME_DELIMITER_FOR_REZ_NET_TENSORFLOW = 20
     FRAME_DELIMITER_FOR_SSD_TENSORFLOW = 5
-    CAMERA_IP_ADDRESS = '192.168.1.210'
-    CAMERA_PORT = '554'
-    CAMERA_USERNAME = 'willoleary6'
-    CAMERA_PASSWORD = 'password1'
-    DETECTION_CSV_COLUMNS = ['detection_id', 'video_file_path', 'start_timestamp', 'end_timestamp',
-                             'minimum_detections', 'maximum_detections']
+    CAMERA_IP_ADDRESS = 'IP PLACEHOLDER'
+    CAMERA_PORT = 'IP PORT PLACEHOLDER'
+    CAMERA_USERNAME = 'CAMERA USERNAME PLACEHOLDER'
+    CAMERA_PASSWORD = 'CAMERA PASSWORD'
+
     WINDOW_TITLE_FONT_SIZE = 16
     READER_REVIEWER_WINDOW_WIDTH = 2300
     READER_REVIEWER_WINDOW_HEIGHT = 1380
@@ -17,10 +16,10 @@ class Config:
     MAIN_MENU_WINDOW_HEIGHT = 720
     TRAINER_WINDOW_HEIGHT = 1350
     TRAINER_WINDOW_WIDTH = 1350
-    DATABASE_USERNAME = 'root'
-    DATABASE_PASSWORD = ''
-    DATABASE_NAME = 'object_detector'
-    DATABASE_HOST = 'localhost'
+    DATABASE_USERNAME = 'DATABASE USER NAME PLACEHOLDER'
+    DATABASE_PASSWORD = 'DATABASE PASSWORD PLACEHOLDER'
+    DATABASE_NAME = 'DATABASE NAME PLACEHOLDER'
+    DATABASE_HOST = 'DATABASE HOST PLACEHOLDER'
     THREAD_LOOP_DELAY = .1
     VALID_VIDEO_FORMATS = ['.mp4']
 
@@ -40,6 +39,10 @@ class Config:
 
     # models
     TENSOR_FLOW_OBJECT_DETECTION_DIRECTORY = \
-        '/home/will/Tensorflow_Object_Detection_API/models/research/object_detection/'
-    TENSOR_FLOW_PYTHON_PATH = 'export PYTHONPATH=$PYTHONPATH:/home/will/Tensorflow_Object_Detection_API/models' \
-                              '/research:/home/will/Tensorflow_Object_Detection_API/models/research/slim '
+        'PATH TO TENSORFLOW OBJECT DETECTION API PLACEHOLDER ' \
+        '/Tensorflow_Object_Detection_API/models/research/object_detection/'
+    TENSOR_FLOW_PYTHON_PATH = 'export PYTHONPATH=$PYTHONPATH:' \
+                              'PATH TO TENSORFLOW OBJECT DETECTION API PLACEHOLDER' \
+                              '/Tensorflow_Object_Detection_API/models/research:' \
+                              'PATH TO TENSORFLOW OBJECT DETECTION API PLACEHOLDER' \
+                              '/Tensorflow_Object_Detection_API/models/research/slim '

@@ -854,10 +854,10 @@ class TrainerWindowView(QMainWindow, BaseView):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Trainer"))
         self.__trainer_title.setText(_translate("MainWindow", "Trainer"))
-        self.__trainer_directory_title.setText(_translate("MainWindow", "Training Directory"))
-        self.__trainer_directory_field_title.setText(_translate("MainWindow", "Training Directory"))
+        self.__trainer_directory_title.setText(_translate("MainWindow", "Training"))
+        self.__trainer_directory_field_title.setText(_translate("MainWindow", "Training Workspace"))
         self.__trainer_directory_open_nautilus_button.setText(_translate("MainWindow", "..."))
-        self.__trainer_directory_status.setText(_translate("MainWindow", "No Directory set"))
+        self.__trainer_directory_status.setText(_translate("MainWindow", "No Workspace set"))
         self.__trainer_image_data_set_title.setText(_translate("MainWindow", "Image Dataset"))
         self.__trainer_image_data_set_field_title.setText(_translate("MainWindow", "Directory Of Image Dataset"))
         self.__trainer_image_data_set_field_open_nautilus_button.setText(_translate("MainWindow", "..."))
@@ -907,12 +907,9 @@ class TrainerWindowView(QMainWindow, BaseView):
         self.__trainer_model_commit_to_training_directory_button.setText(_translate("MainWindow", "Commit Model"))
         self.__trainer_model_commit_to_training_directory_status.setText(_translate("MainWindow", "Waiting for models"))
         self.__trainer_control_panel_start_button.setText(_translate("MainWindow", "Start Training"))
-        # self.__trainer_control_panel_start_button.s(QtCore.Qt.AlignCenter)
         self.__trainer_control_panel_open_tensor_board_button.setText(_translate("MainWindow", "Open Tensorboard"))
-        # self.__trainer_control_panel_stop_button.setText(_translate("MainWindow", "Stop Training"))
         self.__trainer_control_panel_export_inference_graph_button.setText(
             _translate("MainWindow", "Export Inference Graph"))
-        # self.__trainer_control_panel_output_area.setPlaceholderText(_translate("MainWindow", "Waiting to start....."))
 
     # training directory
     def get_trainer_directory_title(self):
@@ -1061,14 +1058,8 @@ class TrainerWindowView(QMainWindow, BaseView):
     def get_trainer_control_panel_open_tensor_board_button(self):
         return self.__trainer_control_panel_open_tensor_board_button
 
-    # def get_trainer_control_panel_stop_button(self):
-    # return self.__trainer_control_panel_stop_button
-
     def get_trainer_control_panel_export_inference_graph_button(self):
         return self.__trainer_control_panel_export_inference_graph_button
-
-    # def get_trainer_control_panel_output_area(self):
-    # return self.__trainer_control_panel_output_area
 
     def __update_geometry(self):
         self.__vertical_layout_widget.setGeometry(

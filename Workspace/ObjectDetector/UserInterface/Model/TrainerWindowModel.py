@@ -457,7 +457,7 @@ class TrainerWindowModel:
             )
             count += 1
         file_writer.close()
-
+        # inputting the config file data
         parser = open(model_config_path, "r")
         config_file = parser.read()
         config_file = config_file.replace('PATH_TO_BE_CONFIGURED/model.ckpt', model_directory + '/model.ckpt')

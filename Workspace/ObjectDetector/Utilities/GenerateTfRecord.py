@@ -8,11 +8,13 @@ import pandas as pd
 import tensorflow as tf
 
 from PIL import Image
+# path set in project interpreter settings
 from object_detection.utils import dataset_util
 from collections import namedtuple
 
 
 class GenerateTfRecord:
+    # converting the csv files to tf records so they can be fed to TensorFlow
     def __init__(self, csv_input, output_path, image_dir, labels):
         self.csv_input = csv_input
         self.output_path = output_path
@@ -22,11 +24,11 @@ class GenerateTfRecord:
     def write_record(self):
         try:
             writer = tf.python_io.TFRecordWriter(self.output_path)
-            path = os.path.join(self.image_dir)
+            image_directory_path = os.path.join(self.image_dir)
             examples = pd.read_csv(self.csv_input)
             grouped = self.split(examples, 'filename')
             for group in grouped:
-                tf_example = self.create_tf_example(group, path)
+                tf_example = self.create_tf_record(group, image_directory_path)
                 writer.write(tf_example.SerializeToString())
 
             writer.close()
@@ -47,7 +49,7 @@ class GenerateTfRecord:
                 return count
             count += 1
 
-    def create_tf_example(self, group, path):
+    def create_tf_record(self, group, path):
         with tf.gfile.GFile(os.path.join(path, '{}'.format(group.filename)), 'rb') as fid:
             encoded_jpg = fid.read()
         encoded_jpg_io = io.BytesIO(encoded_jpg)
